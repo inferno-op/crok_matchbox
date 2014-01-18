@@ -1,0 +1,23 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader is inspired by one of most popular PC demo ever released. the original was done in 2003 by Farbrausch and it was called: fr-025: the.popular.demo
+
+Offset: offset the demo in time
+
+Demo clip: https://vimeo.com/83396631
+
+Shader developer: fizzer
+
+Based on https://www.shadertoy.com/view/XdB3Dw
+
+nice work fizzer !!!!
+
+Matchbox version by ivar@inferno-op.com" Name="fr-025: the.popular.demo">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Offset" Type="float" Name="p1">
+      </Uniform>
+   </Shader>
+   <Page Name="Disco" Page="0">
+      <Col Name="It's a shame" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
