@@ -1,0 +1,23 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader simulates the old video game Pac Man.
+
+Setup:
+
+- Speed : speed of pac man eating pills
+
+Shader developer: tsone
+
+Based on https://www.shadertoy.com/view/Xsl3D8
+
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+Matchbox version by ivar@inferno-op.com" Name="crok pac man">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform ResDependent="None" Max="10.0" Min="0.2" Default="1.8" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Speed" Type="float" Name="speed">
+      </Uniform>
+   </Shader>
+   <Page Name="Pac Man" Page="0">
+      <Col Name="Setup" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
