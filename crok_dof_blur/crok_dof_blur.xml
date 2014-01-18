@@ -1,0 +1,115 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader simulates depth of field with bokeh.
+
+Version 2.3
+
+Input:
+
+- Front: source clip
+- Depth Map: depth map
+
+Setup:
+
+- Amount : how much blur is applied
+- Threshold : highlight threshold
+- Gain : highlight gain
+- Chromatic Abe. : highlight chromatic aberration 
+- Dither : sample dithering amount
+- Rings : ring amount
+- Samples : how many samples are used for the bokeh
+- Noise : use noise instead of pattern for sample dithering
+- Pentagon Shape : use pentagon as bokeh shape
+- Feather Shape : pentagon shape feather
+- Range : focal range
+- Focal Depth : focal depth, if you use an external matte
+- Autofocus : use autofocus in shader
+- Depth Map Blur : blurs the depth buffer
+- Bias: bokeh edge bias
+
+Demo clip: https://vimeo.com/82195519
+
+Shader developer: martins upitis
+
+Based on http://devlog-martinsh.blogspot.fr/2011/12/glsl-depth-of-field-with-bokeh-v23.html
+
+Matchbox version by ivar@inferno-op.com" Name="crok dof blur">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="source">
+      </Uniform>
+	  <Uniform Index="1" NoInput="White" Tooltip="" DisplayName="depth_map" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="depth_map">
+	  </Uniform>
+
+
+	  <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.005" Tooltip="clamp value for the amount" Row="0" Col="0" Page="0" DisplayName="Amount" Type="float" Name="maxblur">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5" Inc="0.005" Tooltip="highlight threshold" Row="1" Col="0" Page="0" DisplayName="Threshold" Type="float" Name="threshold">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="50.0" Min="0.0" Default="1.2" Inc="0.005" Tooltip="highlight gain" Row="2" Col="0" Page="0" DisplayName="Gain" Type="float" Name="gain">
+	  </Uniform>	   
+	  <Uniform ResDependent="None" Max="10.0" Min="-10.0" Default="0.5" Inc="0.005" Tooltip="bokeh chromatic aberration/fringing" Row="4" Col="0" Page="0" DisplayName="Chromatic Abe." Type="float" Name="fringe">
+	  </Uniform>
+
+
+	  <Uniform Max="50" Min="1" Default="5" Inc="1" Tooltip="ring count" Row="0" Col="1" Page="0" DisplayName="Rings" Type="int" Name="rings">
+	  </Uniform>
+	  <Uniform Max="20" Min="1" Default="3" Inc="1" Tooltip="samples on the first ring" Row="1" Col="1" Page="0" DisplayName="Samples" Type="int" Name="samples">
+	  </Uniform>
+	  <Uniform Row="3" Col="1" Page="0" Default="False" Tooltip="use pentagon as bokeh shape" DisplayName="Pentagon Shape" Type="bool" Name="pentagon">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="3.0" Inc="0.01" Tooltip="pentagon shape feather" Row="4" Col="1" Page="0" DisplayName="Feather Shape" Type="float" Name="feather">
+	  </Uniform>
+
+
+	  <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="40.0" Inc="0.05" Tooltip="focal length in mm" Row="0" Col="2" Page="0" DisplayName="Focal Length" Type="float" Name="focalLength">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="0.6" Inc="0.01" Tooltip="pupil diameter in mm" Row="1" Col="2" Page="0" DisplayName="Aperture" Type="float" Name="aperture">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.1" Inc="0.001" Tooltip="camera clipping start" Row="3" Col="2" Page="0" DisplayName="Z Near" Type="float" Name="znear">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="100.0" Inc="0.001" Tooltip="camera clipping end" Row="4" Col="2" Page="0" DisplayName="Z Far" Type="float" Name="zfar">
+	  </Uniform>
+  
+
+
+
+	  <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="2.0" Inc="0.002" Tooltip="focal distance value in meters, but you may use autofocus option below" Row="0" Col="3" Page="0" DisplayName="Focal Depth" Type="float" Name="focalDepth">
+	  </Uniform>
+	  <Uniform Row="1" Col="3" Page="0" Default="True" Tooltip="disable if you use external Focal Depth value" DisplayName="Autofocus" Type="bool" Name="autofocus">
+	  </Uniform>
+	  <Uniform Row="2" Col="3" Page="0" Default="False" Tooltip="show debug focus point and focal range (red = focal point, green = focal range)" DisplayName="Show Focus" Type="bool" Name="showFocus">
+	  </Uniform>	
+	  <Uniform Row="3" Col="3" Page="0" Default="true" Tooltip="blur the depth buffer" DisplayName="Depth Map Blur" Type="bool" Name="depthblur">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="10.0" Inc="0.01" Tooltip="depthblur size" Row="4" Col="3" Page="0" DisplayName="Depth Map Blur" Type="float" Name="dbsize">
+	  </Uniform>
+		  
+			  
+
+      <Uniform Row="0" Col="0" Page="1" Default="False" Tooltip="use noise instead of pattern for sample dithering" DisplayName="Noise" Type="bool" Name="noise">
+	  </Uniform> 
+	  <Uniform ResDependent="None" Max="3.0" Min="0.0" Default="0.0" Inc="0.001" Tooltip="dither amount" Row="1" Col="0" Page="1" DisplayName="Dither" Type="float" Name="namount">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="0.25" Inc="0.01" Tooltip="bokeh edge bias" Row="2" Col="0" Page="1" DisplayName="Bias" Type="float" Name="bias">
+	  </Uniform>
+	
+
+ 
+
+
+ 
+   </Shader>
+   <Page Name="Setup 1" Page="0">
+     <Col Name="Blur" Col="0" Page="0">
+	 </Col>
+	 <Col Name="Bokeh" Col="1" Page="0">
+	 </Col>
+	 <Col Name="Focus" Col="2" Page="0">
+	 </Col>
+	 <Col Name="Depth Map" Col="3" Page="0">
+	 </Col>
+   </Page>
+   <Page Name="Setup 2" Page="1">
+	 <Col Name="Misc" Col="0" Page="1">
+	 </Col>
+   </Page>
+</ShaderNodePreset>
