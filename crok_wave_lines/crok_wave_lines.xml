@@ -1,0 +1,74 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates a wave line pattern.
+
+Setup:
+
+- Lines: number of waves
+- Speed: speed of the waves
+- Offset: offset lines in time
+- Brightness : brightness of the lines
+- Glow: overall glow 
+- Colour: colour for the 4 gradient points  
+
+Demo clip: http://vimeo.com/83878609
+
+Based on http://glsl.heroku.com/e#13475.0
+
+Matchbox version by ivar@inferno-op.com" Name="crok wave lines">
+   <Shader OutputBitDepth="Output" Index="1">
+       <Uniform ResDependent="None" Max="500.0" Min="1.0" Default="29.0" Inc="1.0" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Lines" Type="float" Name="Lines">
+       </Uniform>
+	   <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="5.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Speed" Type="float" Name="Speed">
+	   </Uniform>
+	   <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="37.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Offset" Type="float" Name="Offset">
+	   </Uniform>
+				   
+				   
+       <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="5.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Brightness" Type="float" Name="Brightness">
+	   </Uniform>
+	   <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Glow" Type="float" Name="Glow">
+	   </Uniform>
+
+
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Colour1" ValueType="Colour" Type="vec3" Name="Colour1">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.30">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.40">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.60">
+         </SubUniform>
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Colour2" ValueType="Colour" Type="vec3" Name="Colour2">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.10">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.30">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.50">
+         </SubUniform>
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Colour3" ValueType="Colour" Type="vec3" Name="Colour3">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.20">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.10">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.40">
+         </SubUniform>
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Colour4" ValueType="Colour" Type="vec3" Name="Colour4">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.90">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.40">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.10">
+         </SubUniform>
+      </Uniform>
+   </Shader>
+   <Page Name="Wave Lines" Page="0">
+      <Col Name="Waves" Col="0" Page="0">
+      </Col>
+      <Col Name="Colour" Col="1" Page="0">
+      </Col>
+      <Col Name="Gradient" Col="2" Page="0">
+	  </Col>
+   </Page>
+</ShaderNodePreset>
