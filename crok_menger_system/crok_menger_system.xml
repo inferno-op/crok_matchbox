@@ -1,0 +1,91 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader flies through a menger system.
+
+Fractal:
+
+- MaxSteps : MaxSteps
+- MinimumDistance : minimum Distance
+- normalDistance : normal Distance
+- Iterations : number of iterations to be processed
+- Scale : size of the menger
+
+Camera:
+
+- FieldOfView: FieldOfView of the camera
+- FudgeFactor: randomness
+- Twirl: twirl factor
+
+Colour:
+
+- Light Color : colour of the 2 avaialble lights
+- Ambient : ambient brightness
+- Diffuse : diffuse amount
+  
+Demo clip: https://vimeo.com/82950101
+
+Shader developer: Syntopia
+
+Based on https://www.shadertoy.com/view/Mdf3z7
+
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+Matchbox version by ivar@inferno-op.com" Name="crok menger system">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Max="100" Min="1" Default="30" Inc="1" Tooltip="" Row="0" Col="0" Page="0" DisplayName="MaxSteps" Type="int" Name="MaxSteps">
+      </Uniform>      
+      <Uniform ResDependent="None" Max="1.0" Min="-1.0" Default="0.0009" Inc="0.001" Tooltip="" Row="1" Col="0" Page="0" DisplayName="MinimumDistance" Type="float" Name="MinimumDistance">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0002.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="normalDistance" Type="float" Name="normalDistance">
+      </Uniform>      
+      <Uniform Max="10" Min="1" Default="7" Inc="1" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Iterations" Type="int" Name="Iterations">
+      </Uniform>      
+      <Uniform ResDependent="None" Max="20.0" Min="1.0" Default="3.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Scale" Type="float" Name="Scale">
+      </Uniform>
+      
+            
+      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="FieldOfView" Type="float" Name="FieldOfView">
+      </Uniform>      
+      <Uniform ResDependent="None" Max="5.0" Min="0.0" Default="0.7" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="FudgeFactor" Type="float" Name="FudgeFactor">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Twirl" Type="float" Name="NonLinearPerspective">
+      </Uniform>   
+   
+  
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Light Color 1" ValueType="Colour" Type="vec3" Name="LightColor">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5">
+         </SubUniform>
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Light Color 2" ValueType="Colour" Type="vec3" Name="LightColor2">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.302">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.431">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.541">
+         </SubUniform>
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.32184" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Ambient" Type="float" Name="Ambient">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Diffuse" Type="float" Name="Diffuse">
+      </Uniform>    
+
+
+      <Uniform Row="0" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Grid" Type="bool" Name="DebugNonlinearPerspective">
+      </Uniform>
+
+
+   </Shader>
+   <Page Name="Menger" Page="0">
+      <Col Name="Fractal" Col="0" Page="0">
+      </Col>
+      <Col Name="Camera" Col="1" Page="0">
+      </Col>
+      <Col Name="Colour" Col="2" Page="0">
+      </Col>
+      <Col Name="Type" Col="3" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
