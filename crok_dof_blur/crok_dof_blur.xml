@@ -32,6 +32,9 @@ Shader developer: martins upitis
 
 Based on http://devlog-martinsh.blogspot.fr/2011/12/glsl-depth-of-field-with-bokeh-v23.html
 
+This work is licensed under a Creative Commons Attribution 3.0 Unported License.
+You are free to share, modify and adapt it for your needs, and even use it for commercial use.
+
 Matchbox version by ivar@inferno-op.com" Name="crok dof blur">
    <Shader OutputBitDepth="Output" Index="1">
       <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="source">
