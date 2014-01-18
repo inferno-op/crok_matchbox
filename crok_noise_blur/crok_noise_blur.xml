@@ -1,0 +1,37 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates a noise texture similar to the popular Genarts Texture (start with a white frame).
+
+Inputs:
+
+- Front : source clip
+
+Setup:
+
+- Zoom : zoom in and out of the texture
+- Rotation: direction of the blur
+- Offset: offsets the texture
+
+Demo clip: https://vimeo.com/82190139
+
+Shader developer: Inigo Quilez - http://www.iquilezles.org/
+
+Based on https://www.shadertoy.com/view/4dlGDN
+
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+Matchbox version by ivar@inferno-op.com" Name="crok noise blur">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="0.49" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Zoom" Type="float" Name="p1">
+      </Uniform>
+      <Uniform ResDependent="None" Max="5.0" Min="0.0" Default="1.81" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Rotation" Type="float" Name="p2">
+      </Uniform>
+      <Uniform ResDependent="None" Max="5.0" Min="0.0" Default="4.51" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Offset" Type="float" Name="p3">
+      </Uniform>
+      <Uniform Index="0" NoInput="White" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="iChannel0">
+      </Uniform>
+   </Shader>
+   <Page Name="Noise Blur" Page="0">
+      <Col Name="Setup" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
