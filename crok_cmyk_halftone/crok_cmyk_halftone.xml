@@ -1,0 +1,38 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader simulates CMYK Halftone patterns.
+
+Input:
+
+- Front: source clip
+
+Setup:
+
+- Minimum : minimum pattern
+- Maximum : maximum pattern
+- Gain : brightness of the pattern
+- Scale: scale pattern
+
+Demo clip: http://vimeo.com/82144555
+
+Shader developer: tsone
+
+Based on https://www.shadertoy.com/view/Mdf3Dn
+
+Matchbox version by ivar@inferno-op.com" Name="crok cmyk halftone">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform ResDependent="None" Max="10.0" Min="0.1" Default="2.5" Inc="0.05" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Minimum" Type="float" Name="pMin">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="10.0" Inc="0.1" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Maximum" Type="float" Name="pMax">
+      </Uniform>
+      <Uniform ResDependent="None" Max="5.0" Min="1.0" Default="2.0" Inc="0.05" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Gain" Type="float" Name="pDotsize">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000.0" Min="-500.0" Default="400.0" Inc="5.0" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Scale" Type="float" Name="pScale">
+      </Uniform>
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="iChannel0">
+      </Uniform>
+   </Shader>
+   <Page Name="CMYK Halftone" Page="0">
+      <Col Name="Setup" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
