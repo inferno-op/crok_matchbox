@@ -1,0 +1,37 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates a noise texture similar to the popular Genarts Texture (start with a white frame).
+
+Setup:
+
+- Noise : noise detail
+- Offset : offset noise pattern
+- Speed : speed of fire
+- Zoom : zoom in and out of fire
+- Amplitude : amplitude of fire
+
+Demo clip: http://vimeo.com/82145674
+
+Shader developer: 301
+
+Based on https://www.shadertoy.com/view/Xsl3zN
+
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+Matchbox version by ivar@inferno-op.com" Name="crok fire">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform ResDependent="None" Max="2.0" Min="0.0" Default="1.08" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Noise" Type="float" Name="pNoise">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="-1.16" Inc="0.05" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Offset" Type="float" Name="pOffset">
+      </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="-10.0" Default="1.13" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Speed" Type="float" Name="gGlobalspeed">
+      </Uniform>
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="1.11" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Zoom" Type="float" Name="pZoom">
+      </Uniform>
+      <Uniform ResDependent="None" Max="3.0" Min="-3.0" Default="0.87" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Amplitude" Type="float" Name="pAmplitude">
+      </Uniform>
+   </Shader>
+   <Page Name="Fire" Page="0">
+      <Col Name="Setup" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
