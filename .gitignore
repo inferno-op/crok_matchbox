@@ -1,1 +1,6 @@
 *.mov
+crok_dof_blur/development/dof_blur.glsl
+
+crok_dof_blur/old/crok_dof_blur_21.glsl
+
+crok_dof_blur/old/crok_dof_blur_21.xml
