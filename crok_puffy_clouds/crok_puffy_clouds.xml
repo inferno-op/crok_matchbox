@@ -18,12 +18,14 @@ Setup:
 - Roll: action camera roll
 
 Demo clip: https://vimeo.com/82775028
- 
+
+Shader developer: Inigo Quilez - http://www.iquilezles.org/
+
 Based on https://www.shadertoy.com/view/XslGRr
 
-License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 
-ivar@inferno-op.com" Name="crok_puffy_clouds">
+Matchbox version by ivar@inferno-op.com" Name="crok_puffy_clouds">
    <Shader OutputBitDepth="Output" Index="1">
       <Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Position" Type="vec2" Name="paramPos">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
