@@ -16,6 +16,8 @@ Shader developer: Pitzik4
 
 Based on https://www.shadertoy.com/view/Xds3W8
 
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
 Matchbox version by ivar@inferno-op.com" Name="crok convolve">
    <Shader OutputBitDepth="Output" Index="1">
       <Uniform ResDependent="None" Max="1.0" Min="0.01" Default="0.06" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Quality" Type="float" Name="pST">

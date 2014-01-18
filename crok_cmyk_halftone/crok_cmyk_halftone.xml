@@ -18,6 +18,8 @@ Shader developer: tsone
 
 Based on https://www.shadertoy.com/view/Mdf3Dn
 
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
 Matchbox version by ivar@inferno-op.com" Name="crok cmyk halftone">
    <Shader OutputBitDepth="Output" Index="1">
       <Uniform ResDependent="None" Max="10.0" Min="0.1" Default="2.5" Inc="0.05" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Minimum" Type="float" Name="pMin">

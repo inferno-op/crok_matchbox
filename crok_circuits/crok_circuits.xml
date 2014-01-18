@@ -15,6 +15,8 @@ Shader developer: Kali
 
 Based on https://www.shadertoy.com/view/4dSGDW
 
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
 Matchbox version: ivar@inferno-op.com" Name="crok circuits">
    <Shader OutputBitDepth="Output" Index="1">
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="3.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Width" Type="float" Name="Width">
