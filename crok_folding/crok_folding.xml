@@ -5,23 +5,17 @@ Version 1.1
 
 Setup:
 
--Speed : speed of the texture changes
-
--Offset : offset the texture pattern
-
--Zoom : zoom in/out of the texture 
-
--Detail : level of detail
-
--Steps : texture generations steps 
-
--Aspect : aspect ratio of the generated texture
-
--Duration : choose speed to create loop
+- Speed : speed of the texture changes
+- Offset : offset the texture pattern
+- Zoom : zoom in/out of the texture 
+- Detail : level of detail
+- Steps : texture generations steps 
+- Aspect : aspect ratio of the generated texture
+- Duration : choose speed to create loop
 
 Demo clip: http://vimeo.com/83624633
 
-ivar@inferno-op.com" Name="crok folding">
+Matchbox version by ivar@inferno-op.com" Name="crok folding">
    <Shader OutputBitDepth="Output" Index="1">
       <Uniform Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Color" ValueType="Colour" Type="vec3" Name="Color">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
