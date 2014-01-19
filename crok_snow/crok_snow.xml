@@ -3,14 +3,13 @@ This Matchbox shader creates snow.
 
 Setup:
 
-- Octaves: Octaves for the noise
-- Type: variations of the noise pattern
-- Zoom : zoom in/out
+- Layers: number of snow layers
+- Depth: depth of field
+- Wind : amplitude of the wind
 - Detail: add aditional noise
 - Speed: animation speed
-- Offset: offsets the noise pattern
 
-Demo clip: http://vimeo.com/84470508
+Demo clip: https://vimeo.com/84521741
 
 Shader developer: baldand
 
