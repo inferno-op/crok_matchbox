@@ -1,0 +1,70 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates blob like sturctures.
+
+Setup:
+
+- Layer: how much layer of blobs
+- Shape: shape of the blobs
+- Smoothness: smoothnessof the generated stucture
+- Zoom: zoom in and out
+- Speed: speed of the blobs
+- Offset: offsets the blobs
+- Position: virutal camera postion
+- Blobs: colour of the blobs
+- Depth: depth colour
+
+Demo clip: https://vimeo.com/86783700
+
+Based on http://glsl.heroku.com/e#9535.0
+
+Matchbox version by ivar@inferno-op.com" Name="crok blobs">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform ResDependent="None" Max="100.0" Min="1.0" Default="8.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Layer" Type="float" Name="Layer">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.3" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Shape" Type="float" Name="Shape">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Smoothness" Type="float" Name="Smoothness">
+      </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="0.00001" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Zoom" Type="float" Name="Zoom">
+      </Uniform>      
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Speed" Type="float" Name="Speed">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Offset" Type="float" Name="Offset">
+      </Uniform>
+
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Camera" Type="vec2" Name="Camera">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.3">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.4">
+         </SubUniform>
+      </Uniform>
+
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Blobs" ValueType="Colour" Type="vec3" Name="Blobs">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.2">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.3">
+         </SubUniform>
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Depth" ValueType="Colour" Type="vec3" Name="Depth">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+   </Shader>
+   <Page Name="Setup" Page="0">
+      <Col Name="Noise" Col="0" Page="0">
+      </Col>
+      <Col Name="Timing" Col="1" Page="0">
+      </Col>
+      <Col Name="Position" Col="2" Page="0">
+      </Col>
+      <Col Name="Colour" Col="3" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>

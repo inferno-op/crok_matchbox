@@ -16,7 +16,7 @@ Shader developer: Stefan Gustavson
 
 Based on https://github.com/ashima/webgl-noise
 
-Distributed under the MIT license. See LICENSE file.
+Distributed under the MIT license.
 
 Matchbox version by ivar@inferno-op.com" Name="crok perlin">
    <Shader OutputBitDepth="Output" Index="1">
