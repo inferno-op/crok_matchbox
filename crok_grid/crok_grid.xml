@@ -1,0 +1,24 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates a grid.
+
+Setup:
+
+- Size : size of the main box
+- Line : width of the outline
+
+Demo clip: http://vimeo.com/87956490
+
+Based on: http://glsl.heroku.com/e#13645.1
+			
+Matchbox version by ivar@inferno-op.com" Name="crok_grid">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform ResDependent="None" Max="1000000.0" Min="2.0" Default="100.0" Inc="1.00" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Size" Type="float" Name="Size">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="1.0" Default="1.0" Inc="1.00" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Line" Type="float" Name="Line">
+      </Uniform>
+   </Shader>
+   <Page Name="Grid" Page="0">
+      <Col Name="Pattern" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>

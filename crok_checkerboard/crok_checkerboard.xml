@@ -32,7 +32,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok_checkerboard">
       </Uniform>
    </Shader>
    <Page Name="Checkerboard" Page="0">
-      <Col Name="Numbers" Col="0" Page="0">
+      <Col Name="Pattern" Col="0" Page="0">
       </Col>
       <Col Name="Colours" Col="1" Page="0">
       </Col>
