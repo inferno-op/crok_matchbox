@@ -1,0 +1,48 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates lines.
+
+Setup:
+
+- Density: amount of lines
+- Sharpness: edge sharpness
+- Itterations: Itterations
+- Speed: how fast the lines are moving
+- Offset: offset the time
+- Colour: color of the lines
+
+Demo clip: https://vimeo.com/87981384
+
+Based on: http://glsl.heroku.com/e#14703.0
+			
+Matchbox version by ivar@inferno-op.com" Name="crok_lines">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Density" Type="float" Name="density">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="3.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Sharpness" Type="float" Name="edgeSharpness">
+      </Uniform>
+      <Uniform Max="1000000" Min="-1000000" Default="5" Inc="1" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Itterations" Type="int" Name="itterations">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Speed" Type="float" Name="speed">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Offset" Type="float" Name="offset">
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Colour" ValueType="Colour" Type="vec3" Name="color">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Gain" Type="float" Name="gain">
+      </Uniform>
+   </Shader>
+   <Page Name="Lines" Page="0">
+      <Col Name="Pattern" Col="0" Page="0">
+      </Col>
+      <Col Name="Timing" Col="1" Page="0">
+      </Col>
+      <Col Name="Colour" Col="2" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
