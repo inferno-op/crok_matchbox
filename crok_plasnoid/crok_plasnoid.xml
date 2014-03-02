@@ -1,0 +1,59 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates tons of different plasma patterns.
+
+Setup:
+
+- Detail: detail of the pattern
+- Itterations: Itterations
+- Fractal, Noise, Random: play with those parameters to get crazy results 
+- Speed: how fast the plasma is moving
+- Offset: offset the time
+- Colour: color of the plasma
+
+Demo clip: http://vimeo.com/87990219
+
+Based on: http://glsl.heroku.com/e#14688.0
+			
+Matchbox version by ivar@inferno-op.com" Name="crok_plasnoid">
+   <Shader OutputBitDepth="Output" Index="1">
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="2.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Detail" Type="float" Name="detail">
+      </Uniform>
+      <Uniform Max="1000000" Min="-1000000" Default="6" Inc="1" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Itterations" Type="int" Name="itterations">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="9.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Fractal_x" Type="float" Name="fractal_x">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="12.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Fractal_y" Type="float" Name="fractal_y">
+      </Uniform>   
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="-5.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Noise_x" Type="float" Name="noise_x">
+      </Uniform>      
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="5.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Noise_y" Type="float" Name="noise_y">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Random_x" Type="float" Name="random_x">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="-5.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Random_y" Type="float" Name="random_y">
+      </Uniform>    
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Speed" Type="float" Name="speed">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Offset" Type="float" Name="offset">
+      </Uniform>         
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Colour" ValueType="Colour" Type="vec3" Name="color">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.6">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.65">
+         </SubUniform>
+      </Uniform>     
+   </Shader>
+   <Page Name="Plasnoid" Page="0">
+      <Col Name="Pattern" Col="0" Page="0">
+      </Col>
+      <Col Name="Noise" Col="1" Page="0">
+      </Col>
+      <Col Name="Timing" Col="2" Page="0">
+      </Col>
+      <Col Name="Colour" Col="3" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
