@@ -1,0 +1,45 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates a cell pattern.
+
+Setup:
+
+- Itterations: Itterations
+- Zoom: zoom in / out of the pattern
+- Speed: how fast the cells are moving
+- Offset: offset the time
+- Colour: color of the cells
+
+Demo clip: http://vimeo.com/88092343
+
+Based on: http://glsl.heroku.com/e#14776.1
+			
+Matchbox version by ivar@inferno-op.com" Name="crok_cells">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform ResDependent="None" Max="15.0" Min="1.0" Default="15.0" Inc="0.001" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Itterations" Type="float" Name="itterations">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.01" Default="6.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Zoom" Type="float" Name="zoom">
+      </Uniform>
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Speed" Type="float" Name="speed">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Offset" Type="float" Name="offset">
+      </Uniform>
+
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Colour" ValueType="Colour" Type="vec3" Name="color_1">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.7">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.4">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.2">
+         </SubUniform>
+      </Uniform>
+   </Shader>
+   <Page Name="Cells" Page="0">
+      <Col Name="Pattern" Col="0" Page="0">
+      </Col>
+      <Col Name="Timing" Col="1" Page="0">
+      </Col>
+      <Col Name="Colour" Col="2" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
