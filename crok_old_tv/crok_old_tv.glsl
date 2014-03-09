@@ -23,7 +23,11 @@ uniform float moire_scale;
 uniform float tv_lines;
 uniform float tv_lines_opacity;
 uniform float tv_tube_vignette_scale;
-uniform float tv_tube_distort;
+uniform float tv_dots;
+uniform float tv_dots_blend;
+uniform float bw_soft;
+uniform float bw_threshold;
+
 //uniform float tv_crt_pixel_size;
 uniform bool vhs_bars;
 uniform bool vhs_stripes;
@@ -31,11 +35,16 @@ uniform bool moire;
 uniform bool add_vignette;
 uniform bool tv_tube_vignette;
 uniform bool tv_tube_lines;
-uniform bool tv_distortion;
+uniform bool tube_moire;
+uniform bool rgb_offset;
+uniform bool b_w;
 //uniform bool tv_crt_pixels;
+uniform vec3 monochrome;
+
 
 vec2 iResolution = vec2(adsk_result_w, adsk_result_h);
 float iGlobalTime = adsk_time*.05;
+
 float rand(vec2 co){
     return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
 }
@@ -64,6 +73,7 @@ float scanline(vec2 uv) {
 float slowscan(vec2 uv) {
 	return sin(iResolution.y * uv.y * pSlowscan + iGlobalTime * 6.0);
 }
+
 
 vec2 crt(vec2 coord, float bend)
 {
@@ -106,35 +116,64 @@ void main(void)
 	vec2 uv3 = gl_FragCoord.xy / iResolution.xy*2.-1.;
 	vec2 sd_uv = scandistort(uv);
 	vec2 crt_uv = crt(sd_uv, 2.0);
-	if ( tv_distortion )
-	    uv*=1.+pow(length(uv3*uv3*uv3*uv3), 4. * 10. / tv_tube_distort) * 0.03;
 	vec4 color;
-	color.r = texture2D(iChannel0, crt(colorshift(sd_uv, 0.025, 1.0), 2.0)).r;
-	color.g = texture2D(iChannel0, crt(colorshift(sd_uv, 0.01, 1.0), 2.0)).g;
-	color.b = texture2D(iChannel0, crt(colorshift(sd_uv, 0.024, 1.0), 2.0)).b;	
+
+	if ( rgb_offset )
+	{
+	color.r = texture2D(iChannel0, crt(colorshift(sd_uv, rand(0.025)* .1 * pColorshift_x, 1.0), 2.0)).r;
+	color.g = texture2D(iChannel0, crt(colorshift(sd_uv, rand(0.01)* .1 * pColorshift_x, 1.0), 2.0)).g;
+	color.b = texture2D(iChannel0, crt(colorshift(sd_uv, rand(0.024)* .1 * pColorshift_x, 1.0), 2.0)).b;	
+	}
+
+	else
+		
+		color.r = texture2D(iChannel0, crt(colorshift(sd_uv, 0.0, 1.0), 2.0)).r;
+		color.g = texture2D(iChannel0, crt(colorshift(sd_uv, 0.0, 1.0), 2.0)).g;
+		color.b = texture2D(iChannel0, crt(colorshift(sd_uv, 0.0, 1.0), 2.0)).b;	
+		
 		
 	vec4 scanline_color = vec4(scanline(crt_uv));
 	vec4 slowscan_color = vec4(slowscan(crt_uv));
 
+	if ( b_w )
+	{
+		float bw_s = 1.2 * 1.0 / bw_soft / 2.0;
+		float bw_t_a = 0.4 * 1.0 / bw_threshold - bw_s;
+		float bw_t_b = 0.4 * 1.0 / bw_threshold + bw_s;
+	
+		vec4 tx = texture2D(iChannel0, crt_uv);
+		float l = (tx.x + tx.y + tx.z) / 3.0;
+		float v = smoothstep(bw_t_a, bw_t_b, l);
+		color = vec4(v);
+		color *= vec4(monochrome, 1.0);
+
+
+	}
+	if(tube_moire)
+		{
+		color*=1.00+tv_dots_blend*.2*sin(crt_uv.x*float(iResolution.x*5.0*tv_dots));
+		color*=1.00+tv_dots_blend*.2*cos(crt_uv.y*float(iResolution.y))*sin(0.5+crt_uv.x*float(iResolution.x));
+		}
+		
 	if ( vhs_stripes )
-		color *= (1.0 + stripes(uv));
+		color *= (1.0 + stripes(crt_uv));
 	if ( vhs_bars)
-		color *= (12. + mod(uv.y * bars_count + iGlobalTime,1.))/13.;
+		color *= (12. + mod(crt_uv.y * bars_count + iGlobalTime,1.))/13.;
 	if ( moire )
-		color *= (.6+(rand(uv * .01 * moire_scale)) * opacity_moire);
+		color *= (.45+(rand(crt_uv * .01 * moire_scale)) * opacity_moire);
     if ( pAddGrain )
-        color *= (.8+(rand(uv * iGlobalTime)-.2)*.15*pGrainsize);
+        color *= (.8+(rand(crt_uv * iGlobalTime)-.2)*.15*pGrainsize);
 	if ( add_vignette )
 		color *= vignette(uv);
 	if ( tv_tube_vignette )
 		color*=1.-pow(length(uv2*uv2*uv2*uv2)*1., 6. * 1./tv_tube_vignette_scale);
 	if ( tv_tube_lines )
 	{
-		uv.y *= iResolution.y / iResolution.y * tv_lines;
-		color.r*=(.55+abs(.5-mod(uv.y     ,.021)/.021) * tv_lines_opacity) *1.2;
-		color.g*=(.55+abs(.5-mod(uv.y+.007,.021)/.021) * tv_lines_opacity) *1.2;
-		color.b*=(.55+abs(.5-mod(uv.y+.014,.021)/.021) * tv_lines_opacity) *1.2;
+		crt_uv.y *= iResolution.y / iResolution.y * tv_lines;
+		color.r*=(.55+abs(.5-mod(crt_uv.y     ,.021)/.021) * tv_lines_opacity) *1.2;
+		color.g*=(.55+abs(.5-mod(crt_uv.y+.007,.021)/.021) * tv_lines_opacity) *1.2;
+		color.b*=(.55+abs(.5-mod(crt_uv.y+.014,.021)/.021) * tv_lines_opacity) *1.2;
 	}
-	
-	gl_FragColor = mix(color, mix(scanline_color, slowscan_color, 0.5), 0.05);
+
+		gl_FragColor = mix(color, mix(scanline_color, slowscan_color, 0.5), 0.05);
 }

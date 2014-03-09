@@ -7,27 +7,32 @@ Input:
 
 Setup:
 
-- Slowscan : slow moving scanlines
-- Scanlines : tiny scanlines
-- Distort : distort the incoming image
-- Frequency : frequency of the distort effect
-- Speed : how fast the distortion is running through the image
+- Slowscan: slow moving scanlines
+- Scanlines: tiny scanlines
+- Lines: rgb coloured lines 
 - Vignette softness: softness of the vignette
-- Vignette scale : scale of the vignette
-- Grain opacity : opacity of the grain
-- Colorshift : colour offset
-- Moire: add moire style noise
+- Vignette scale: scale of the vignette
+- TV Tube Vignette: add TV boarder around image
+- Noise opacity: opacity of the noise
+- Distort: distort the incoming image
+- Frequency: frequency of the distort effect
+- Speed: how fast the distortion is running through the image
 - Stripes: add VHS stripes
 - Bars: add VHS Bars 
+- TV Tube Dots: add CRT style pattern
+- Moire: add moire style noise
+- Colorshift: colour offset
+- Monochrome: convert to monochrome 
 
 Demo clip: http://vimeo.com/82188245
 
-Shader developer: Klowner, Jasper and Martin Rykfors
+Shader developer: Klowner, Jasper, gtoledo3 and Martin Rykfors
 
 Based on:
 - https://www.shadertoy.com/view/MsXGD4   
 - https://www.shadertoy.com/view/ldjGzV
 - https://www.shadertoy.com/view/4sf3Dr
+- https://www.shadertoy.com/view/4ssGR8
 			
 This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 
@@ -37,69 +42,88 @@ Matchbox version by ivar@inferno-op.com" Name="crok old tv">
       </Uniform>
       <Uniform ResDependent="None" Max="2.0" Min="0.0" Default="0.6" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Scanlines" Type="float" Name="pScanline">
       </Uniform>
-      <Uniform ResDependent="None" Max="5.0" Min="0.0" Default="0.03" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Distort" Type="float" Name="pDistort">
+	  <Uniform Row="2" Col="0" Page="0" Default="False" Tooltip="Enable / Disable TV Lines" DisplayName="Add TV Lines" Type="bool" Name="tv_tube_lines">
+	  </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="0.01" Default="2.5" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Lines" Type="float" Name="tv_lines">
       </Uniform>
-      <Uniform ResDependent="None" Max="5.0" Min="0.0" Default="0.85" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Frequency" Type="float" Name="timer">
-      </Uniform>
-      <Uniform ResDependent="None" Max="5.0" Min="1.0" Default="2.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Speed" Type="float" Name="speed">
+	  <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.1" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Opacity" Type="float" Name="tv_lines_opacity">
       </Uniform>
 
 	  <Uniform Row="0" Col="1" Page="0" Default="True" Tooltip="Enable / Disable Vignette" DisplayName="Add Vignette" Type="bool" Name="add_vignette">
 	  </Uniform>      
-      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.9" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Vignette softness" Type="float" Name="pVignettessoftness">
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.9" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Softness" Type="float" Name="pVignettessoftness">
       </Uniform>
-      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.14" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Vignette scale" Type="float" Name="pVignettescale">
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.14" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Scale" Type="float" Name="pVignettescale">
       </Uniform>
       <Uniform Row="3" Col="1" Page="0" Default="True" Tooltip="Enable / Disable TV Tube" DisplayName="Add TV Tube Vignette" Type="bool" Name="tv_tube_vignette">
 	  </Uniform>
-      <Uniform ResDependent="None" Max="10.0" Min="0.01" Default=".7" Inc="0.01" Tooltip="" Row="4" Col="1" Page="0" DisplayName="Scale" Type="float" Name="tv_tube_vignette_scale">
+      <Uniform ResDependent="None" Max="10.0" Min="0.01" Default=".7" Inc="0.01" Tooltip="" Row="4" Col="1" Page="0" DisplayName="Softness" Type="float" Name="tv_tube_vignette_scale">
       </Uniform>
       
-      <Uniform Row="0" Col="2" Page="0" Default="True" Tooltip="" DisplayName="Add Grain" Type="bool" Name="pAddGrain">
+      <Uniform Row="0" Col="2" Page="0" Default="True" Tooltip="" DisplayName="Add Noise" Type="bool" Name="pAddGrain">
       </Uniform>
-      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="5.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Gain" Type="float" Name="pGrainsize">
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="2.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Gain" Type="float" Name="pGrainsize">
       </Uniform>
-	  <Uniform Row="2" Col="2" Page="0" Default="True" Tooltip="Enable / Disable Moire" DisplayName="Add Moire" Type="bool" Name="moire">
-	  </Uniform>
-      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Gain" Type="float" Name="opacity_moire">
-      </Uniform>      
-      <Uniform ResDependent="None" Max="100.0" Min="0.01" Default="0.15" Inc="0.001" Tooltip="" Row="4" Col="2" Page="0" DisplayName="Scale" Type="float" Name="moire_scale">
-      </Uniform>      
 
-	  <Uniform Row="0" Col="3" Page="0" Default="False" Tooltip="Enable / Disable Vignette" DisplayName="Add Tube Distortion" Type="bool" Name="tv_distortion">
-	  </Uniform>
-      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="2.0" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Tube Distortion" Type="float" Name="tv_tube_distort">
+      <Uniform ResDependent="None" Max="5.0" Min="0.0" Default="0.03" Inc="0.01" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Scanline Distort" Type="float" Name="pDistort">
       </Uniform>
-      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Distortion" Type="float" Name="Distort">
+      <Uniform ResDependent="None" Max="5.0" Min="0.0" Default="0.85" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Frequency" Type="float" Name="timer">
+      </Uniform>
+      <Uniform ResDependent="None" Max="5.0" Min="1.0" Default="2.0" Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="Speed" Type="float" Name="speed">
+      </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Tube Distortion" Type="float" Name="Distort">
       </Uniform>
       <Uniform ResDependent="None" Max="10.0" Min="1.0" Default="1.06" Inc="0.01" Tooltip="" Row="4" Col="3" Page="0" DisplayName="Scale" Type="float" Name="Scale">
       </Uniform>
       
-      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="iChannel0">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="iChannel0">
       </Uniform>
 
-	  <Uniform Row="0" Col="0" Page="1" Default="False" Tooltip="Enable / Disable VHS Stripes" DisplayName="Add Stripes" Type="bool" Name="vhs_stripes">
+	  <Uniform Row="0" Col="0" Page="1" Default="False" Tooltip="Enable / Disable VHS Stripes" DisplayName="Add VHS Stripes" Type="bool" Name="vhs_stripes">
 	  </Uniform>
 	  <Uniform ResDependent="None" Max="1000.0" Min="0.0" Default="0.50" Inc="0.01" Tooltip="" Row="1" Col="0" Page="1" DisplayName="Stripes" Type="float" Name="stripes_count">
       </Uniform>
       <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="1" DisplayName="Opacity" Type="float" Name="Opacity">
       </Uniform>
-      
-      <Uniform Row="0" Col="1" Page="1" Default="True" Tooltip="Enable / Disable VHS Bars" DisplayName="Add Bars" Type="bool" Name="vhs_bars">
+      <Uniform Row="3" Col="0" Page="1" Default="True" Tooltip="Enable / Disable Bars" DisplayName="Add Bars" Type="bool" Name="vhs_bars">
 	  </Uniform>
-	  <Uniform ResDependent="None" Max="1000.0" Min="0.0" Default="5.0" Inc="0.1" Tooltip="" Row="1" Col="1" Page="1" DisplayName="Bars" Type="float" Name="bars_count">
+	  <Uniform ResDependent="None" Max="1000.0" Min="0.0" Default="5.0" Inc="0.1" Tooltip="" Row="4" Col="0" Page="1" DisplayName="Bars" Type="float" Name="bars_count">
+      </Uniform>      
+
+      <Uniform Row="0" Col="1" Page="1" Default="True" Tooltip="Enable / Disable Tube Moire" DisplayName="Add TV Tube Dots" Type="bool" Name="tube_moire">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="4.0" Min="0.0" Default="1.0" Inc="1.00" Tooltip="" Row="1" Col="1" Page="1" DisplayName="Style" Type="float" Name="tv_dots">
+      </Uniform>
+ 	  <Uniform ResDependent="None" Max="1000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="1" DisplayName="Opacity" Type="float" Name="tv_dots_blend">
       </Uniform>
 
-	 <Uniform Row="0" Col="2" Page="1" Default="False" Tooltip="Enable / Disable TV Lines" DisplayName="Add TV Lines" Type="bool" Name="tv_tube_lines">
+	  <Uniform Row="0" Col="2" Page="1" Default="False" Tooltip="Enable / Disable Moire" DisplayName="Add Moire" Type="bool" Name="moire">
 	  </Uniform>
-      <Uniform ResDependent="None" Max="10.0" Min="0.01" Default="2.5" Inc="0.01" Tooltip="" Row="1" Col="2" Page="1" DisplayName="Lines" Type="float" Name="tv_lines">
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="1" DisplayName="Gain" Type="float" Name="opacity_moire">
+      </Uniform>      
+      <Uniform ResDependent="None" Max="100.0" Min="0.01" Default="0.15" Inc="0.001" Tooltip="" Row="2" Col="2" Page="1" DisplayName="Scale" Type="float" Name="moire_scale">
+      </Uniform>         
+
+	  <Uniform Row="0" Col="3" Page="1" Default="True" Tooltip="Enable / Disable RGB Offset" DisplayName="Add RGB Offset" Type="bool" Name="rgb_offset">
+	  </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="3" Page="1" DisplayName="Colorshift X" Type="float" Name="pColorshift_x">
       </Uniform>
-	  <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.1" Tooltip="" Row="2" Col="2" Page="1" DisplayName="Opacity" Type="float" Name="tv_lines_opacity">
+      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="3" Page="1" DisplayName="Colorshift Y" Type="float" Name="pColorshift_y">
       </Uniform>
       
-      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="3" Page="1" DisplayName="Colorshift X" Type="float" Name="pColorshift_x">
+	  <Uniform Row="0" Col="0" Page="2" Default="False" Tooltip="Enable / Disable Monochrome" DisplayName="Add Monochrome" Type="bool" Name="b_w">
+	  </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="1" Col="0" Page="2" DisplayName="Colour" ValueType="Colour" Type="vec3" Name="monochrome">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
       </Uniform>
-      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="3" Page="1" DisplayName="Colorshift Y" Type="float" Name="pColorshift_y">
+      <Uniform ResDependent="None" Max="10.0" Min="0.01" Default="1.00" Inc="0.01" Tooltip="" Row="2" Col="0" Page="2" DisplayName="Contrast" Type="float" Name="bw_soft">
+      </Uniform>
+      <Uniform ResDependent="None" Max="3.0" Min="0.0" Default="1.00" Inc="0.01" Tooltip="" Row="3" Col="0" Page="2" DisplayName="Brightness" Type="float" Name="bw_threshold">
       </Uniform>
       
    </Shader>
@@ -116,11 +140,15 @@ Matchbox version by ivar@inferno-op.com" Name="crok old tv">
       <Page Name="Page 2" Page="1">
       <Col Name="Stripes" Col="0" Page="1">
       </Col>
-      <Col Name="Bars" Col="1" Page="1">
+      <Col Name="CRT TV" Col="1" Page="1">
       </Col>
-      <Col Name="Lines" Col="2" Page="1">
+      <Col Name="Moire" Col="2" Page="1">
       </Col>
-      <Col Name="Colour Shift" Col="3" Page="1">
-      </Col>
+      <Col Name="Colour Shifts" Col="3" Page="1">
+      </Col>  
     </Page>
+    <Page Name="Page 3" Page="2">
+      <Col Name="Monochrome" Col="0" Page="2">
+      </Col>
+   </Page>
 </ShaderNodePreset>
