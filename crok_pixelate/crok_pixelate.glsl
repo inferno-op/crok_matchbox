@@ -9,8 +9,6 @@ void main(void)
 {
 	vec2 uv = gl_FragCoord.xy / iResolution.xy;
 	vec2 pixel = floor( uv * Detail );
-	vec4 pixel_img = vec4( texture2D(image, pixel / Detail ).rgb * texture2D(alpha, pixel / Detail).rgb, texture2D(alpha, pixel / Detail).b);
-	vec4 normal_img = vec4( texture2D(image, uv));
-
-	gl_FragColor = vec4 ( mix(normal_img.rgba, pixel_img.rgba, 1.0));
+	gl_FragColor = texture2D(alpha, pixel / Detail) * (texture2D(image, pixel / Detail )) + (1.0 - texture2D(alpha, pixel / Detail)) * (texture2D(image, uv ));
 }
+
