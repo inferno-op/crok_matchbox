@@ -3,6 +3,9 @@ This Matchbox shader pixelates the image.
 
 Setup:
 
+- Input1: source image
+- Input2: matte to define the affected area
+
 - Detail: detail of the pattern
 
 Demo clip: http://vimeo.com/89225434
