@@ -8,7 +8,6 @@ vec2 iResolution = vec2(adsk_result_w, adsk_result_h);
 
 void main(void)
 {
-//	vec2 uv = gl_FragCoord.xy / iResolution.xy;
 	vec2 uv = gl_FragCoord.xy / iResolution.xy;
 	vec2 pixel = floor( uv * Detail );
 	vec3 color1 = vec3( texture2D(image, pixel / Detail ).rgb);	
