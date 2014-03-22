@@ -5,7 +5,7 @@ Setup:
 
 - Input1: source image
 
-- Amount: barrel blur amount
+- Amount: blur amount
 - Iterations: number of steps to create the blur
 - Center: center of the effect
 
