@@ -1,0 +1,44 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates chromatic abberrations and a barrel distortion.
+
+Setup:
+
+- Input1: source image
+
+- Amount: barrel blur amount
+- Iterations: number of steps to create the blur
+- Center: center of the effect
+
+- Add Distortion: enable additional distortion
+- Amount: amount of applied distortion
+
+Based on: https://www.shadertoy.com/view/XssGz8
+
+Demo clip: http://vimeo.com/89781715
+			
+Matchbox version by Kyle Obley and ivar@inferno-op.com" Name="crok_chroma_warp">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Amount" Type="float" Name="chromatic_abb">
+      </Uniform>
+      <Uniform Max="1000" Min="0" Default="20" Inc="1" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Iterations" Type="int" Name="num_iter">
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Center" Type="vec2" Name="center">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.50">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.50">
+         </SubUniform>
+      </Uniform>
+      <Uniform Row="0" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Add Distortion" Type="bool" Name="add_distortion">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Amount" Type="float" Name="d_amount">
+      </Uniform>       
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Image" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="image">
+      </Uniform>
+   </Shader>
+   <Page Name="Setup" Page="0">
+      <Col Name="Chromatic Abberration" Col="0" Page="0">
+      </Col>
+      <Col Name="Distortion" Col="1" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
