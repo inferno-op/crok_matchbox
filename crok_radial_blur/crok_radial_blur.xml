@@ -1,7 +1,9 @@
 <ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
 This Matchbox shader creates radial blur.
 
-Inputs:
+Version: 1.1
+
+Input:
 
 - Front : source clip
 
@@ -30,7 +32,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok radial blur">
       </Uniform>
       <Uniform Max="1000" Min="1" Default="50" Inc="1" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Steps" Type="int" Name="pBlursteps">
       </Uniform>
-      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Texture">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Texture">
       </Uniform>
    </Shader>
    <Page Name="Radial Blur" Page="0">
