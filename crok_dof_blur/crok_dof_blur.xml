@@ -1,7 +1,7 @@
 <ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
 This Matchbox shader simulates depth of field with bokeh.
 
-Version 2.3
+Version 3.1
 
 Input:
 
@@ -37,9 +37,9 @@ You are free to share, modify and adapt it for your needs, and even use it for c
 
 Matchbox version by ivar@inferno-op.com" Name="crok dof blur">
    <Shader OutputBitDepth="Output" Index="1">
-      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="source">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="source">
       </Uniform>
-	  <Uniform Index="1" NoInput="White" Tooltip="" DisplayName="depth_map" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="depth_map">
+	  <Uniform Index="1" NoInput="White" Tooltip="" DisplayName="Depth Map" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="depth_map">
 	  </Uniform>
 
 
