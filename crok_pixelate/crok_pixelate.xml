@@ -1,10 +1,14 @@
 <ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
 This Matchbox shader pixelates the image.
 
-Setup:
+Version: 1.1
 
-- Input1: source image
-- Input2: matte to define the affected area
+Input:
+
+- Front: source clip
+- Matte: matte to define the affected area
+
+Setup:
 
 - Detail: detail of the pattern
 - Dissolve: blend between original and pixelated image
@@ -13,9 +17,9 @@ Demo clip: http://vimeo.com/89225434
 			
 Matchbox version by ivar@inferno-op.com" Name="crok_pixelate">
    <Shader OutputBitDepth="Output" Index="1">
-      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Image" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="image">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="image">
       </Uniform>
-      <Uniform Index="1" NoInput="White" Tooltip="" DisplayName="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="alpha">
+      <Uniform Index="1" NoInput="White" Tooltip="" DisplayName="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="alpha">
       </Uniform>
       <Uniform ResDependent="None" Max="1000000.0" Min="1.0" Default="50.0" Inc="0.1" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Detail" Type="float" Name="Detail">
       </Uniform>
