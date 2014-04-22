@@ -1,0 +1,108 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="
+This Matchbox shader showcase some entries for '7x79 GLSL compo' at Tokyo Demo Fest 2014
+
+included are:
+
+	[TDF2014] Glitch07
+	[TDF2014] caress
+	[TDF2014]_7-lins
+	[TDF2014]_geom_shapes
+	[TDF2014]_Lemonade
+	[TDF2014]_TDF4
+	[TDF2014]_glow_art
+	[TDF2014]_flash!
+
+Based on:
+https://www.shadertoy.com/view/Md2GDt
+https://www.shadertoy.com/view/MdS3Dc
+http://glsl.heroku.com/e#15404.0
+http://glsl.heroku.com/e#15403.0
+http://glsl.heroku.com/e#15485.0
+
+
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+Matchbox version by ivar@inferno-op.com" Name="TDF2014_GLSL_Demo">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Name="Demo" Type="int"  ValueType="Popup" DisplayName="Demo" Page="0" Col="0" Row="0" Tooltip="" Default="0" >
+          <PopupEntry Title="Glitch07" Value="0">
+          </PopupEntry>
+          <PopupEntry Title="caress" Value="1">
+          </PopupEntry>
+          <PopupEntry Title="7-lins" Value="2">
+          </PopupEntry>
+          <PopupEntry Title="geom_shapes" Value="3">
+          </PopupEntry>
+          <PopupEntry Title="Lemonade" Value="4">
+          </PopupEntry>
+          <PopupEntry Title="TDF4" Value="5">
+          </PopupEntry>
+          <PopupEntry Title="glow_art" Value="6">
+          </PopupEntry>
+          <PopupEntry Title="flash!" Value="7">
+          </PopupEntry>
+       </Uniform>
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Speed" Type="float" Name="speed">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="100.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Offset" Type="float" Name="offset">
+      </Uniform>  
+	  <Uniform Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Center" IconType="Axis" Type="vec2" Name="center">
+	     <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.50">
+	     </SubUniform>
+	     <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.50">
+	     </SubUniform>
+	  </Uniform>
+
+
+	  <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Zoom" Type="float" Name="glitch_pp1" UIConditionSource="Demo" UIConditionValue="0" UIConditionInvert="False" UIConditionType="Hide">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Inner Rotation" Type="float" Name="glitch_pp2" UIConditionSource="Demo" UIConditionValue="0" UIConditionInvert="False" UIConditionType="Hide">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Expand" Type="float" Name="glitch_pp3" UIConditionSource="Demo" UIConditionValue="0" UIConditionInvert="False" UIConditionType="Hide">
+	  </Uniform>
+	  <Uniform Max="1000000" Min="-1000000" Default="50" Inc="1" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Iterations" Type="int" Name="glitch_pp4" UIConditionSource="Demo" UIConditionValue="0" UIConditionInvert="False" UIConditionType="Hide">
+	  </Uniform>
+			
+				 
+
+	  <Uniform ResDependent="None" Max="3.0" Min="0.1" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Zoom" Type="float" Name="caress_pp1" UIConditionSource="Demo" UIConditionValue="1" UIConditionInvert="False" UIConditionType="Hide">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Noise" Type="float" Name="caress_pp2" UIConditionSource="Demo" UIConditionValue="1" UIConditionInvert="False" UIConditionType="Hide">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Detail" Type="float" Name="caress_pp3" UIConditionSource="Demo" UIConditionValue="1" UIConditionInvert="False" UIConditionType="Hide">
+	  </Uniform>
+	  <Uniform Max="100" Min="1" Default="99" Inc="1" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Iterations" Type="int" Name="caress_pp4" UIConditionSource="Demo" UIConditionValue="1" UIConditionInvert="False" UIConditionType="Hide">
+	  </Uniform>
+
+	  
+	  
+	  <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Shader 3 _ pp1" Type="float" Name="geomshape_pp1" UIConditionSource="Demo" UIConditionValue="3" UIConditionInvert="False" UIConditionType="Hide">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Shader 3 _ pp2" Type="float" Name="geomshape_pp2" UIConditionSource="Demo" UIConditionValue="3" UIConditionInvert="False" UIConditionType="Hide">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Shader 3 _ pp3" Type="float" Name="geomshape_pp3" UIConditionSource="Demo" UIConditionValue="3" UIConditionInvert="False" UIConditionType="Hide">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="1000000" Min="-1000000" Default="50" Inc="1" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Shader 3 _ pp4" Type="int" Name="geomshape_pp4" UIConditionSource="Demo" UIConditionValue="3" UIConditionInvert="False" UIConditionType="Hide">
+	  </Uniform>
+	  
+
+   	  <Uniform ResDependent="None" Max="5.0" Min="-5.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Detail" Type="float" Name="lemonade_pp1" UIConditionSource="Demo" UIConditionValue="4" UIConditionInvert="False" UIConditionType="Hide">
+   	  </Uniform>
+
+	  <Uniform ResDependent="None" Max="5.0" Min="-5.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Detail" Type="float" Name="flash_pp1" UIConditionSource="Demo" UIConditionValue="7" UIConditionInvert="False" UIConditionType="Hide">
+	  </Uniform>
+	  <Uniform ResDependent="None" Max="100" Min="1" Default="50" Inc="1" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Iterations" Type="int" Name="flash_pp4" UIConditionSource="Demo" UIConditionValue="7" UIConditionInvert="False" UIConditionType="Hide">
+	  </Uniform>						 
+
+	  
+	  	 		
+				
+   </Shader>
+   <Page Name="Page 1" Page="0">
+      <Col Name="TDF 2014 - 7 Lines GLSL Demo" Col="0" Page="0">
+      </Col>
+      <Col Name="Setup" Col="1" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
