@@ -1,0 +1,25 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader simulates anisotropic kuwahara filtering.
+
+Setup:
+
+- Radius: adjust filter radius
+
+ 
+Demo clip: http://vimeo.com/92362155
+
+Based on: https://code.google.com/p/gpuakf/
+GLSL shader: by Jan Eric Kyprianidis
+			
+Matchbox version by ivar@inferno-op.com" Name="crok kuwahara">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Max="100" Min="0" Default="5" Inc="1" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Radius" Type="int" Name="radius">
+      </Uniform>
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="src">
+      </Uniform>
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Filter" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>

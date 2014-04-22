@@ -1,0 +1,98 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates a beer like structure.
+
+Input:
+
+- Noise Texture: additional noise texture
+
+
+Setup:
+
+- Iterations: fractal iterations
+- Flow Noise: noise pattern
+- Distortion: fractal distortion
+- Sphere Size: size of the fractal sphere
+- Step Size: fractal steps
+- Speed: how fast the fractal is moving in x / y /z direction
+- Center: sphere center
+- Zoom: zoom in / out of the fractal
+- Colour: fractal colour
+- Brightness: adjust brightness
+- Glow: adjust glow
+- Fade: fade fractal in / out
+
+
+Demo clip: http://vimeo.com/92339715
+
+Based on http://glsl.heroku.com/e#15616.2
+
+GLSL Shader Developer: Redexe@gmail.com
+
+Matchbox version by ivar@inferno-op.com" Name="crok beer">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Index="0" NoInput="White" Tooltip="" DisplayName="Noise Texture" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="u_texture">
+      </Uniform>
+
+      <Uniform Max="1000000" Min="1" Default="11" Inc="1" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Iterations" Type="int" Name="iterations">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="50.0" Inc="0.1" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Flow Noise" Type="float" Name="perturb">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Distortion" Type="float" Name="dist">
+      </Uniform>
+      <Uniform ResDependent="None" Max="2.0" Min="0.0" Default="0.7" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Fractal Param" Type="float" Name="fractparam">
+      </Uniform>      
+
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Speed" ValueType="Position" Type="vec3" Name="Speed">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.1">
+         </SubUniform>
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Center" Type="vec2" Name="center">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Zoom" Type="float" Name="size">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Sphere Size" Type="float" Name="sphsize">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="2" Page="0" DisplayName="Step Size" Type="float" Name="stepsize">
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Colour" ValueType="Colour" Type="vec3" Name="tint">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.65">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.35">
+         </SubUniform>
+      </Uniform>
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="0.8" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Brightness" Type="float" Name="brightness">
+      </Uniform>
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="1.5" Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="Glow" Type="float" Name="glow">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Fade" Type="float" Name="fade">
+      </Uniform>      
+   </Shader>
+   <Page Name="Page 1" Page="0">
+      <Col Name="Style" Col="0" Page="0">
+      </Col>
+      <Col Name="Timing" Col="1" Page="0">
+      </Col>
+      <Col Name="Size / Position" Col="2" Page="0">
+      </Col>
+      <Col Name="Colour" Col="3" Page="0">
+      </Col>      
+   </Page>
+   <Page Name="Page 2" Page="1">
+      <Col Name="Column 1" Col="0" Page="1">
+      </Col>
+      <Col Name="Column 2" Col="1" Page="1">
+      </Col>
+      <Col Name="Column 3" Col="2" Page="1">
+      </Col>
+   </Page>
+</ShaderNodePreset>
