@@ -1,5 +1,5 @@
 uniform float adsk_time;
-uniform float adsk_result_w, adsk_result_h;
+uniform float adsk_result_w, adsk_result_h, adsk_result_frameratio;
 uniform float Speed;
 uniform float Offset;
 uniform float seed;
@@ -61,7 +61,7 @@ vec3 Band(float pc)
 
 void main( void ) 
 {
-	vec2 p = ((gl_FragCoord.xy) - center) * zoom;
+	vec2 p = ((gl_FragCoord.xy / resolution.xy) - center) * zoom * 500.;
 
 	vec3 c = Band(1.-Paper(p).x);
 		
