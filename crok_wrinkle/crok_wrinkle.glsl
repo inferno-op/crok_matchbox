@@ -27,7 +27,7 @@ float rand(float n)
 
 vec3 LinearGrad(vec2 p1,vec2 p2,vec2 px)
 {
-	vec2 dir = (normalize(p2-p1)) / noise;
+	vec2 dir = (normalize(p2-p1)) / noise * 10.;
 	float g = dot(px-p1,dir)/length(p1-p2);
 	return vec3(clamp(g,0.,1.));
 }
@@ -61,11 +61,7 @@ vec3 Band(float pc)
 
 void main( void ) 
 {
-//	vec2 p = (gl_FragCoord.xy * zoom) - center;
-	vec2 p = (gl_FragCoord.xy * zoom) - center * 10.;
-//  	vec2 res = vec2(resolution.x/resolution.y,1.0);
-//  	vec2 p = ( gl_FragCoord.xy / resolution.y ) - (res/2.0);
-
+	vec2 p = ((gl_FragCoord.xy) - center) * zoom;
 
 	vec3 c = Band(1.-Paper(p).x);
 		
