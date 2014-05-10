@@ -1,0 +1,91 @@
+<ShaderNodePreset Description="
+This Matchbox recreates the Photoshop blending modes.
+
+Input:
+
+- Front: front image 
+- Back: background image
+- Matte: matte being used to apply effect
+
+Demo clip: http://vimeo.com/93495707
+
+Based on http://logik-matchbook.org/shader/blend_3vis
+
+Matchbox additions by ivar@inferno-op.com" Name="crok logicop" SupportsAdaptiveDegradation="False" LimitInputsToTexture="True">
+   <Shader Index="1" OutputBitDepth="Output">
+       <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="iChannel0">
+       </Uniform>
+       <Uniform Index="1" NoInput="Error" Tooltip="" DisplayName="Back" InputType="Back" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="iChannel1">
+       </Uniform>
+       <Uniform Index="2" NoInput="White" Tooltip="" DisplayName="Matte" InputType="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="iChannel2">
+       </Uniform>
+       <Uniform Name="LogicOp" Type="int"  ValueType="Popup" DisplayName="Selection" Page="0" Col="0" Row="0" Tooltip="" Default="0" >
+         <PopupEntry Title="Normal" Value="26">
+         </PopupEntry>
+         <PopupEntry Title="___________" Value="5">
+         </PopupEntry>
+         <PopupEntry Title="Darken" Value="0">
+         </PopupEntry>
+         <PopupEntry Title="Multiply" Value="1">
+         </PopupEntry>
+         <PopupEntry Title="Color Burn" Value="2">
+         </PopupEntry>
+         <PopupEntry Title="Linear Burn" Value="3">
+         </PopupEntry>
+         <PopupEntry Title="Darker Color" Value="4">
+         </PopupEntry>
+         <PopupEntry Title="___________" Value="5">
+         </PopupEntry>
+         <PopupEntry Title="Lighten" Value="6">
+         </PopupEntry>
+         <PopupEntry Title="Screen" Value="7">
+         </PopupEntry>
+         <PopupEntry Title="Color Dodge" Value="8">
+         </PopupEntry>
+         <PopupEntry Title="Linear Dodge (Add)" Value="9">
+         </PopupEntry>
+         <PopupEntry Title="Lighter Color" Value="10">
+         </PopupEntry>
+         <PopupEntry Title="___________" Value="5">
+         </PopupEntry>
+         <PopupEntry Title="Overlay" Value="11">
+         </PopupEntry>
+         <PopupEntry Title="Soft Light" Value="12">
+         </PopupEntry>
+         <PopupEntry Title="Hard Light" Value="13">
+         </PopupEntry>
+         <PopupEntry Title="Vivid Light" Value="14">
+         </PopupEntry>
+         <PopupEntry Title="Linear Light" Value="15">
+         </PopupEntry>
+         <PopupEntry Title="Pin Light" Value="16">
+         </PopupEntry>
+         <PopupEntry Title="Hard Mix" Value="17">
+         </PopupEntry>
+         <PopupEntry Title="___________" Value="5">
+         </PopupEntry>
+         <PopupEntry Title="Difference" Value="18">
+         </PopupEntry>
+         <PopupEntry Title="Exclusion" Value="19">
+         </PopupEntry>
+         <PopupEntry Title="Substract" Value="20">
+         </PopupEntry>
+         <PopupEntry Title="Divide" Value="21">
+         </PopupEntry>
+         <PopupEntry Title="___________" Value="5">
+         </PopupEntry>
+         <PopupEntry Title="Hue" Value="22">
+         </PopupEntry>
+         <PopupEntry Title="Saturation" Value="23">
+         </PopupEntry>
+         <PopupEntry Title="Color" Value="24">
+         </PopupEntry>
+         <PopupEntry Title="Luminosity" Value="25">
+         </PopupEntry>
+      </Uniform>
+   </Shader>
+   <Page Page="0" Name="">
+      <Col Page="0" Col="0" Name="Logic Op">
+      </Col>
+   </Page>
+</ShaderNodePreset>

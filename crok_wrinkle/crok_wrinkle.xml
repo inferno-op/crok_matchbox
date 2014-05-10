@@ -1,0 +1,64 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates wrinkled paper like sturctures.
+
+Setup:
+
+- Seed: seed value
+- Noise: how much noise gets applied 
+- Detail: texture detail
+- Speed: speed of the moving texture
+- Offset: offsets the texture in time
+- Zoom: zoom in and out
+- Position: virutal camera postion
+- Colour: colour of texture
+
+Demo clip: http://vimeo.com/94749437
+
+Based on http://glsl.heroku.com/e#16688.0
+
+Matchbox version by ivar@inferno-op.com" Name="crok wrinkle">
+   <Shader OutputBitDepth="Output" Index="1">
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Seed" Type="float" Name="seed">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="10.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Noise" Type="float" Name="noise">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="50.0" Inc="1.0" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Detail" Type="float" Name="detail">
+      </Uniform>
+      
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Speed" Type="float" Name="Speed">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Offset" Type="float" Name="Offset">
+      </Uniform>
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="50.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Zoom" Type="float" Name="zoom">
+      </Uniform>    
+      <Uniform Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Position" Type="vec2" Name="center">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+      </Uniform>
+
+
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Color" ValueType="Colour" Type="vec3" Name="color">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Noise" Col="0" Page="0">
+      </Col>
+      <Col Name="Timing" Col="1" Page="0">
+      </Col>
+      <Col Name="Position / Size" Col="2" Page="0">
+      </Col>
+      <Col Name="Colour" Col="3" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
