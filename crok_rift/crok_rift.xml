@@ -1,5 +1,5 @@
 <ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
-Distorts side-by-side stereo images for the Oculus Rift
+Distorts side-by-side stereo images to be useable with the Oculus Rift
 
 Input:
 
