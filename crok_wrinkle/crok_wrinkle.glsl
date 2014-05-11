@@ -6,6 +6,7 @@ uniform float seed;
 uniform float detail;
 uniform float noise;
 uniform float zoom;
+uniform float rotation;
 uniform vec2 center;
 
 
@@ -44,8 +45,8 @@ vec3 Paper(vec2 p)
 	
 	for(float i = 0.;i < detail;i++)
 	{
-		vec2 p1 = vec2(rand(1.+i+seed)+cos(time*0.43)*0.1,rand(1.1+i+seed)+sin(time*0.89)*0.1) * resolution;
-		vec2 p2 = vec2(rand(0.2+i+seed)+cos(time*0.456)*0.1,rand(1.3+i+seed)+sin(time*0.00000033)*0.1) * resolution;
+		vec2 p1 = vec2(rand(1.+i+seed-6.67)+cos(time*0.43)*0.1,rand(1.1+i+seed-16.68)+sin(time*0.89)*0.1) * resolution;
+		vec2 p2 = vec2(rand(0.2+i+seed-6.68)+cos(time*0.456)*0.1,rand(1.3+i+seed-16.68)+sin(time*0.00000033)*0.1) * resolution;
 
 		c = Difference(c,LinearGrad(p1, p2, p));
 	}
@@ -61,8 +62,12 @@ vec3 Band(float pc)
 
 void main( void ) 
 {
+
 	vec2 p = ((gl_FragCoord.xy / resolution.xy) - center) * zoom * 500.;
 
+    mat2 rotcalc = mat2( cos(-rotation), -sin(-rotation), sin(-rotation), cos(-rotation) );
+	p *= rotcalc;
+					   
 	vec3 c = Band(1.-Paper(p).x);
 		
 	gl_FragColor = vec4(c, 1.0 );
