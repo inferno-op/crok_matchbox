@@ -1,5 +1,5 @@
 <ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
-This Matchbox shader creates black & white images with adjustable RGB values.
+This Matchbox shader creates black and white images with adjustable RGB values.
 
 Setup:
 
@@ -9,7 +9,7 @@ Setup:
 
 Demo clip: http://vimeo.com/95615845
 
-Matchbox version by ivar@inferno-op.com" Name="crok black & white">
+Matchbox version by ivar@inferno-op.com" Name="crok black and white">
    <Shader OutputBitDepth="Output" Index="1">
       <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="Source">
       </Uniform>
