@@ -1,13 +1,15 @@
 <ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
-This Matchbox shader simulates a bleachbypass process.
+This Matchbox shader simulates the 2-Striped and 3-Stripes look of old technicolor films.
+
 
 Setup:
 
 - Exposure: adjust exposure of the image
 - Amount: adjust amount of the bleachbypass process
+- Technicolor Look: 2-Strip and 3-Strip
 
 
-Demo clip: http://vimeo.com/95643141
+Demo clip: http://vimeo.com/95661361
 
 Matchbox version by ivar@inferno-op.com" Name="crok technicolor">
    <Shader OutputBitDepth="Output" Index="1">
