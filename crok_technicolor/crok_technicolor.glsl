@@ -48,7 +48,7 @@ void main(void)
 	vec4 redoutput = rednegative * redfilter_tc1;
 	vec4 bluegreenoutput = bluegreennegative * bluegreenfilter_tc1;
 	vec4 result = redoutput + bluegreenoutput;
-	col = mix(tc, result, Amount) * Exposure;
+	col = mix(tc, result, Amount);
 }
 
 	if ( tc2 )
@@ -60,7 +60,7 @@ void main(void)
 	vec4 redoutput = rednegative + cyanfilter_tc2;
 	vec4 bluegreenoutput = bluegreennegative + magentafilter_tc2;
 	vec4 result = redoutput * bluegreenoutput;
-	col = mix(tc, result, Amount) * Exposure;
+	col = mix(tc, result, Amount);
 }
 
 	if ( tc3 )
@@ -75,7 +75,7 @@ void main(void)
 	vec4 greenoutput = greennegative + magentafilter_tc3;
 	vec4 blueoutput = bluenegative + yellowfilter_tc3;
 	vec4 result = redoutput * greenoutput * blueoutput;
-	col = mix(tc, result, Amount) * Exposure;
+	col = mix(tc, result, Amount);
 
 }
 	if ( tc4 )
@@ -90,9 +90,9 @@ void main(void)
 	vec3 green = redmatte * bluematte * tc.g;
 	vec3 blue = redmatte * greenmatte * tc.b;
 	vec4 result = vec4(red.r, green.g, blue.b, tc.a);
-	col = mix(tc, result, Amount) * Exposure;
+	col = mix(tc, result, Amount);
 
 }
-	gl_FragColor = mix(col, luma, Saturation);
+	gl_FragColor = mix(col, luma, Saturation) * Exposure;
 }
 
