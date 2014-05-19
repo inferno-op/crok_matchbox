@@ -4,8 +4,11 @@ vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 uniform sampler2D Source;
 uniform float Exposure;
 uniform float Amount;
-
+uniform float Saturation;
+uniform vec3 RGB_lum;
 uniform bool tc1, tc2, tc3, tc4;
+
+const vec3 lumcoeff = vec3(0.2126,0.7152,0.0722);
 
 const vec4 redfilter_tc1 		= vec4(1.0, 0.0, 0.0, 0.0);
 const vec4 bluegreenfilter_tc1 	= vec4(0.0, 1.0, 0.7, 0.0);
@@ -29,6 +32,11 @@ void main(void)
 	vec2 uv = gl_FragCoord.xy / resolution.xy;
 	vec4 tc = texture2D(Source, uv);
 
+	vec4 RGB_lum = vec4(lumcoeff * RGB_lum, 0.0 );
+	float lum = dot(tc,RGB_lum);
+	vec4 luma = vec4(lum);
+	
+	vec4 col = vec4 (0.0, 0.0, 0.0, 0.0);
 	gl_FragColor = tc;
 		
 	if ( tc1 )
@@ -40,7 +48,7 @@ void main(void)
 	vec4 redoutput = rednegative * redfilter_tc1;
 	vec4 bluegreenoutput = bluegreennegative * bluegreenfilter_tc1;
 	vec4 result = redoutput + bluegreenoutput;
-	gl_FragColor = mix(tc, result, Amount) * Exposure;
+	col = mix(tc, result, Amount) * Exposure;
 }
 
 	if ( tc2 )
@@ -52,7 +60,7 @@ void main(void)
 	vec4 redoutput = rednegative + cyanfilter_tc2;
 	vec4 bluegreenoutput = bluegreennegative + magentafilter_tc2;
 	vec4 result = redoutput * bluegreenoutput;
-	gl_FragColor = mix(tc, result, Amount) * Exposure;
+	col = mix(tc, result, Amount) * Exposure;
 }
 
 	if ( tc3 )
@@ -67,7 +75,7 @@ void main(void)
 	vec4 greenoutput = greennegative + magentafilter_tc3;
 	vec4 blueoutput = bluenegative + yellowfilter_tc3;
 	vec4 result = redoutput * greenoutput * blueoutput;
-	gl_FragColor = mix(tc, result, Amount) * Exposure;
+	col = mix(tc, result, Amount) * Exposure;
 
 }
 	if ( tc4 )
@@ -82,8 +90,9 @@ void main(void)
 	vec3 green = redmatte * bluematte * tc.g;
 	vec3 blue = redmatte * greenmatte * tc.b;
 	vec4 result = vec4(red.r, green.g, blue.b, tc.a);
-	gl_FragColor = mix(tc, result, Amount) * Exposure;
+	col = mix(tc, result, Amount) * Exposure;
 
 }
+	gl_FragColor = mix(col, luma, Saturation);
 }
 
