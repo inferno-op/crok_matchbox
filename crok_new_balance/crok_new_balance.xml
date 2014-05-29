@@ -19,6 +19,8 @@ Matchbox version by ivar@inferno-op.com with huge help from miles@noesclavo.com"
       </Uniform>
       <Uniform ResDependent="None" Max="10" Min="1.0" Default="10.0" Inc="1.0" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Level" Type="float" Name="level">
       </Uniform>
+      <Uniform ResDependent="None" Max="1.0.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Amount" Type="float" Name="Amount">
+      </Uniform>
 
        <Uniform Name="colourspace" Type="int"  ValueType="Popup" DisplayName="Image Type" Page="0" Col="2" Row="0" Tooltip="" Default="0" >
          <PopupEntry Title="Rec 709" Value="0">

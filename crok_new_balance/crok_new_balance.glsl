@@ -5,12 +5,16 @@ uniform sampler2D Front;
 uniform float level;
 uniform int colourspace;
 uniform int Computing;
+uniform float Amount;
+
 
 #extension GL_ARB_shader_texture_lod : enable
 
 void main(void)
 {
 vec2 st = gl_FragCoord.xy / res;
+
+vec4 tc = texture2D(Front, st);
 
 vec4 front = texture2D(Front, st);
 vec4 front_a = texture2DLod(Front, st, level - 0.5);
@@ -27,13 +31,14 @@ vec4 front_a = texture2DLod(Front, st, level - 0.5);
 	   if( Computing == 2)
 		   front-=front_a-(front_a[0]+front_a[1]+front_a[2])/3.0;
 	   
-//	   pow(front,vec4(.4545));
    }
    
    if( colourspace == 1)  // Linear input is selected
 	   front /= 2.0 * front_a;
 
 
-   
+   	front = mix(tc, front, Amount);
+	
 gl_FragColor = front;
+
 }
