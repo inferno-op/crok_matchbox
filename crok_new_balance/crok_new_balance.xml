@@ -37,7 +37,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok new balance">
          </PopupEntry>
       </Uniform>
        
-       <Uniform Name="Computing" Type="int"  ValueType="Popup" DisplayName="Selection" Page="0" Col="1" Row="0" Tooltip="" Default="0" UIConditionSource="colourspace" UIConditionValue="0" UIConditionInvert="False" UIConditionType="Hide">
+       <Uniform Name="Computing" Type="int"  ValueType="Popup" DisplayName="Selection" Page="0" Col="1" Row="0" Tooltip="" Default="0" UIConditionSource="colourspace" UIConditionValue="0" UIConditionInvert="False" UIConditionType="Disable">
          <PopupEntry Title="Method 1" Value="0">
          </PopupEntry>
       </Uniform>
