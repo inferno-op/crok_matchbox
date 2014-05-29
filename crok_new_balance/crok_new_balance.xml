@@ -1,0 +1,54 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="
+This Matchbox shader applies the gray world assumption model to the source image
+
+Setup:
+
+- Level: adjust effect applied to the source image
+- Method: select the gray world assumption model 
+- Colourspace: select the source image colour space 
+	(most of the time the best result will be archived, if you translate your image to Scene Linear and select Method 1)  
+
+
+Demo clip: http://vimeo.com/96791627
+
+Based on: http://www.ra.cs.uni-tuebingen.de/mitarb/ebner/ColorConstancyBook.html
+
+Matchbox version by ivar@inferno-op.com" Name="crok new balance">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputColor="67, 77, 83" Mipmaps="True" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR_MIPMAP_NEAREST" GL_TEXTURE_MIN_FILTER="GL_LINEAR_MIPMAP_NEAREST" Type="sampler2D" Name="Front">
+      </Uniform>
+      <Uniform ResDependent="None" Max="10" Min="1.0" Default="10.0" Inc="1.0" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Level" Type="float" Name="level">
+      </Uniform>
+
+       <Uniform Name="colourspace" Type="int"  ValueType="Popup" DisplayName="Image Type" Page="0" Col="2" Row="0" Tooltip="" Default="0" >
+         <PopupEntry Title="Rec 709" Value="0">
+         </PopupEntry>
+         <PopupEntry Title="Scene Linear" Value="1">
+         </PopupEntry>
+      </Uniform>
+
+
+       <Uniform Name="Computing" Type="int"  ValueType="Popup" DisplayName="Selection" Page="0" Col="1" Row="0" Tooltip="" Default="0" UIConditionSource="colourspace" UIConditionValue="1" UIConditionInvert="False" UIConditionType="Hide">
+         <PopupEntry Title="Method 1" Value="0">
+         </PopupEntry>
+         <PopupEntry Title="Method 2" Value="1">
+         </PopupEntry>
+         <PopupEntry Title="Method 3" Value="2">
+         </PopupEntry>
+      </Uniform>
+       
+       <Uniform Name="Computing" Type="int"  ValueType="Popup" DisplayName="Selection" Page="0" Col="1" Row="0" Tooltip="" Default="0" UIConditionSource="colourspace" UIConditionValue="0" UIConditionInvert="False" UIConditionType="Hide">
+         <PopupEntry Title="Method 1" Value="0">
+         </PopupEntry>
+      </Uniform>
+
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Setup" Col="0" Page="0">
+      </Col>
+      <Col Name="Gray World Assumption" Col="1" Page="0">
+      </Col>
+      <Col Name="Colourspace" Col="2" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
