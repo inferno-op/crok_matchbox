@@ -1,0 +1,76 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates tons of cellular like looking patterns.
+
+
+Setup:
+
+- Iterations: fractal iterations
+- Noise: noise pattern
+- Scale: noise scale
+- Blend: blend between multiple noise layer
+- Speed: speed of the pattern animation
+- Offset: offset the an animation in time
+- Center: pattern center
+- Zoom: zoom in / out of the fractal
+- Depth: ajust the depth of the pattern
+- Colour: fractal colour
+- Brightness: adjust brightness
+- Gain: adjust gain
+
+
+Demo clip: http://vimeo.com/97061835
+
+Based on http://glsl.heroku.com/e#17197.1
+
+Matchbox version by ivar@inferno-op.com" Name="crok cellular">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Max="15" Min="1" Default="10" Inc="1" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Iterations" Type="int" Name="Iterations">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Noise" Type="float" Name="Noise">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Scale" Type="float" Name="Scale">
+      </Uniform>
+      <Uniform ResDependent="None" Max="20.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Blend Layer" Type="float" Name="Blend">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Speed" Type="float" Name="Speed">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Offset" Type="float" Name="Offset">
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Center" Type="vec2" Name="mouse">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5">
+         </SubUniform>
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Zoom" Type="float" Name="Zoom">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Depth" Type="float" Name="Depth">
+      </Uniform>
+
+
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Colour" ValueType="Colour" Type="vec3" Name="tint">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Brightness" Type="float" Name="Brightness">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="Gain" Type="float" Name="Gain">
+      </Uniform>
+
+      
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Style" Col="0" Page="0">
+      </Col>
+      <Col Name="Timing" Col="1" Page="0">
+      </Col>
+      <Col Name="Depth / Position" Col="2" Page="0">
+      </Col>
+      <Col Name="Colour" Col="3" Page="0">
+      </Col>     
+   </Page>
+</ShaderNodePreset>
