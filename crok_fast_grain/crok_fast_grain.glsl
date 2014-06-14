@@ -20,11 +20,15 @@ uniform sampler2D bgl_RenderedTexture; //rendered scene sampler
 uniform float adsk_result_w; //scene sampler width
 uniform float adsk_result_h; //scene sampler height
 uniform float adsk_time;
-uniform float grainsize; //grain particle size (1.5 - 2.5)
+uniform float grain_size; //grain particle size (1.5 - 2.5)
 uniform float grainamount; //0.05 grain amount
 uniform bool colored; //colored noise?
 uniform float coloramount; //0.6
 uniform float lumamount; //1.0
+uniform float scratch_opacity; // 1.0
+uniform float dust_opacity; // 1.0
+uniform float flicker_opacity; // 1.0
+uniform float flicker_frequency;
 
 float timer = adsk_time*.05;
 
@@ -34,6 +38,7 @@ const float permTexUnitHalf = 0.5/256.0;	// Half perm texture texel-size
 float width = adsk_result_w;
 float height = adsk_result_h;
 
+float grainsize = grain_size * 1.5;
     
 //a random texture generator, but you can also use a pre-computed perturbation texture
 vec4 rnm(in vec2 tc) 
@@ -46,6 +51,25 @@ vec4 rnm(in vec2 tc)
 	float noiseA =  fract(noise*1.3647)*2.0-1.0;
 	
 	return vec4(noiseR,noiseG,noiseB,noiseA);
+}
+
+
+float rand(vec2 co)
+{
+    float a = 12.9898;
+    float b = 78.233;
+    float c = 43758.5453;
+    float dt= dot(co.xy ,vec2(a,b));
+    float sn= mod(dt,3.14);
+    return fract(sin(sn) * c);
+}
+
+//good for large clumps of smooth looking noise, but too repetitive
+//for small grains
+float fastNoise(vec2 n) {
+	const vec2 d = vec2(0.0, 1.0);
+	vec2 b = floor(n), f = smoothstep(vec2(0.0), vec2(1.0), fract(n));
+	return mix(mix(rand(b), rand(b + d.yx ), f.x), mix(rand(b + d.xy ), rand(b + d.yy ), f.x), f.y);
 }
 
 float fade(in float t) {
@@ -130,13 +154,12 @@ void main()
 
 	//noisiness response curve based on scene luminance
 	vec3 lumcoeff = vec3(0.299,0.587,0.114);
-	float luminance = mix(0.0,dot(col, lumcoeff),lumamount);
+	float luminance = mix(0.0,dot(col, lumcoeff),lumamount * .5);
 	float lum = smoothstep(0.2,0.0,luminance);
 	lum += luminance;
 	
-	
 	noise = mix(noise,vec3(0.0),pow(lum,4.0));
-	col = col+noise*grainamount;
+	col = col+noise* 0.025 * grainamount;
    
 	gl_FragColor =  vec4(col,1.0);
 }
