@@ -1,0 +1,29 @@
+<Setup><Base><Version>12.020000</Version><NAME>crok_lava_flames2</NAME><Note>
+This Matchbox shader creates flame / fluid like patterns.
+
+
+Setup:
+
+- Detail: fractal detail
+- Volume Steps: volume steps
+- Step Size: size of the steps
+- Density: density of the different layer
+- Speed: speed of the pattern animation
+- Offset: offset the an animation in time
+- Zoom: zoom in / out of the fractal
+- Aspect: change aspect ratio for x and y
+- Amount: amount of noise
+- Frequence: noise frequence
+- Amplitude: noise amplitude
+- Direction: direction of noise animation 
+- Contrast: contrast of the image
+- Saturation: saturation of the image
+- Tint Colour: tint colour 
+- Tint: how much tint is applied
+
+
+Demo clip: http://vimeo.com/97611838
+
+Based on http://glsl.heroku.com/e#17361.0
+
+Matchbox version by ivar@inferno-op.com</Note><Expanded>False</Expanded><ScrollBar>0</ScrollBar><Frames>0</Frames><Current_Time>1</Current_Time><Input_DataType>3</Input_DataType><ClampMode>0</ClampMode><AdapDegrad>False</AdapDegrad><Range Enable="False" Before="2" After="2" Start="1" End="100"/><UsedAsTransition>False</UsedAsTransition></Base><State><NbPasses>1</NbPasses><Regen>True</Regen><OutputResMode>0</OutputResMode><OutputResolution><Width>1280</Width><Height>720</Height><Format>124</Format><ScanFormat>2</ScanFormat><AspectRatio>1.777778</AspectRatio></OutputResolution><TopChannel><Channel Name="crok_lava_flames2"><Uncollapsed/></Channel></TopChannel><ShaderParameters><Parameter><Data><Channel Name="Detail"><Extrap>constant</Extrap><Value>14.9600506</Value><Uncollapsed/></Channel></Data></Parameter><Parameter><Data><Channel Name="Volume_Steps"><Extrap>constant</Extrap><Value>42</Value><Uncollapsed/></Channel></Data></Parameter><Parameter><Data><Channel Name="Step_Size"><Extrap>constant</Extrap><Value>0.089999944</Value><Uncollapsed/></Channel></Data></Parameter><Parameter><Data><Channel Name="Density"><Extrap>constant</Extrap><Value>0.120000012</Value><Uncollapsed/></Channel></Data></Parameter><Parameter><Data><Channel Name="Speed"><Extrap>constant</Extrap><Value>0.0499999672</Value><Uncollapsed/></Channel></Data></Parameter><Parameter><Data><Channel Name="Offset"><Uncollapsed/></Channel></Data></Parameter><Parameter><Data><Channel Name="Zoom"><Extrap>constant</Extrap><Value>4.10999823</Value><Uncollapsed/></Channel></Data></Parameter><Parameter><X><Channel Name="X"><Uncollapsed/></Channel></X><Y><Channel Name="Y"><Uncollapsed/></Channel></Y><Icon>True</Icon></Parameter><Parameter><Data><Channel Name="Amount"><Extrap>constant</Extrap><Value>17.6099796</Value><Uncollapsed/></Channel></Data></Parameter><Parameter><Data><Channel Name="Frequence"><Extrap>constant</Extrap><Value>0.719999909</Value><Uncollapsed/></Channel></Data></Parameter><Parameter><Data><Channel Name="Amplitude"><Extrap>constant</Extrap><Value>3.1999898</Value><Uncollapsed/></Channel></Data></Parameter><Parameter><X><Channel Name="X"><Extrap>constant</Extrap><Value>-22.819994</Value><Uncollapsed/></Channel></X><Y><Channel Name="Y"><Extrap>constant</Extrap><Value>-23.4100056</Value><Uncollapsed/></Channel></Y><Z><Channel Name="Z"><Uncollapsed/></Channel></Z><Icon>True</Icon></Parameter><Parameter><Data><Channel Name="Contrast"><Extrap>constant</Extrap><Value>0.970000446</Value><Uncollapsed/></Channel></Data></Parameter><Parameter><Data><Channel Name="Saturation"><Extrap>constant</Extrap><Value>0.10999994</Value><Uncollapsed/></Channel></Data></Parameter><Parameter><R><Channel Name="R"><Uncollapsed/></Channel></R><G><Channel Name="G"><Uncollapsed/></Channel></G><B><Channel Name="B"><Uncollapsed/></Channel></B></Parameter><Parameter><Data><Channel Name="Tint_Intensity"><Extrap>constant</Extrap><Value>0.419999927</Value><Uncollapsed/></Channel></Data></Parameter><Parameter><R><Channel Name="R"><Uncollapsed/></Channel></R><G><Channel Name="G"><Uncollapsed/></Channel></G><B><Channel Name="B"><Uncollapsed/></Channel></B></Parameter><Parameter><R><Channel Name="R"><Uncollapsed/></Channel></R><G><Channel Name="G"><Uncollapsed/></Channel></G><B><Channel Name="B"><Uncollapsed/></Channel></B></Parameter><Parameter><R><Channel Name="R"><Uncollapsed/></Channel></R><G><Channel Name="G"><Uncollapsed/></Channel></G><B><Channel Name="B"><Uncollapsed/></Channel></B></Parameter><Parameter><R><Channel Name="R"><Uncollapsed/></Channel></R><G><Channel Name="G"><Uncollapsed/></Channel></G><B><Channel Name="B"><Uncollapsed/></Channel></B></Parameter><Parameter><R><Channel Name="R"><Uncollapsed/></Channel></R><G><Channel Name="G"><Uncollapsed/></Channel></G><B><Channel Name="B"><Uncollapsed/></Channel></B></Parameter></ShaderParameters><InputPage>0</InputPage><InputRewiring/></State></Setup>

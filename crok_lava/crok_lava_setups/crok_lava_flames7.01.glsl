@@ -4,7 +4,6 @@ uniform float Speed;
 uniform float Offset;
 uniform float Zoom;
 uniform float Detail, Noise;
-uniform float brightness;
 uniform float contrast;
 uniform float saturation;
 uniform float tint;
@@ -143,8 +142,8 @@ void main(void)
 
     vec3 sat_color = mix(intensity, col.rgb, saturation);
     vec3 con_color = mix(avg_lum, sat_color, contrast);
-	vec3 brt_color = con_color - 1.0 + brightness;
-	vec3 fin_color = mix(brt_color, brt_color * tint_col, tint);
+	vec3 fin_color = mix(con_color, con_color * tint_col, tint);
 
     gl_FragColor = vec4(fin_color, 1.0);
 	}
+

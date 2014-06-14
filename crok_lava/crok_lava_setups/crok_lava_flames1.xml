@@ -1,0 +1,103 @@
+<ShaderNodePreset Name="crok lava" Description="" SupportsAdaptiveDegradation="0">
+   <Shader Index="1" OutputBitDepth="Output">
+      <Uniform Name="Detail" Type="float" DisplayName="Detail" Page="0" Col="0" Row="0" Tooltip="" Inc="0.01" Default="1.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="VolumeSteps" Type="int" DisplayName="Volume Steps" Page="0" Col="0" Row="1" Tooltip="" Inc="1" Default="20" Min="-1000000" Max="1000000">
+      </Uniform>
+      <Uniform Name="StepSize" Type="float" DisplayName="StepSize" Page="0" Col="0" Row="2" Tooltip="" Inc="0.01" Default="0.25" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="Density" Type="float" DisplayName="Density" Page="0" Col="0" Row="3" Tooltip="" Inc="0.01" Default="0.2" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="Speed" Type="float" DisplayName="Speed" Page="0" Col="1" Row="0" Tooltip="" Inc="0.01" Default="1.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="Offset" Type="float" DisplayName="Offset" Page="0" Col="1" Row="1" Tooltip="" Inc="0.01" Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="Zoom" Type="float" DisplayName="Zoom" Page="0" Col="1" Row="2" Tooltip="" Inc="0.01" Default="1.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="Aspect" Type="vec2" DisplayName="Aspect" Page="0" Col="1" Row="3" Tooltip="" Inc="0.01">
+         <SubUniform Default="1.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Default="1.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+      </Uniform>
+      <Uniform Name="Noise" Type="float" DisplayName="Amount" Page="0" Col="2" Row="0" Tooltip="" Inc="0.01" Default="1.0" Min="0.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="NoiseFreq" Type="float" DisplayName="Frequence" Page="0" Col="2" Row="1" Tooltip="" Inc="0.01" Default="2.0" Min="0.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="NoiseAmp" Type="float" DisplayName="Amplitude" Page="0" Col="2" Row="2" Tooltip="" Inc="0.01" Default="2.0" Min="0.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="NoiseAnim" Type="vec3" ValueType="Position" DisplayName="Direction" Page="0" Col="2" Row="3" Tooltip="" Inc="0.01">
+         <SubUniform Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+      </Uniform>
+      <Uniform Name="contrast" Type="float" DisplayName="Contrast" Page="0" Col="3" Row="0" Tooltip="" Inc="0.01" Default="1.0" Min="0.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="saturation" Type="float" DisplayName="Saturation" Page="0" Col="3" Row="1" Tooltip="" Inc="0.01" Default="1.0" Min="0.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="tint_col" Type="vec3" ValueType="Colour" DisplayName="Tint Colour" Page="0" Col="3" Row="2" Tooltip="" Inc="0.01">
+         <SubUniform Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+      </Uniform>
+      <Uniform Name="tint" Type="float" DisplayName="Tint Intensity" Page="0" Col="3" Row="3" Tooltip="" Inc="0.01" Default="0.0" Min="0.0" Max="1.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="co0" Type="vec3" ValueType="Colour" DisplayName="Colour 1" Page="1" Col="0" Row="0" Tooltip="" Inc="0.01">
+         <SubUniform Default="2.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Default="2.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Default="1.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+      </Uniform>
+      <Uniform Name="co1" Type="vec3" ValueType="Colour" DisplayName="Colour 2" Page="1" Col="0" Row="1" Tooltip="" Inc="0.01">
+         <SubUniform Default="1.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+      </Uniform>
+      <Uniform Name="co2" Type="vec3" ValueType="Colour" DisplayName="Colour 3" Page="1" Col="0" Row="2" Tooltip="" Inc="0.01">
+         <SubUniform Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+      </Uniform>
+      <Uniform Name="co3" Type="vec3" ValueType="Colour" DisplayName="Colour 4" Page="1" Col="0" Row="3" Tooltip="" Inc="0.01">
+         <SubUniform Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Default="0.5" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Default="1.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+      </Uniform>
+      <Uniform Name="co4" Type="vec3" ValueType="Colour" DisplayName="Colour 5" Page="1" Col="0" Row="4" Tooltip="" Inc="0.01">
+         <SubUniform Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+         <SubUniform Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+         </SubUniform>
+      </Uniform>
+   </Shader>
+   <Page Page="0" Name="Page 1">
+      <Col Page="0" Col="0" Name="Style">
+      </Col>
+      <Col Page="0" Col="1" Name="Timing / Scale">
+      </Col>
+      <Col Page="0" Col="2" Name="Noise">
+      </Col>
+      <Col Page="0" Col="3" Name="Colour">
+      </Col>
+   </Page>
+</ShaderNodePreset>
+

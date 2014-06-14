@@ -61,14 +61,12 @@ Matchbox version by ivar@inferno-op.com" Name="crok lava">
          </SubUniform>
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="-0.1">
          </SubUniform>
-      </Uniform>            
-      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Brightness" Type="float" Name="brightness">
       </Uniform>
-      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="2.0" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Contrast" Type="float" Name="contrast">
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="2.0" Inc="0.01" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Contrast" Type="float" Name="contrast">
       </Uniform>
-       <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="0.20" Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="Saturation" Type="float" Name="saturation">
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="0.20" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Saturation" Type="float" Name="saturation">
       </Uniform>
-      <Uniform Inc="0.01" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Tint Colour" ValueType="Colour" Type="vec3" Name="tint_col">
+      <Uniform Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="Tint Colour" ValueType="Colour" Type="vec3" Name="tint_col">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="3.8">
          </SubUniform>
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.8">
@@ -76,8 +74,8 @@ Matchbox version by ivar@inferno-op.com" Name="crok lava">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="-0.8">
          </SubUniform>
       </Uniform>
-       <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.40" Inc="0.01" Tooltip="" Row="4" Col="3" Page="0" DisplayName="Tint Intensity" Type="float" Name="tint">
-      </Uniform>     
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.40" Inc="0.01" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Tint Intensity" Type="float" Name="tint">
+      </Uniform>
       <Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="1" DisplayName="Colour 1" ValueType="Colour" Type="vec3" Name="co0">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.1">
          </SubUniform>
@@ -118,7 +116,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok lava">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
          </SubUniform>
       </Uniform>
-    </Shader>
+   </Shader>
    <Page Name="Setup" Page="0">
       <Col Name="Style" Col="0" Page="0">
       </Col>
@@ -132,6 +130,6 @@ Matchbox version by ivar@inferno-op.com" Name="crok lava">
    <Page Name="Colour Definition" Page="1">
       <Col Name="Colour Pots" Col="0" Page="1">
       </Col>
-
    </Page>
 </ShaderNodePreset>
+
