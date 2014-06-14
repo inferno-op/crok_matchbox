@@ -3,7 +3,8 @@ This Matchbox shader creates a checkerboard pattern.
 
 Setup:
 
-- Number: number of tiles
+- Zoom: zoom in / out 
+- Aspect: aspect of the pattern
 - Colour: colour for the 2 tiles  
 
 Demo clip: http://vimeo.com/87951862
@@ -12,7 +13,9 @@ Based on http://glsl.heroku.com/e#14689.0
 
 Matchbox version by ivar@inferno-op.com" Name="crok_checkerboard">
    <Shader OutputBitDepth="Output" Index="1">
-      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="10.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Number" Type="float" Name="Number">
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="10.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Zoom" Type="float" Name="Zoom">
+      </Uniform>
+      <Uniform ResDependent="None" Max="100.0" Min="0.00001" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Aspect" Type="float" Name="Aspect">
       </Uniform>
       <Uniform Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Colour" ValueType="Colour" Type="vec3" Name="color1">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
