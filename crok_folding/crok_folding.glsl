@@ -5,12 +5,14 @@ uniform float pLeft;
 uniform float Offset;
 uniform float Speed;
 uniform float Zoom;
-uniform float Detail;
+uniform float Noise;
 uniform float Steps;
 uniform float Aspect;
 uniform vec3 Color;
 uniform bool useduration;
 uniform int duration;
+uniform float Detail;
+
 
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 
@@ -24,23 +26,18 @@ void main( void ) {
 	} else {
 		time = adsk_time*.01*Speed+Offset;
 	}
-    
-	vec2 position = ( gl_FragCoord.xy / resolution.xy ) * 1.0*Zoom;
-	position.x *= resolution.x / resolution.y*Aspect;
+	vec2 position = ( gl_FragCoord.xy / resolution.xy );
+	vec2 zoom_center=(2.0*(position-.5)) * Zoom;
+	zoom_center.x *= resolution.x / resolution.y*Aspect;
 	float color = 0.0;
-    
 	for(float i = 0.0; i < Steps; i++)
 	{
-		position.x += sin(Detail * sin(length(position.y)));
-		color += sin(0.6 * sin(length(position) + position.x + i * position.y*0.5 + sin(i + position.x + time )) + sin(Detail * cos(sin(position.y * 2. + position.x) * 0.5)));
+		zoom_center.x += sin(Noise * sin(length(zoom_center.y + 5.)));
+		color += sin(0.6 * Detail * sin(length(position) + zoom_center.x + i * zoom_center.y + sin(i + zoom_center.x + time )) + sin(Noise * cos(sin(zoom_center.y + zoom_center.x) * 0.5)));
 		color = sin(color*1.5);
-		position.y += color*1.5;
-		position.x -= sin(position.y - cos(dot(position, vec2(color, sin(color*2.)))));
-		
+		zoom_center.y += color*1.5;
+		zoom_center.x -= sin(zoom_center.y - cos(dot(zoom_center, vec2(color, sin(color*2.)))));
 	}
-	color = abs(color);
-	color *= 0.8;
-	
-	gl_FragColor = vec4(pow(vec3(1.0 - color), vec3(1.-Color.r, 1.-Color.g, 1.-Color.b)), color );
+	gl_FragColor = vec4(abs(color) * Color, 1.0);
     
 }
