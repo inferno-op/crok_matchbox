@@ -99,8 +99,9 @@ float fbm( in vec2 p )
 
 void main( void )
 {
-    vec2 p = gl_FragCoord.xy/iResolution.xx;
-    float c = fbm( Zoom * p );
+    vec2 p = gl_FragCoord.xy/iResolution.xy;
+	vec2 center = (2.0*(p-.5));
+    float c = fbm( Zoom * center );
 	
     gl_FragColor = vec4( c,c,c, 1.0 );
 }
