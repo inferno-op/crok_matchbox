@@ -16,7 +16,7 @@ Perlin noise shader by toneburst:
 http://machinesdontcare.wordpress.com/2009/06/25/3d-perlin-noise-sphere-vertex-shader-sourcecode/
 */
 
-uniform sampler2D bgl_RenderedTexture; //rendered scene sampler
+uniform sampler2D source; //rendered scene sampler
 uniform float adsk_result_w; //scene sampler width
 uniform float adsk_result_h; //scene sampler height
 uniform float adsk_time;
@@ -150,7 +150,7 @@ void main()
 		noise.b = mix(noise.r,pnoise3D(vec3(rotCoordsB*vec2(width/grainsize,height/grainsize),2.0)),coloramount);
 	}
 
-	vec3 col = texture2D(bgl_RenderedTexture, texCoord).rgb;
+	vec3 col = texture2D(source, texCoord).rgb;
 
 	//noisiness response curve based on scene luminance
 	vec3 lumcoeff = vec3(0.299,0.587,0.114);
