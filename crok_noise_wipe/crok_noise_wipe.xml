@@ -43,7 +43,7 @@ Matchbox version by ivar@inferno-op.com and miles@noesclavo.com" Name="crok nois
 	<Shader OutputBitDepth="Output" Index="2">
 		<Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
 		</Uniform>
-		<Uniform ResDependent="None" Max="100.0" Min="0.0" Default="1.5" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Softness" Type="float" Name="Softness">
+		<Uniform ResDependent="None" Max="1000.0" Min="0.0" Default="1.5" Inc="0.1" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Softness" Type="float" Name="Softness">
 		</Uniform>
 	</Shader>
 	<Shader OutputBitDepth="Output" Index="3">
