@@ -31,7 +31,7 @@ Matchbox version by ivar@inferno-op.com and miles@noesclavo.com" Name="crok nois
        </Uniform>
 	   <Uniform Row="2" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Invert" Type="bool" Name="Invert">
 	   </Uniform>
-	   <Uniform ResDependent="None" Max="1.5" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Amplitude" Type="float" Name="Amplitude">
+	   <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Amplitude" Type="float" Name="Amplitude">
 	   </Uniform>
 	   <Uniform Row="1" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Horizontal" Type="bool" Name="Horizontal">
 	   </Uniform>

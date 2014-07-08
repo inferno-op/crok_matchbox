@@ -39,23 +39,26 @@ void main(void) {
 	vec2 pos = uv;
 	vec3 color = vec3(0.0);
 	float dis = 0.0;
-
+	float amp = Amplitude;
 	float mult = 1.0;
 	float mixmult = 1.0;
 
-	if (Dissolve) {
-		mult = 0.0;
-		mixmult = .5;
-	}
-	
-	dis = pos.x * mult;
 
-	if (Horizontal) {
-		dis = pos.y * mult;
-	}
+    if (Dissolve) {
+        mult = 0.0;
+        mixmult = .5;
+        amp = mix(Amplitude, Mix, Mix);
+    }
+   
+    dis = pos.x * mult;
 
-	dis+= fbm(pos * Noise) * Amplitude ;
-	dis-=  Mix * (1.0 + Amplitude * .85) * mixmult;
+    if (Horizontal) {
+        dis = pos.y * mult;
+    }
+
+    dis+= fbm(pos * Noise) * amp ;
+    dis-=  Mix * (1.0 + amp * .85) * mixmult;
+
 	dis = 1.0 - dis;
 	color = clamp(color + dis / 0.0 ,0.0,1.0);
 
