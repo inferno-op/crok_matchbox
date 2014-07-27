@@ -17,7 +17,7 @@ void main()
 	vec3 fin_col = vec3((ssao_col + (1.0 - Matte_col) * bg_color));
 	
 	if ( ssao_matte_switch )
-		fin_col = gamma_col;
+		fin_col = gamma_col + (1.0 - Matte_col) * 1.0;
 
 	gl_FragColor = vec4(fin_col, Matte_col);
 }
