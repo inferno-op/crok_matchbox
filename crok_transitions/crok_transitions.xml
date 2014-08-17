@@ -10,36 +10,36 @@ Input:
 
 Setup:
 
-- Simple Fade:
+Simple Fade:
 
-- Fade to Gray:
-	Phase: defines the kickin of the effect
+Fade to Gray:
+	- Phase: defines the kickin of the effect
 
-- Fade to Color:
-	 Phase: defines the kickin of the effect
-	 Fade to: defines the fade to color
+Fade to Color:
+	 - Phase: defines the kickin of the effect
+	 - Fade to: defines the fade to color
 	 
-- Blur:
-	Size: defines the blur size
-	Quality: defines the blur quality
+Blur:
+	- Size: defines the blur size
+	- Quality: defines the blur quality
 	
-- Wipe:
-	Smoothness: defines the wipe-gradient
-	Direction: defines the direction of the wipe
+Wipe:
+	- Smoothness: defines the wipe-gradient
+	- Direction: defines the direction of the wipe
 	
-- Circle:
-	Smoothness: defines the wipe-gradient
-	Invert: dissolves the other way around
+Circle:
+	- Smoothness: defines the wipe-gradient
+	- Invert: dissolves the other way around
 	
-- Flash:
-	Phase: defines the kickin of the effect
-	Intensity: defines gain of the flash
-	Zoom Effect: defines some vignette type zoom effect
-	Velocity: velocity of the flash
+Flash:
+	- Phase: defines the kickin of the effect
+	- Intensity: defines gain of the flash
+	- Zoom Effect: defines some vignette type zoom effect
+	- Velocity: velocity of the flash
 	
-- Squares:
-	Smoothness: defines the wipe-gradient
-	Size: defines the square size
+Squares:
+	- Smoothness: defines the wipe-gradient
+	- Size: defines the square size
 
 
 Demo clip: http://vimeo.com/103645432
