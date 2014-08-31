@@ -13,9 +13,11 @@ uniform float smoothness;
 const vec4 black = vec4(0.0, 0.0, 0.0, 1.0);
 const vec2 boundMin = vec2(0.0, 0.0);
 const vec2 boundMax = vec2(1.0, 1.0);
+const float PI = 3.141592653589793;
 float rand (vec2 co) {
   return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
 }
+
 
 // circle_open
 uniform bool opening;
@@ -60,17 +62,58 @@ uniform float flashVelocity; // 3.0
 
 
 // squares
-	uniform vec2 squares_size;
-	uniform float squares_smoothness;
+uniform vec2 squares_size;
+uniform float squares_smoothness;
 
 	
 // wipe
-	uniform vec2 wipe_direction;
-	uniform float wipe_smoothness;
+// uniform vec2 wipe_direction;
+uniform float wipe_smoothness;
+uniform float angle;
 
+// morph
+uniform float morph_strength;
+	
+// cross zoom
+uniform float cz_strength;
+float Linear_ease(in float begin, in float change, in float duration, in float time) {
+    return change * time / duration + begin;
+}
 
+float Exponential_easeInOut(in float begin, in float change, in float duration, in float time) {
+    if (time == 0.0)
+        return begin;
+    else if (time == duration)
+        return begin + change;
+    time = time / (duration / 2.0);
+    if (time < 1.0)
+        return change / 2.0 * pow(2.0, 10.0 * (time - 1.0)) + begin;
+    return change / 2.0 * (-pow(2.0, -10.0 * (time - 1.0)) + 2.0) + begin;
+}
 
+float Sinusoidal_easeInOut(in float begin, in float change, in float duration, in float time) {
+    return -change / 2.0 * (cos(PI * time / duration) - 1.0) + begin;
+}
 
+/* random number between 0 and 1 */
+float random(in vec3 scale, in float seed) {
+    /* use the fragment position for randomness */
+    return fract(sin(dot(gl_FragCoord.xyz + seed, scale)) * 43758.5453 + seed);
+}
+
+vec3 crossFade(in vec2 uv, in float dissolve) {
+    return mix(texture2D(from, uv).rgb, texture2D(to, uv).rgb, dissolve);
+}
+
+// Slide
+uniform int slide_direction;
+
+// Radial
+uniform int radial_center;
+uniform float radial_smoothness;
+
+// Simple Flip
+uniform int flip_direction;
 
 void main() {
   vec2 p = gl_FragCoord.xy / resolution.xy;
@@ -118,6 +161,173 @@ void main() {
 	  gl_FragColor = mix(texture2D(from, p), texture2D(to, p), opening ? 1.-m : m);
   }
 
+// morph		
+  else if ( transition == 6)
+  {
+	  vec4 ca = texture2D(from, p);
+	  vec4 cb = texture2D(to, p);
+  
+	  vec2 oa = (((ca.rg+ca.b)*0.5)*2.0-1.0);
+	  vec2 ob = (((cb.rg+cb.b)*0.5)*2.0-1.0);
+	  vec2 oc = mix(oa,ob,0.5)*morph_strength;
+  
+	  float w0 = progress;
+	  float w1 = 1.0-w0;
+	  gl_FragColor = mix(texture2D(from, p+oc*w0), texture2D(to, p-oc*w1), progress);
+  }
+
+// cross zoom
+  else if ( transition == 7)
+  {
+	  vec2 center = vec2(Linear_ease(0.25, 0.5, 1.0, progress), 0.5);
+	  float dissolve = Exponential_easeInOut(0.0, 1.0, 1.0, progress);
+	  float strength = Sinusoidal_easeInOut(0.0, cz_strength, 0.5, progress);
+	  vec3 color = vec3(0.0);
+	  float total = 0.0;
+	  vec2 toCenter = center - p;
+	  float offset = random(vec3(12.9898, 78.233, 151.7182), 0.0);
+
+	  for (float t = 0.0; t <= 40.0; t++) {
+		  float percent = (t + offset) / 40.0;
+		  float weight = 4.0 * (percent - percent * percent);
+		  color += crossFade(p + toCenter * percent * strength, dissolve) * weight;
+		  total += weight;
+		  gl_FragColor = vec4(color / total, 1.0);
+	  }
+  }
+
+// Slide
+  else if ( transition == 8)
+  {
+	  float translateX = 0.0; 
+	  float translateY = -1.0;
+	  
+	  if ( slide_direction == 0 ) // Slide Down
+	  {
+		  translateX = 0.0;
+		  translateY = -1.0;
+	  }
+	  if ( slide_direction == 1 ) // Slide Left
+	  {
+		  translateX = -1.0;
+		  translateY = 0.0;
+	  }
+	  if ( slide_direction == 2 ) // Slide Right
+	  {
+		  translateX = 1.0;
+		  translateY = 0.0;
+	  }
+	  if ( slide_direction == 3 ) // Slide Up
+	  {
+		  translateX = 0.0;
+		  translateY = 1.0;
+	  }
+	 	 
+	  float x = progress * translateX;
+	  float y = progress * translateY;
+
+	  if (x >= 0.0 && y >= 0.0) {
+		  if (p.x >= x && p.y >= y) {
+			  gl_FragColor = texture2D(from, p - vec2(x, y));
+		  }
+		  else {
+			  vec2 uv;
+			  if (x > 0.0)
+				  uv = vec2(x - 1.0, y);
+			  else if (y > 0.0)
+				  uv = vec2(x, y - 1.0);
+			  gl_FragColor = texture2D(to, p - uv);
+        }
+    }
+	else if (x <= 0.0 && y <= 0.0) {
+		if (p.x <= (1.0 + x) && p.y <= (1.0 + y))
+			gl_FragColor = texture2D(from, p - vec2(x, y));
+		else {
+			vec2 uv;
+			if (x < 0.0)
+				uv = vec2(x + 1.0, y);
+			else if (y < 0.0)
+				uv = vec2(x, y + 1.0);
+			gl_FragColor = texture2D(to, p - uv);
+		}
+    }
+	else
+		gl_FragColor = vec4(0.0);
+}
+
+// Radial
+	else if ( transition == 9)
+	{
+		vec2 rp = p*2.-2.;
+		float a = atan(rp.y, rp.x);
+		 
+ 		if ( radial_center == 0 )  // center
+		{
+			rp = p*-2.+1.;
+			a = atan(rp.x, rp.y);
+		}
+		else if ( radial_center == 1 )  // bottom left corner
+		{
+			rp = p;
+			a = atan(rp.x, rp.y);
+		}
+		else if ( radial_center == 2 )  // bottom left corner invert 
+		{
+			rp = p;
+			a = atan(rp.y, rp.x);
+		}
+		else if ( radial_center == 3 )  // top right corner
+		{
+			rp = p*1.-1.;
+			a = atan(rp.x, rp.y);
+		}
+		else if ( radial_center == 4 )  // top right corner invert
+		{
+			rp = p*1.-1.;
+			a = atan(rp.y, rp.x);
+		}
+		else if ( radial_center == 5 )  // Soft L / R
+		{
+			rp = p*1.+1.;
+			a = atan(rp.x, rp.y);
+		}
+		else if ( radial_center == 6 )  // Soft R / L
+		{
+			rp = p*1.+1.;
+			a = atan(rp.y, rp.x);
+		}
+
+		float pa = progress*PI*2.5-PI*1.25;
+		vec4 fromc = texture2D(from, p);
+		vec4 toc = texture2D(to, p);
+		if(a>pa) {
+			gl_FragColor = mix(toc, fromc, smoothstep(0.0, 0.009 + radial_smoothness, (a-pa)));
+		} else {
+			gl_FragColor = toc;
+		}
+	}
+// Simple Flip
+    else if ( transition == 10)
+    {
+		vec2 q = p;
+	
+		if ( flip_direction == 0 )
+		{
+			p.y = (p.y - 0.5)/abs(progress - 0.5)*0.5 + 0.5;
+			vec4 a = texture2D(from, p);
+			vec4 b = texture2D(to, p);
+			gl_FragColor = vec4(mix(a, b, step(0.5, progress)).rgb * step(abs(q.y - 0.5), abs(progress - 0.5)), 1.0);
+		}
+		else if ( flip_direction == 1 )
+		{
+		     p.x = (p.x - 0.5)/abs(progress - 0.5)*0.5 + 0.5;
+		     vec4 a = texture2D(from, p);
+		     vec4 b = texture2D(to, p);
+		     gl_FragColor = vec4(mix(a, b, step(0.5, progress)).rgb * step(abs(q.x - 0.5), abs(progress - 0.5)), 1.0);
+		}
+	}
+
+
 // squares
   else if ( transition == 11)
   {
@@ -129,10 +339,11 @@ void main() {
 // wipe
     else if ( transition == 15)
 	{
-	    vec2 v = normalize(wipe_direction);
+		vec2 wipe_direction = vec2(cos(angle), sin(angle));
+		vec2 v = normalize(wipe_direction);
 	    v /= abs(v.x)+abs(v.y);
 	    float d = v.x * center.x + v.y * center.y;
-	    float m = smoothstep(- wipe_smoothness, 0.0, v.x * p.x + v.y * p.y - (d-0.5+progress*(1.+ wipe_smoothness)));
+	    float m = smoothstep(- wipe_smoothness, 0.0, v.x * p.x + v.y * p.y - (d-0.5+progress*(1.0+ wipe_smoothness)));
 	    gl_FragColor = mix(texture2D(to, p), texture2D(from, p), m);
 	}
 }
