@@ -44,10 +44,23 @@ Squares:
 Morph:
 - Strength: how much distortion is applied
 
+Cross Zoom:
+- Strength: how long the streaks are
+
+Slide:
+- Direction: in which direction the images are moving (up, down, left, right )
+
+Radial:
+- Smoothness: defines the wipe-gradient
+- Center: center of the circle wipe
+
+Simple Flip:
+- Direction: defines the axis of the flip ( horizontal, vertical )
+
 
 Demo clip: http://vimeo.com/103645432
 
-Based on https://github.com/glslio/glsl-transition/tree/master/example/transitions
+Based on https://glsl.io/gallery
 
 
 Matchbox version by ivar@inferno-op.com" Name="crok transitions">
