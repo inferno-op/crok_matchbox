@@ -75,7 +75,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok dof blur">
 
 
 
-	  <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="2.0" Inc="0.002" Tooltip="focal distance value in meters, but you may use autofocus option below" Row="0" Col="3" Page="0" DisplayName="Focal Depth" Type="float" Name="focalDepth">
+	  <Uniform ResDependent="None" Max="1000000.0" Min="-10000.0" Default="2.0" Inc="0.002" Tooltip="focal distance value in meters, but you may use autofocus option below" Row="0" Col="3" Page="0" DisplayName="Focal Depth" Type="float" Name="focalDepth">
 	  </Uniform>
 	  <Uniform Row="1" Col="3" Page="0" Default="True" Tooltip="disable if you use external Focal Depth value" DisplayName="Autofocus" Type="bool" Name="autofocus">
 	  </Uniform>
