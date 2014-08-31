@@ -24,6 +24,7 @@ uniform bool opening;
 uniform float circle_smoothness;
 const vec2 center = vec2(0.5, 0.5);
 const float SQRT_2 = 1.414213562373;
+uniform float circle_aspect;
 
 // blur
 uniform int BLUR_QUALITY;
@@ -62,8 +63,9 @@ uniform float flashVelocity; // 3.0
 
 
 // squares
-uniform vec2 squares_size;
+uniform float squares_size;
 uniform float squares_smoothness;
+uniform float squares_aspect;
 
 	
 // wipe
@@ -331,7 +333,9 @@ void main() {
 // squares
   else if ( transition == 11)
   {
-	  float r = rand(floor(squares_size * p));
+	  vec2 sq_size = vec2(squares_size);
+	  vec2 a_size = vec2(sq_size.x * adsk_result_frameratio / squares_aspect, sq_size.x );
+	  float r = rand(floor(vec2(a_size) * p));
 	  float m = smoothstep(0.0, -squares_smoothness, r - (progress * (1.0 + squares_smoothness)));
 	  gl_FragColor = mix(texture2D(from, p), texture2D(to, p), m);
   }

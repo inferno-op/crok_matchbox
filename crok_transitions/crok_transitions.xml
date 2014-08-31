@@ -145,6 +145,10 @@ Matchbox version by ivar@inferno-op.com" Name="crok transitions">
 	<Uniform Row="1" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Invert" Type="bool" Name="opening"
 		UIConditionSource="transition" UIConditionValue="5" UIConditionInvert="False" UIConditionType="Hide">
 	</Uniform>
+    <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="circle_aspect" Type="float" Name="circle_aspect"
+		UIConditionSource="transition" UIConditionValue="5" UIConditionInvert="False" UIConditionType="Hide">
+    </Uniform>
+	
 
   	<!-- Flash -->
 	<Uniform ResDependent="None" Max="0.9" Min="0.1" Default="0.20" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Phase" Type="float" Name="flashPhase"
@@ -173,12 +177,11 @@ Matchbox version by ivar@inferno-op.com" Name="crok transitions">
 	<Uniform ResDependent="None" Max="1.0" Min="0.003" Default="0.2" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Smoothness" Type="float" Name="squares_smoothness"
 		UIConditionSource="transition" UIConditionValue="11" UIConditionInvert="False" UIConditionType="Hide">
 	</Uniform>
-	<Uniform Inc="1.0" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Size" IconType="None" Type="vec2" Name="squares_size"
+    <Uniform ResDependent="None" Max="10000.0" Min="1.0" Default="10.0" Inc="1.0" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Size" Type="float" Name="squares_size"
 		UIConditionSource="transition" UIConditionValue="11" UIConditionInvert="False" UIConditionType="Hide">
-	   <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="10.0">
-	   </SubUniform>
-	   <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="10.0">
-	   </SubUniform>
+	</Uniform>
+	<Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Aspect" Type="float" Name="squares_aspect"
+		UIConditionSource="transition" UIConditionValue="11" UIConditionInvert="False" UIConditionType="Hide">
 	</Uniform>
 	
   	<!-- Morph -->
