@@ -1,0 +1,71 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates a difference matte.
+
+
+Setup:
+
+- Red | Green | Blue: adjust the effect of the colour channels
+- minInput: displays the lower limit of the luminance values (pixels with lower values are mapped to black)
+- minOutput: displays the lower limit of the luminance values for black pixels
+
+- maxInput: displays the upper limit of the luminance values (pixels with higher values are mapped to white)
+- maxOutput: displays the upper limit of the luminance values for white pixels
+
+- Brightness: adjust the brightness
+- Contrast: adjust the contrast 
+- Gain: adjust the gain
+- Gamma: adjust the gamma 
+
+
+Demo clip: http://vimeo.com/106739462
+
+Matchbox version by ivar@inferno-op.com with some huge help from Miles Essmiller " Name="crok difference">
+   <Shader OutputBitDepth="Output" Index="1">
+       <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="front">
+       </Uniform>
+       <Uniform Index="1" NoInput="Black" Tooltip="" DisplayName="Back" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="back">
+       </Uniform>
+
+
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="red" Type="float" Name="red">
+       </Uniform>
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="green" Type="float" Name="green">
+       </Uniform>
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="blue" Type="float" Name="blue">
+       </Uniform>
+	   
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="minInput" Type="float" Name="minInput">
+       </Uniform>
+	   <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="minOutput" Type="float" Name="minOutput">
+	   </Uniform>
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="maxInput" Type="float" Name="maxInput">
+       </Uniform>
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" DisplayName="maxOutput" Type="float" Name="maxOutput">
+       </Uniform>
+ 
+ 
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Brightness" Type="float" Name="brightness">
+       </Uniform>
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Contrast" Type="float" Name="contrast">
+       </Uniform>
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Gain" Type="float" Name="gain">
+       </Uniform>  
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Gamma" Type="float" Name="gamma">
+       </Uniform>
+	   
+	   	   	  
+      <Uniform Row="0" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Clamp" Type="bool" Name="clamping">
+      </Uniform>
+
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Channels" Col="0" Page="0">
+      </Col>
+      <Col Name="Levels" Col="1" Page="0">
+      </Col>
+      <Col Name="Colour" Col="2" Page="0">
+      </Col>
+      <Col Name="Matte" Col="3" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
