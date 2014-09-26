@@ -1,0 +1,102 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader simulates a film like grain.
+
+Input:
+
+- Front: source clip
+
+Setup:
+
+- Stock: Select your film grain presets
+- Amount: how much grain is applied
+- Softness: grain softness size
+- Red | Green | Blue: adjust the different colour channels independently (its only avaiable if the Custom Stock Preset is selected )
+- Levels: adjust the low, mid and high values for your grain (its only avaiable if the Custom Stock Preset is selected )
+
+
+Demo clip: http://vimeo.com/107276957
+
+Matchbox version by ivar@inferno-op.com" Name="crok regrain">
+   <Shader OutputBitDepth="Output" Index="1">
+	<Uniform Max="1000000" Min="0" Default="0" Inc="1" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Stock" Type="int" Name="stock" ValueType="Popup">
+           <PopupEntry Title="Kodak 5245" Value="0">
+           </PopupEntry>
+           <PopupEntry Title="Kodak 5248" Value="1">
+           </PopupEntry>
+           <PopupEntry Title="Kodak 5287" Value="2">
+           </PopupEntry>
+           <PopupEntry Title="Kodak 5293" Value="3">
+           </PopupEntry>
+           <PopupEntry Title="Kodak 5296" Value="4">
+           </PopupEntry>
+           <PopupEntry Title="Kodak 5298" Value="5">
+           </PopupEntry>
+           <PopupEntry Title="Kodak 5217" Value="6">
+           </PopupEntry>
+           <PopupEntry Title="Kodak 5218" Value="7">
+           </PopupEntry>
+           <PopupEntry Title="BW" Value="8">
+           </PopupEntry>
+           <PopupEntry Title="Custom" Value="9">
+           </PopupEntry>
+       </Uniform>
+   
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Amount" Type="float" Name="overall">
+      </Uniform>
+	  
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Red" Type="float" Name="amount_r"
+		  UIConditionSource="stock" UIConditionValue="9" UIConditionInvert="False" UIConditionType="Disable">
+      </Uniform>
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Green" Type="float" Name="amount_g"
+		  UIConditionSource="stock" UIConditionValue="9" UIConditionInvert="Flase" UIConditionType="Disable">		 
+      </Uniform>
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Blue" Type="float" Name="amount_b"
+		  UIConditionSource="stock" UIConditionValue="9" UIConditionInvert="False" UIConditionType="Disable">
+      </Uniform>
+   </Shader>
+   
+   
+   <Shader OutputBitDepth="Output" Index="2">
+      <Uniform ResDependent="None" Max="5.0" Min="1.0" Default="2.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Softness" Type="float" Name="blur">
+      </Uniform>
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="3">
+      <Uniform Type="float" Name="blur">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="4">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Source">
+      </Uniform>
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+      </Uniform>
+	  
+      <Uniform ResDependent="None" Max="10.0" Min="-5.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Low" Type="float" Name="low"
+		  UIConditionSource="stock" UIConditionValue="9" UIConditionInvert="False" UIConditionType="Disable">
+	  </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Mid" Type="float" Name="mid"
+		  UIConditionSource="stock" UIConditionValue="9" UIConditionInvert="False" UIConditionType="Disable">
+      </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="High" Type="float" Name="high"
+		  UIConditionSource="stock" UIConditionValue="9" UIConditionInvert="False" UIConditionType="Disable">
+      </Uniform>
+      <Uniform Type="int" Name="stock">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+	  
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Grain" Col="0" Page="0">
+      </Col>
+      <Col Name="Amount" Col="1" Page="0">
+      </Col>
+      <Col Name="Levels" Col="2" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
