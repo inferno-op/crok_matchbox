@@ -1,5 +1,5 @@
 <ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
-This Matchbox shader simulates a film like grain.
+This Matchbox shader simulates film grain.
 
 Input:
 
