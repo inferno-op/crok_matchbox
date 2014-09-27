@@ -1,6 +1,6 @@
 uniform float adsk_result_w, adsk_result_h;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
-uniform sampler2D, adsk_results_pass3, Source;
+uniform sampler2D adsk_results_pass3, Source;
 
 uniform float blend, low, mid, high;
 
