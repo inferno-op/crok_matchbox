@@ -4,6 +4,7 @@ uniform sampler2D adsk_results_pass5, adsk_results_pass7, matte;
 float time = adsk_time *.05;
 
 uniform float edge, grain_amount;
+uniform int matte_output;
 
 // edge detection based on https://www.shadertoy.com/view/Mdf3zr
 float lookup(vec2 p, float dx, float dy)
@@ -50,6 +51,7 @@ void main(void)
 	vec3 normal_comp = texture2D(adsk_results_pass5, uv).rgb;
 	vec3 n_matte = texture2D(adsk_results_pass5, uv).rgb;
 	vec3 blured_comp = texture2D(adsk_results_pass7, uv).rgb;
+	float matte_out = 1.0;
 
 // add regrain
 	vec3 grain = noise(uv);
@@ -86,5 +88,10 @@ void main(void)
 	vec3 grain_c = overlay(grain, comp);
 	comp = mix(comp, grain_c, edge_matte.rgb);
 	
-	gl_FragColor = vec4(comp, edge_matte);
+	if ( matte_output == 0 )
+		matte_out = texture2D(adsk_results_pass5, uv).a;
+	if ( matte_output == 1 )
+		matte_out = edge_matte.r;
+	
+	gl_FragColor = vec4(comp, matte_out);
 }

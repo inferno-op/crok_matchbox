@@ -95,7 +95,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok lightwrap">
 
 
 
-      <Uniform Name="result" Type="int"  ValueType="Popup" DisplayName="Output" Page="0" Col="3" Row="0" Tooltip="" Default="0" >
+      <Uniform Name="result" Type="int"  ValueType="Popup" DisplayName="Result" Page="0" Col="3" Row="0" Tooltip="" Default="0" >
           <PopupEntry Title="Comp" Value="0">
           </PopupEntry>
           <PopupEntry Title="Lightwrap" Value="1">
@@ -133,6 +133,14 @@ Matchbox version by ivar@inferno-op.com" Name="crok lightwrap">
          </Uniform>
          <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Grain Amount" Type="float" Name="grain_amount">
          </Uniform>
+		 
+         <Uniform Name="matte_output" Type="int"  ValueType="Popup" DisplayName="Matte" Page="0" Col="3" Row="1" Tooltip="" Default="0" >
+             <PopupEntry Title="LightWrap" Value="0">
+             </PopupEntry>
+             <PopupEntry Title="EdgeBlur" Value="1">
+             </PopupEntry>
+         </Uniform>
+		 
       </Shader>
 	  
 	  
@@ -145,7 +153,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok lightwrap">
       </Col>
       <Col Name="Edge Blur" Col="2" Page="0">
       </Col>
-      <Col Name="Result" Col="3" Page="0">
+      <Col Name="Output" Col="3" Page="0">
       </Col>
    </Page>
 </ShaderNodePreset>
