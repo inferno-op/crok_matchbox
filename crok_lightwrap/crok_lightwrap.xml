@@ -107,7 +107,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok lightwrap">
 
 
       <Shader OutputBitDepth="Output" Index="6">
-         <Uniform ResDependent="None" Max="100.0" Min="1.0" Default="1.5" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Amount" Type="float" Name="blur_comp">
+         <Uniform ResDependent="None" Max="100.0" Min="1.0" Default="2.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Amount" Type="float" Name="blur_comp">
          </Uniform>
          <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass5">
          </Uniform>
@@ -130,6 +130,8 @@ Matchbox version by ivar@inferno-op.com" Name="crok lightwrap">
          <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass7">
          </Uniform>
          <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass5">
+         </Uniform>
+         <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Grain Amount" Type="float" Name="grain_amount">
          </Uniform>
       </Shader>
 	  
