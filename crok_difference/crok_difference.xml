@@ -56,6 +56,8 @@ Matchbox version by ivar@inferno-op.com with some huge help from Miles Essmiller
 	   	   	  
       <Uniform Row="0" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Clamp" Type="bool" Name="clamping">
       </Uniform>
+      <Uniform Row="1" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Invert" Type="bool" Name="invert">
+      </Uniform>
 
    </Shader>
    <Page Name="" Page="0">

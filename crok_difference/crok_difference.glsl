@@ -3,7 +3,7 @@
 uniform sampler2D front, back;
 uniform float adsk_result_w, adsk_result_h;
 uniform float brightness, contrast, gain, red, green, blue;
-uniform bool clamping;
+uniform bool clamping, invert;
 
 
 uniform float minInput;
@@ -48,6 +48,8 @@ void main(void)
 
 	if ( clamping )
 		col = clamp(col, 0.0, 1.0);
+	if ( invert )
+	    col = 1.0 - col;
 	
 	gl_FragColor = vec4(col, col);
 }
