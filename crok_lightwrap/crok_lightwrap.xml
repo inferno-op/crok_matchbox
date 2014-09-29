@@ -23,7 +23,7 @@ Demo clip: http://vimeo.com/107401261
 
 Matchbox version by ivar@inferno-op.com" Name="crok lightwrap">
    <Shader OutputBitDepth="Output" Index="1">
-      <Uniform ResDependent="None" Max="1000.0" Min="0.0" Default="20.0" Inc="0.1" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Blur BG" Type="float" Name="blur_bg">
+      <Uniform ResDependent="None" Max="1000.0" Min="0.0" Default="5.0" Inc="0.1" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Blur BG" Type="float" Name="blur_bg">
       </Uniform>
       <Uniform Index="1" NoInput="Error" InputType = "Back" Tooltip="" DisplayName="Back" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="bg">
       </Uniform>
