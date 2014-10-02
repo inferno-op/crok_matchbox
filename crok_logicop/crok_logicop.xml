@@ -68,7 +68,7 @@ Matchbox additions by ivar@inferno-op.com" Name="crok logicop" SupportsAdaptiveD
          </PopupEntry>
          <PopupEntry Title="Exclusion" Value="19">
          </PopupEntry>
-         <PopupEntry Title="Substract" Value="20">
+         <PopupEntry Title="Subtract" Value="20">
          </PopupEntry>
          <PopupEntry Title="Divide" Value="21">
          </PopupEntry>
