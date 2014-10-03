@@ -7,7 +7,7 @@ uniform float ratio, let_blend, guide_blend, center_blend, size;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 float iGlobalTime = adsk_time;
 
-uniform vec3 tint_action, tint_center;
+uniform vec3 tint_action, tint_center, tint_letterbox;
 uniform bool letterbox, guides, center, counter;
 
 uniform vec2 position;
@@ -167,7 +167,7 @@ void main()
 {
 	vec2 uv = gl_FragCoord.xy / resolution.xy;
 	vec3 source = vec3(texture2D(Source, uv).rgb);
-	vec4 c_let = vec4(0.0);
+	vec3 c_let = vec3(tint_letterbox);
 	vec4 c_guide= vec4(0.0);
 	vec3 center_alpha = vec3(0.0);
 	vec3 guide_alpha = vec3(0.0);
@@ -180,7 +180,7 @@ void main()
 		float lb = ((adsk_result_w / ratio) / adsk_result_h) / 2.;
 		float dist_y = length(uv.y - 0.5);
 		float letterbox = smoothstep(lb, lb, dist_y);
-		fin_col.rgb = mix(fin_col.rgb, vec3(0.0), letterbox * let_blend);
+		fin_col.rgb = mix(fin_col.rgb, c_let, letterbox * let_blend);
 	}
 
 // draw center
