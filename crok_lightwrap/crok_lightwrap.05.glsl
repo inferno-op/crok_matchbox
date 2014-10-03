@@ -1,6 +1,6 @@
 uniform float adsk_result_w, adsk_result_h;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
-uniform sampler2D adsk_results_pass2, adsk_results_pass4, compo, matte, bg;
+uniform sampler2D adsk_results_pass2, adsk_results_pass4, compo, matte;
 
 uniform float blend, low, threshold, high, gain;
 uniform int LogicOp;

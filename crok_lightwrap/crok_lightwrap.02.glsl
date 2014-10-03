@@ -1,5 +1,4 @@
 uniform float blur_bg, adsk_result_w, adsk_result_h;
-
 uniform sampler2D adsk_results_pass1;
 
 void main()

@@ -1,8 +1,6 @@
 uniform sampler2D adsk_results_pass3;
 uniform float blur_matte, adsk_result_w, adsk_result_h;
 
-uniform sampler2D fg, bg, matte;
-
 void main()
 {
    vec2 coords = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h );

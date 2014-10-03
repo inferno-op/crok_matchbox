@@ -1,6 +1,6 @@
+uniform sampler2D matte;
 uniform float blur_matte, adsk_result_w, adsk_result_h;
 
-uniform sampler2D fg, bg, matte;
 
 void main()
 {
