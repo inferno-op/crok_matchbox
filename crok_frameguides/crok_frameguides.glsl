@@ -1,0 +1,223 @@
+// Shader written by:   Kyle, Miles, Lewis & Ivar
+
+uniform sampler2D Source;
+
+uniform float adsk_result_w, adsk_result_h, adsk_Source_frameratio, adsk_time;
+uniform float ratio, let_blend, guide_blend, center_blend, size;
+vec2 resolution = vec2(adsk_result_w, adsk_result_h);
+float iGlobalTime = adsk_time;
+
+uniform vec3 tint_action, tint_center;
+uniform bool letterbox, guides, center, counter;
+
+uniform vec2 position;
+
+const float Thickness = 2.0;
+
+float drawLine(vec2 p1, vec2 p2) {
+vec2 uv_line = gl_FragCoord.xy / resolution.xy;
+
+float a = abs(distance(p1, uv_line));
+float b = abs(distance(p2, uv_line));
+float c = abs(distance(p1, p2));
+if ( a >= c || b >=  c ) return 0.0;
+float p = (a + b + c) * 0.5;
+float h = 2. / c * sqrt( p * ( p - a) * ( p - b) * ( p - c));
+
+
+return mix(1.0, 0.0, smoothstep(0.5 * Thickness * 0.001  , 1.5 * Thickness * 0.001, h * adsk_Source_frameratio));
+}
+
+// https://www.shadertoy.com/view/4sf3RN
+// Number Printing - @P_Malin
+// License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+const float kCharBlank = 12.0;
+const float kCharMinus = 11.0;
+const float kCharDecimalPoint = 10.0;
+
+float InRect(const in vec2 vUV, const in vec4 vRect)
+{
+	vec2 vTestMin = step(vRect.xy, vUV.xy);
+	vec2 vTestMax = step(vUV.xy, vRect.zw);	
+	vec2 vTest = vTestMin * vTestMax;
+	return vTest.x * vTest.y;
+}
+
+float SampleDigit(const in float fDigit, const in vec2 vUV)
+{		
+	if(vUV.x < 0.0) return 0.0;
+	if(vUV.y < 0.0) return 0.0;
+	if(vUV.x >= 1.0) return 0.0;
+	if(vUV.y >= 1.0) return 0.0;
+	
+	// In this version, each digit is made up of a 4x5 array of bits
+	float fDigitBinary = 0.0;
+	if(fDigit < 0.5) // 0
+	{
+		fDigitBinary = 7.0 + 5.0 * 16.0 + 5.0 * 256.0 + 5.0 * 4096.0 + 7.0 * 65536.0;
+	}
+	else if(fDigit < 1.5) // 1
+	{
+		fDigitBinary = 2.0 + 2.0 * 16.0 + 2.0 * 256.0 + 2.0 * 4096.0 + 2.0 * 65536.0;
+	}
+	else if(fDigit < 2.5) // 2
+	{
+		fDigitBinary = 7.0 + 1.0 * 16.0 + 7.0 * 256.0 + 4.0 * 4096.0 + 7.0 * 65536.0;
+	}
+	else if(fDigit < 3.5) // 3
+	{
+		fDigitBinary = 7.0 + 4.0 * 16.0 + 7.0 * 256.0 + 4.0 * 4096.0 + 7.0 * 65536.0;
+	}
+	else if(fDigit < 4.5) // 4
+	{
+		fDigitBinary = 4.0 + 7.0 * 16.0 + 5.0 * 256.0 + 1.0 * 4096.0 + 1.0 * 65536.0;
+	}
+	else if(fDigit < 5.5) // 5
+	{
+		fDigitBinary = 7.0 + 4.0 * 16.0 + 7.0 * 256.0 + 1.0 * 4096.0 + 7.0 * 65536.0;
+	}
+	else if(fDigit < 6.5) // 6
+	{
+		fDigitBinary = 7.0 + 5.0 * 16.0 + 7.0 * 256.0 + 1.0 * 4096.0 + 7.0 * 65536.0;
+	}
+	else if(fDigit < 7.5) // 7
+	{
+		fDigitBinary = 4.0 + 4.0 * 16.0 + 4.0 * 256.0 + 4.0 * 4096.0 + 7.0 * 65536.0;
+	}
+	else if(fDigit < 8.5) // 8
+	{
+		fDigitBinary = 7.0 + 5.0 * 16.0 + 7.0 * 256.0 + 5.0 * 4096.0 + 7.0 * 65536.0;
+	}
+	else if(fDigit < 9.5) // 9
+	{
+		fDigitBinary = 7.0 + 4.0 * 16.0 + 7.0 * 256.0 + 5.0 * 4096.0 + 7.0 * 65536.0;
+	}
+	else if(fDigit < 10.5) // '.'
+	{
+		fDigitBinary = 2.0 + 0.0 * 16.0 + 0.0 * 256.0 + 0.0 * 4096.0 + 0.0 * 65536.0;
+	}
+	else if(fDigit < 11.5) // '-'
+	{
+		fDigitBinary = 0.0 + 0.0 * 16.0 + 7.0 * 256.0 + 0.0 * 4096.0 + 0.0 * 65536.0;
+	}
+	
+	vec2 vPixel = floor(vUV * vec2(4.0, 5.0));
+	float fIndex = vPixel.x + (vPixel.y * 4.0);
+	return mod(floor(fDigitBinary / pow(2.0, fIndex)), 2.0);
+}
+
+float PrintValue(const in vec2 vStringCharCoords, const in float fValue, const in float fMaxDigits, const in float fDecimalPlaces)
+{
+	float fAbsValue = abs(fValue);
+	float fStringCharIndex = floor(vStringCharCoords.x);
+	float fLog10Value = log2(fAbsValue) / log2(10.0);
+	float fBiggestDigitIndex = max(floor(fLog10Value), 0.0);
+	
+	// This is the character we are going to display for this pixel
+	float fDigitCharacter = kCharBlank;
+	float fDigitIndex = fMaxDigits - fStringCharIndex;
+	if(fDigitIndex > (-fDecimalPlaces - 1.5))
+	{
+		if(fDigitIndex > fBiggestDigitIndex)
+		{
+			if(fValue < 0.0)
+			{
+				if(fDigitIndex < (fBiggestDigitIndex+1.5))
+				{
+					fDigitCharacter = kCharMinus;
+				}
+			}
+		}
+		else
+		{		
+			if(fDigitIndex == -1.0)
+			{
+				if(fDecimalPlaces > 0.0)
+				{
+					fDigitCharacter = kCharDecimalPoint;
+				}
+			}
+			else
+			{
+				if(fDigitIndex < 0.0)
+				{
+					// move along one to account for .
+					fDigitIndex += 1.0;
+				}
+				float fDigitValue = (fAbsValue / (pow(10.0, fDigitIndex)));
+				// This is inaccurate - I think because I treat each digit independently
+				// The value 2.0 gets printed as 2.09 :/
+				//fDigitCharacter = mod(floor(fDigitValue), 10.0);
+				fDigitCharacter = mod(floor(0.0001+fDigitValue), 10.0); // fix from iq
+			}		
+		}
+	}
+	vec2 vCharPos = vec2(fract(vStringCharCoords.x), vStringCharCoords.y);
+	return SampleDigit(fDigitCharacter, vCharPos);	
+}
+
+float PrintValue(const in vec2 vPixelCoords, const in vec2 vFontSize, const in float fValue, const in float fMaxDigits, const in float fDecimalPlaces)
+{
+	return PrintValue(((gl_FragCoord.xy) - vPixelCoords) / vFontSize, fValue, fMaxDigits, fDecimalPlaces);
+}
+
+
+
+void main()
+{
+	vec2 uv = gl_FragCoord.xy / resolution.xy;
+	vec3 source = vec3(texture2D(Source, uv).rgb);
+	vec4 c_let = vec4(0.0);
+	vec4 c_guide= vec4(0.0);
+	vec3 center_alpha = vec3(0.0);
+	vec3 guide_alpha = vec3(0.0);
+	vec3 c_col = vec3(0.0);
+	vec4 fin_col = vec4(source, 1.0);
+
+// Letterbox
+	if ( letterbox )
+	{
+		float lb = ((adsk_result_w / ratio) / adsk_result_h) / 2.;
+		float dist_y = length(uv.y - 0.5);
+		float letterbox = smoothstep(lb, lb, dist_y);
+		fin_col.rgb = mix(fin_col.rgb, vec3(0.0), letterbox * let_blend);
+	}
+
+// draw center
+	if ( center )
+	{
+		center_alpha += vec3(max(drawLine(vec2(0.47, 0.5), vec2(0.53, 0.5)), drawLine (vec2(0.5, 0.47), vec2(0.5, 0.53))));
+	}
+
+// draw action safe
+	if ( guides )
+	{
+		guide_alpha += vec3(max(drawLine(vec2(0.05, 0.05), vec2(0.05, 0.95)), drawLine (vec2(0.95, 0.05), vec2(0.95, 0.95))));
+		guide_alpha += vec3(max(drawLine(vec2(0.05, 0.05), vec2(0.95, 0.05)), drawLine (vec2(0.05, 0.95), vec2(0.95, 0.95))));
+	
+// draw title safe
+		guide_alpha += vec3(max(drawLine(vec2(0.1, 0.1), vec2(0.1, 0.9)), drawLine (vec2(0.9, 0.1), vec2(0.9, 0.9))));
+		guide_alpha += vec3(max(drawLine(vec2(0.1, 0.1), vec2(0.9, 0.1)), drawLine (vec2(0.1, 0.9), vec2(0.9, 0.9))));
+	}
+	
+//  frame counter
+	if ( counter )
+	{
+		vec2 vFontSize = vec2(8.0 * size, 15.0 * size);
+		float fValue2 = adsk_time;
+		float fDigits = 7.0;
+		float fDecimalPlaces = 0.0;
+		float fIsDigit2 = PrintValue(position*resolution, vFontSize, fValue2, fDigits, fDecimalPlaces);
+		c_col = mix( c_col, vec3(1.0, 1.0, 1.0), fIsDigit2);
+	}
+
+// clamp before composite
+		guide_alpha = clamp(guide_alpha, 0.0, 1.0);
+		center_alpha = clamp(center_alpha, 0.0, 1.0);
+		
+		fin_col.rgb = mix(fin_col.rgb, tint_action, guide_alpha * guide_blend);
+		fin_col.rgb = mix(fin_col.rgb, tint_center, center_alpha * center_blend);
+		fin_col.rgb = mix(fin_col.rgb, c_col, c_col);
+		
+		gl_FragColor = vec4(fin_col);
+	}
