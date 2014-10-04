@@ -3,12 +3,12 @@
 uniform sampler2D Source;
 
 uniform float adsk_result_w, adsk_result_h, adsk_Source_frameratio, adsk_time;
-uniform float ratio, let_blend, guide_blend, center_blend, size;
+uniform float ratio, let_blend, guide_blend, center_blend, size, l_line_blend, l_ratio;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 float iGlobalTime = adsk_time;
 
-uniform vec3 tint_action, tint_center, tint_letterbox;
-uniform bool letterbox, guides, center, counter;
+uniform vec3 tint_action, tint_center, tint_letterbox, tint_l_line;
+uniform bool letterbox, guides, center, counter, letterbox_line;
 
 uniform vec2 position;
 
@@ -18,7 +18,7 @@ float drawLine(vec2 p1, vec2 p2) {
 vec2 uv_line = gl_FragCoord.xy / resolution.xy;
 
 float a = abs(distance(p1, uv_line));
-float b = abs(distance(p2, uv_line));
+float b = abs(distance(p2, uv_line)); 
 float c = abs(distance(p1, p2));
 if ( a >= c || b >=  c ) return 0.0;
 float p = (a + b + c) * 0.5;
@@ -171,6 +171,7 @@ void main()
 	vec4 c_guide= vec4(0.0);
 	vec3 center_alpha = vec3(0.0);
 	vec3 guide_alpha = vec3(0.0);
+	vec3 l_line_alpha = vec3(0.0);
 	vec3 c_col = vec3(0.0);
 	vec4 fin_col = vec4(source, 1.0);
 
@@ -183,6 +184,13 @@ void main()
 		fin_col.rgb = mix(fin_col.rgb, c_let, letterbox * let_blend);
 	}
 
+// Letterbox Line
+	if ( letterbox_line )
+	{
+		float l_line = (1.0 - ((adsk_result_w / l_ratio) / adsk_result_h)) / 2.0;
+		l_line_alpha += vec3(max(drawLine(vec2(0.0, l_line), vec2(1.0, l_line)), drawLine (vec2(0.0, 1.0 - l_line), vec2(1.0, 1.0 - l_line))));
+	}
+	
 // draw center
 	if ( center )
 	{
@@ -217,6 +225,7 @@ void main()
 		
 		fin_col.rgb = mix(fin_col.rgb, tint_action, guide_alpha * guide_blend);
 		fin_col.rgb = mix(fin_col.rgb, tint_center, center_alpha * center_blend);
+		fin_col.rgb = mix(fin_col.rgb, tint_l_line, l_line_alpha * l_line_blend);
 		fin_col.rgb = mix(fin_col.rgb, c_col, c_col);
 		
 		gl_FragColor = vec4(fin_col);

@@ -8,6 +8,11 @@ Letterbox
  - Aspect Ratio: dial in the letterbox aspec ratio
  - Blend: opacity for the letterbox
  
+Letterbox
+ - Colour: colour of the letterbox line
+ - Aspect Ratio: dial in the letterbox line aspec ratio
+ - Blend: opacity for the letterbox line
+ 
 Guides
  - Colour: colour of the guidelines
  - Blend: opacity of the guidelines
@@ -44,11 +49,25 @@ Matchbox version by Kyle, Miles, Lewis and Ivar" Name="crok frameguides">
       <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Blend" Type="float" Name="let_blend">
       </Uniform>	  
 
-
-
-      <Uniform Row="0" Col="1" Page="0" Default="True" Tooltip="" DisplayName="Enable" Type="bool" Name="guides">
+      <Uniform Row="0" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Enable" Type="bool" Name="letterbox_line">
       </Uniform>
-      <Uniform Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Colour" ValueType="Colour" Type="vec3" Name="tint_action">
+      <Uniform Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Colour" IconType="None" ValueType="Colour" Type="vec3" Name="tint_l_line">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="1.0" Default="2.39" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Ratio" Type="float" Name="l_ratio">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Blend" Type="float" Name="l_line_blend">
+      </Uniform>
+
+
+      <Uniform Row="0" Col="2" Page="0" Default="True" Tooltip="" DisplayName="Enable" Type="bool" Name="guides">
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Colour" ValueType="Colour" Type="vec3" Name="tint_action">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
          </SubUniform>
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
@@ -56,13 +75,13 @@ Matchbox version by Kyle, Miles, Lewis and Ivar" Name="crok frameguides">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
          </SubUniform>
       </Uniform>
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Blend" Type="float" Name="guide_blend">
+      </Uniform>
 
-      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Blend" Type="float" Name="guide_blend">
-      </Uniform>
 	  
-      <Uniform Row="0" Col="2" Page="0" Default="True" Tooltip="" DisplayName="Center" Type="bool" Name="center">
+      <Uniform Row="0" Col="3" Page="0" Default="True" Tooltip="" DisplayName="Center" Type="bool" Name="center">
       </Uniform>
-      <Uniform Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Colour" ValueType="Colour" Type="vec3" Name="tint_center">
+      <Uniform Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Colour" ValueType="Colour" Type="vec3" Name="tint_center">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
          </SubUniform>
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
@@ -70,29 +89,34 @@ Matchbox version by Kyle, Miles, Lewis and Ivar" Name="crok frameguides">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
          </SubUniform>
       </Uniform>
-      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Blend" Type="float" Name="center_blend">
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="Blend" Type="float" Name="center_blend">
       </Uniform>
+
 	  
-      <Uniform Row="0" Col="3" Page="0" Default="True" Tooltip="" DisplayName="Frame Counter" Type="bool" Name="counter">
+      <Uniform Row="0" Col="0" Page="1" Default="True" Tooltip="" DisplayName="Frame Counter" Type="bool" Name="counter">
       </Uniform>
-      <Uniform Inc="0.010" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Position" Type="vec2" Name="position">
+      <Uniform Inc="0.010" Tooltip="" Row="1" Col="0" Page="1" DisplayName="Position" Type="vec2" Name="position">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.9">
          </SubUniform>
 	 <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.010">
          </SubUniform>
       </Uniform>
-      <Uniform ResDependent="Width" Max="10.0" Min="1.0" Default="2.0" Inc="0.01" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Size" Type="float" Name="size">
+      <Uniform ResDependent="Width" Max="10.0" Min="1.0" Default="2.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="1" DisplayName="Size" Type="float" Name="size">
       </Uniform>
    </Shader>
 
-   <Page Name="" Page="0">
+   <Page Name="Guides" Page="0">
       <Col Name="Letterbox" Col="0" Page="0">
       </Col>
-      <Col Name="Guides" Col="1" Page="0">
+      <Col Name="Letterbox Lines" Col="1" Page="0">
       </Col>
-      <Col Name="Center" Col="2" Page="0">
+      <Col Name="Guides" Col="2" Page="0">
       </Col>
-      <Col Name="Counter" Col="3" Page="0">
+      <Col Name="Center" Col="3" Page="0">
+      </Col>
+   </Page>
+   <Page Name="Frame Counter" Page="1">
+      <Col Name="Setup" Col="0" Page="1">
       </Col>
    </Page>
 </ShaderNodePreset>
