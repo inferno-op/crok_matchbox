@@ -61,7 +61,7 @@ Matchbox version by Kyle, Miles, Lewis and Ivar" Name="crok frameguides">
       </Uniform>
       <Uniform ResDependent="None" Max="10.0" Min="1.0" Default="2.39" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Ratio" Type="float" Name="l_ratio">
       </Uniform>
-      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Blend" Type="float" Name="l_line_blend">
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Blend" Type="float" Name="l_line_blend">
       </Uniform>
 
 
