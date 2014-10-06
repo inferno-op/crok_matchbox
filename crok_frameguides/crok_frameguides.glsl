@@ -2,7 +2,7 @@
 
 uniform sampler2D Source;
 
-uniform float adsk_result_w, adsk_result_h, adsk_Source_frameratio, adsk_time;
+uniform float adsk_result_w, adsk_result_h, adsk_Source_frameratio, adsk_time, adsk_result_pixelratio, adsk_result_frameratio;
 uniform float ratio, let_blend, guide_blend, center_blend, size, l_line_blend, l_ratio;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 float iGlobalTime = adsk_time;
@@ -178,17 +178,33 @@ void main()
 // Letterbox
 	if ( letterbox )
 	{
-		float lb = ((adsk_result_w / ratio) / adsk_result_h) / 2.;
-		float dist_y = length(uv.y - 0.5);
-		float letterbox = smoothstep(lb, lb, dist_y);
-		fin_col.rgb = mix(fin_col.rgb, c_let, letterbox * let_blend);
+		float lb = ((adsk_result_w / ratio * adsk_result_pixelratio) / adsk_result_h) / 2.;
+		float pb = ((adsk_result_h * ratio / adsk_result_pixelratio) / adsk_result_w) / 2.;
+
+		if (ratio < (adsk_result_w / adsk_result_h * adsk_result_pixelratio))
+		{
+			float dist_x = length(uv.x - 0.5);
+			float pillarbox = smoothstep(pb, pb, dist_x);
+			fin_col.rgb = mix(fin_col.rgb, c_let, pillarbox * let_blend);
+		} else {
+			float dist_y = length(uv.y - 0.5);
+			float letterbox = smoothstep(lb, lb, dist_y);
+			fin_col.rgb = mix(fin_col.rgb, c_let, letterbox * let_blend);
+		}
 	}
 
 // Letterbox Line
 	if ( letterbox_line )
 	{
-		float l_line = (1.0 - ((adsk_result_w / l_ratio) / adsk_result_h)) / 2.0;
-		l_line_alpha += vec3(max(drawLine(vec2(0.0, l_line), vec2(1.0, l_line)), drawLine (vec2(0.0, 1.0 - l_line), vec2(1.0, 1.0 - l_line))));
+		if (l_ratio < (adsk_result_w / adsk_result_h * adsk_result_pixelratio))
+		{
+			float l_line = (1.0 - ((adsk_result_h * l_ratio / adsk_result_pixelratio) / adsk_result_w)) / 2.0;
+			l_line_alpha += vec3(max(drawLine(vec2(l_line, 0.0), vec2(l_line, 1.0)), drawLine (vec2(1.0 - l_line, 0.0 ), vec2(1.0 - l_line, 1.0))));
+		} else {
+			float l_line = (1.0 - ((adsk_result_w / l_ratio * adsk_result_pixelratio) / adsk_result_h)) / 2.0;
+			l_line_alpha += vec3(max(drawLine(vec2(0.0, l_line), vec2(1.0, l_line)), drawLine (vec2(0.0, 1.0 - l_line), vec2(1.0, 1.0 - l_line))));
+		}
+		
 	}
 	
 // draw center
@@ -212,9 +228,9 @@ void main()
 	if ( counter )
 	{
 		vec2 vFontSize = vec2(8.0 * size, 15.0 * size);
-		float fValue2 = adsk_time;
+		float fValue2 = adsk_result_frameratio;
 		float fDigits = 7.0;
-		float fDecimalPlaces = 0.0;
+		float fDecimalPlaces = 10.0;
 		float fIsDigit2 = PrintValue(position*resolution, vFontSize, fValue2, fDigits, fDecimalPlaces);
 		c_col = mix( c_col, vec3(1.0, 1.0, 1.0), fIsDigit2);
 	}
