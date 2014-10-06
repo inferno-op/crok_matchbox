@@ -228,9 +228,9 @@ void main()
 	if ( counter )
 	{
 		vec2 vFontSize = vec2(8.0 * size, 15.0 * size);
-		float fValue2 = adsk_result_frameratio;
+		float fValue2 = adsk_time;
 		float fDigits = 7.0;
-		float fDecimalPlaces = 10.0;
+		float fDecimalPlaces = 0.0;
 		float fIsDigit2 = PrintValue(position*resolution, vFontSize, fValue2, fDigits, fDecimalPlaces);
 		c_col = mix( c_col, vec3(1.0, 1.0, 1.0), fIsDigit2);
 	}
