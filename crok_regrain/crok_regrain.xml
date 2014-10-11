@@ -10,6 +10,8 @@ Setup:
 - Stock: Select your film grain presets
 - Amount: how much grain is applied
 - Softness: grain softness size
+- Size: grain size
+- Aspect: grain aspect ratio
 - Red | Green | Blue: adjust the different colour channels independently (its only avaiable if the Custom Stock Preset is selected )
 - Levels: adjust the low, mid and high values for your grain (its only avaiable if the Custom Stock Preset is selected )
 
@@ -53,21 +55,25 @@ Matchbox version by ivar@inferno-op.com" Name="crok regrain">
       <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Blue" Type="float" Name="amount_b"
 		  UIConditionSource="stock" UIConditionValue="9" UIConditionInvert="False" UIConditionType="Disable">
       </Uniform>
+      <Uniform ResDependent="None" Max="5.0" Min="1.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Size" Type="float" Name="size">
+      </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="0.1" Default="1.0" Inc="0.1" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Aspect" Type="float" Name="aspect">
+      </Uniform>
    </Shader>
    
    
    <Shader OutputBitDepth="Output" Index="2">
-      <Uniform ResDependent="None" Max="5.0" Min="1.0" Default="2.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Softness" Type="float" Name="blur">
+      <Uniform ResDependent="None" Max="10.0" Min="1.0" Default="2.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Softness" Type="float" Name="blur">
       </Uniform>
       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
       </Uniform>
-   </Shader>
+	</Shader>
    <Shader OutputBitDepth="Output" Index="3">
       <Uniform Type="float" Name="blur">
          <Duplicate>
          </Duplicate>
       </Uniform>
-      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+	  <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
       </Uniform>
    </Shader>
    <Shader OutputBitDepth="Output" Index="4">
