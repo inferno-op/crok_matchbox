@@ -67,9 +67,17 @@ Matchbox version by ivar@inferno-op.com" Name="crok regrain">
       </Uniform>
       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
       </Uniform>
+      <Uniform Type="float" Name="size">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
 	</Shader>
    <Shader OutputBitDepth="Output" Index="3">
       <Uniform Type="float" Name="blur">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+      <Uniform Type="float" Name="size">
          <Duplicate>
          </Duplicate>
       </Uniform>
