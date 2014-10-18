@@ -30,6 +30,9 @@ Counter
  
 Demo clip: http://vimeo.com/107916855
 
+Number Printing by - @P_Malin
+License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
 Matchbox version by Kyle, Miles, Lewis and Ivar" Name="crok frameguides">
    <Shader OutputBitDepth="Output" Index="1">
        <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="Source">
