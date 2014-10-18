@@ -3,14 +3,14 @@
 uniform sampler2D Source;
 
 uniform float adsk_result_w, adsk_result_h, adsk_Source_frameratio, adsk_time, adsk_result_pixelratio, adsk_result_frameratio;
-uniform float ratio, let_blend, guide_blend, center_blend, size, l_line_blend, l_ratio;
+uniform float ratio, let_blend, guide_blend, center_blend, size, l_line_blend, l_ratio, offset;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
-float iGlobalTime = adsk_time;
 
 uniform vec3 tint_action, tint_center, tint_letterbox, tint_l_line;
-uniform bool letterbox, guides, center, counter, letterbox_line;
-
+uniform bool letterbox, guides, center, counter, letterbox_line, relative_guide, t_offset;
 uniform vec2 position;
+
+float time = adsk_time;
 
 const float Thickness = 2.0;
 
@@ -172,6 +172,9 @@ void main()
 	vec3 center_alpha = vec3(0.0);
 	vec3 guide_alpha = vec3(0.0);
 	vec3 l_line_alpha = vec3(0.0);
+
+	vec3 rl_line_alpha = vec3(0.0);
+	
 	vec3 c_col = vec3(0.0);
 	vec4 fin_col = vec4(source, 1.0);
 
@@ -204,9 +207,8 @@ void main()
 			float l_line = (1.0 - ((adsk_result_w / l_ratio * adsk_result_pixelratio) / adsk_result_h)) / 2.0;
 			l_line_alpha += vec3(max(drawLine(vec2(0.0, l_line), vec2(1.0, l_line)), drawLine (vec2(0.0, 1.0 - l_line), vec2(1.0, 1.0 - l_line))));
 		}
-		
 	}
-	
+
 // draw center
 	if ( center )
 	{
@@ -216,19 +218,67 @@ void main()
 // draw action safe
 	if ( guides )
 	{
-		guide_alpha += vec3(max(drawLine(vec2(0.05, 0.05), vec2(0.05, 0.95)), drawLine (vec2(0.95, 0.05), vec2(0.95, 0.95))));
-		guide_alpha += vec3(max(drawLine(vec2(0.05, 0.05), vec2(0.95, 0.05)), drawLine (vec2(0.05, 0.95), vec2(0.95, 0.95))));
+		if ( relative_guide )
+		{
+// draw frame guides in relation to the applied letterbox
+			float new_result_h = (adsk_result_w / ratio * adsk_result_pixelratio);
+			float new_result_a_h = new_result_h - new_result_h * .1;
+			float pillar_action_line = new_result_a_h;
+			float new_line_h = (1.0 - (new_result_a_h) / adsk_result_h) / 2.0;
+			float new_aline_v = (1.0 - ((new_result_a_h * ratio / adsk_result_pixelratio) / adsk_result_w)) / 2.0;
+
+			new_result_h -= new_result_h * .2;
+			float new_t_line_h = (1.0 - (new_result_h) / adsk_result_h) / 2.0;
+			float new_t_line_v = (1.0 - ((new_result_h * ratio / adsk_result_pixelratio) / adsk_result_w)) / 2.0;
+			
+			if (ratio < (adsk_result_w / adsk_result_h * adsk_result_pixelratio))
+			{
+				float pb_line = (1.0 - ((adsk_result_h * ratio / adsk_result_pixelratio) / adsk_result_w)) / 2.0;
+				float pb_a_line = new_aline_v + (pb_line - pb_line *.1);
+				float pb_t_line = new_t_line_v + (pb_line - pb_line * .2);
+
+				// draw relatvie action safe
+				guide_alpha += vec3(max(drawLine(vec2(pb_a_line, new_aline_v ), vec2(pb_a_line, 1.0 - new_aline_v )), drawLine (vec2(1.0 - pb_a_line, new_aline_v), vec2(1.0 - pb_a_line, 1.0 - new_aline_v))));
+				guide_alpha += vec3(max(drawLine(vec2(pb_a_line, new_aline_v ), vec2(1.0 - pb_a_line, new_aline_v )), drawLine (vec2(pb_a_line, 1.0 - new_aline_v), vec2(1.0 - pb_a_line, 1.0 - new_aline_v))));
+				// draw relative title safe
+				guide_alpha += vec3(max(drawLine(vec2(pb_t_line, new_t_line_v ), vec2(pb_t_line, 1.0 - new_t_line_v )), drawLine (vec2(1.0 - pb_t_line, new_t_line_v), vec2(1.0 - pb_t_line, 1.0 - new_t_line_v))));
+				guide_alpha += vec3(max(drawLine(vec2(pb_t_line, new_t_line_v ), vec2(1.0 - pb_t_line, new_t_line_v )), drawLine (vec2(pb_t_line, 1.0 - new_t_line_v), vec2(1.0 - pb_t_line, 1.0 - new_t_line_v))));
+		
+			} else {
+			
+// draw relatvie action safe
+			guide_alpha += vec3(max(drawLine(vec2(new_aline_v, new_line_h), vec2(1.0 - new_aline_v, new_line_h)), drawLine (vec2(new_aline_v, 1.0 - new_line_h), vec2(1.0 - new_aline_v, 1.0 - new_line_h))));
+			guide_alpha += vec3(max(drawLine(vec2(new_aline_v, new_line_h), vec2(new_aline_v, 1.0 - new_line_h)), drawLine (vec2(1.0 - new_aline_v, new_line_h), vec2(1.0 - new_aline_v, 1.0 - new_line_h))));
+// draw relative title safe
+			guide_alpha += vec3(max(drawLine(vec2(new_t_line_v, new_t_line_h), vec2(1.0 - new_t_line_v, new_t_line_h)), drawLine (vec2(new_t_line_v, 1.0 - new_t_line_h), vec2(1.0 - new_t_line_v, 1.0 - new_t_line_h))));
+			guide_alpha += vec3(max(drawLine(vec2(new_t_line_v, new_t_line_h), vec2(new_t_line_v, 1.0 - new_t_line_h)), drawLine (vec2(1.0 - new_t_line_v, new_t_line_h), vec2(1.0 - new_t_line_v, 1.0 - new_t_line_h))));
+			
+		}
+		
+		} else {
+// draw action safe
+			guide_alpha += vec3(max(drawLine(vec2(0.05, 0.05), vec2(0.05, 0.95)), drawLine (vec2(0.95, 0.05), vec2(0.95, 0.95))));
+			guide_alpha += vec3(max(drawLine(vec2(0.05, 0.05), vec2(0.95, 0.05)), drawLine (vec2(0.05, 0.95), vec2(0.95, 0.95))));
 	
 // draw title safe
-		guide_alpha += vec3(max(drawLine(vec2(0.1, 0.1), vec2(0.1, 0.9)), drawLine (vec2(0.9, 0.1), vec2(0.9, 0.9))));
-		guide_alpha += vec3(max(drawLine(vec2(0.1, 0.1), vec2(0.9, 0.1)), drawLine (vec2(0.1, 0.9), vec2(0.9, 0.9))));
+			guide_alpha += vec3(max(drawLine(vec2(0.1, 0.1), vec2(0.1, 0.9)), drawLine (vec2(0.9, 0.1), vec2(0.9, 0.9))));
+			guide_alpha += vec3(max(drawLine(vec2(0.1, 0.1), vec2(0.9, 0.1)), drawLine (vec2(0.1, 0.9), vec2(0.9, 0.9))));
+		}
 	}
+	
+	
+	
 	
 //  frame counter
 	if ( counter )
 	{
 		vec2 vFontSize = vec2(8.0 * size, 15.0 * size);
-		float fValue2 = adsk_time;
+
+		if ( t_offset )
+			time = adsk_time + offset;
+
+		float fValue2 = time;
+
 		float fDigits = 7.0;
 		float fDecimalPlaces = 0.0;
 		float fIsDigit2 = PrintValue(position*resolution, vFontSize, fValue2, fDigits, fDecimalPlaces);

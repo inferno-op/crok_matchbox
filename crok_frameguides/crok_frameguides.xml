@@ -16,6 +16,7 @@ Letterbox Line
 Guides
  - Colour: colour of the guidelines
  - Blend: opacity of the guidelines
+ - Relative to Letterbox: adjust the guidelines in relation to the Letterbox 
  
 Center
  - Colour: colour of the center cross
@@ -24,6 +25,7 @@ Center
 Counter
  - Position: adjust the position of the framecounter
  - Size: adjust the size of the framecounter
+ - Offset: offsets the framecounter  
  
  
 Demo clip: http://vimeo.com/107916855
@@ -65,7 +67,7 @@ Matchbox version by Kyle, Miles, Lewis and Ivar" Name="crok frameguides">
       </Uniform>
 
 
-      <Uniform Row="0" Col="2" Page="0" Default="True" Tooltip="" DisplayName="Enable" Type="bool" Name="guides">
+      <Uniform Row="0" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Enable" Type="bool" Name="guides">
       </Uniform>
       <Uniform Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Colour" ValueType="Colour" Type="vec3" Name="tint_action">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
@@ -75,11 +77,13 @@ Matchbox version by Kyle, Miles, Lewis and Ivar" Name="crok frameguides">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
          </SubUniform>
       </Uniform>
-      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Blend" Type="float" Name="guide_blend">
+      <Uniform Row="2" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Relative to Letterbox" Type="bool" Name="relative_guide">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Blend" Type="float" Name="guide_blend">
       </Uniform>
 
 	  
-      <Uniform Row="0" Col="3" Page="0" Default="True" Tooltip="" DisplayName="Center" Type="bool" Name="center">
+      <Uniform Row="0" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Enable" Type="bool" Name="center">
       </Uniform>
       <Uniform Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Colour" ValueType="Colour" Type="vec3" Name="tint_center">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
@@ -93,7 +97,7 @@ Matchbox version by Kyle, Miles, Lewis and Ivar" Name="crok frameguides">
       </Uniform>
 
 	  
-      <Uniform Row="0" Col="0" Page="1" Default="True" Tooltip="" DisplayName="Frame Counter" Type="bool" Name="counter">
+      <Uniform Row="0" Col="0" Page="1" Default="False" Tooltip="" DisplayName="Enable" Type="bool" Name="counter">
       </Uniform>
       <Uniform Inc="0.010" Tooltip="" Row="1" Col="0" Page="1" DisplayName="Position" Type="vec2" Name="position">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.9">
@@ -102,6 +106,10 @@ Matchbox version by Kyle, Miles, Lewis and Ivar" Name="crok frameguides">
          </SubUniform>
       </Uniform>
       <Uniform ResDependent="Width" Max="10.0" Min="1.0" Default="2.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="1" DisplayName="Size" Type="float" Name="size">
+      </Uniform>
+      <Uniform Row="0" Col="1" Page="1" Default="False" Tooltip="" DisplayName="Enable" Type="bool" Name="t_offset">
+      </Uniform>
+	  <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1000.0" Inc="1.0" Tooltip="" Row="1" Col="1" Page="1" DisplayName="offset" Type="float" Name="offset">
       </Uniform>
    </Shader>
 
@@ -116,7 +124,9 @@ Matchbox version by Kyle, Miles, Lewis and Ivar" Name="crok frameguides">
       </Col>
    </Page>
    <Page Name="Frame Counter" Page="1">
-      <Col Name="Setup" Col="0" Page="1">
+      <Col Name="Translation / Size" Col="0" Page="1">
+      </Col>
+      <Col Name="Offset" Col="1" Page="1">
       </Col>
    </Page>
 </ShaderNodePreset>
