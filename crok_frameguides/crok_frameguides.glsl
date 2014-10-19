@@ -1,3 +1,4 @@
+#version 120
 // Shader written by:   Kyle, Miles, Lewis & Ivar
 
 uniform sampler2D Source;
@@ -25,7 +26,7 @@ float p = (a + b + c) * 0.5;
 float h = 2. / c * sqrt( p * ( p - a) * ( p - b) * ( p - c));
 
 
-return mix(1.0, 0.0, smoothstep(0.5 * Thickness * 0.001  , 1.5 * Thickness * 0.001, h * adsk_Source_frameratio));
+return mix(1.0, 0.0, smoothstep(0.5 * Thickness * 0.001  , 1.5  * Thickness * 0.001, h * adsk_Source_frameratio));
 }
 
 // https://www.shadertoy.com/view/4sf3RN
