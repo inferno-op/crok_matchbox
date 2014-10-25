@@ -221,7 +221,7 @@ void main() {
 		
 		vec3 match = vec3(0.0,0.0,0.0);
 		float best_dot = 8.0;
-
+	
 		for (int c6=15;c6>=0;c6--) 
 	{
 		float this_dot = distance(c64col[c6]/255.0, col);
