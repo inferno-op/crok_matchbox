@@ -1,0 +1,50 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Description="
+This Matchbox shader simulates an exposure node, which isn't THAT precise ;)
+For creative use only !
+
+Input:
+- Front: source clip
+
+Setup:
+- Overall: overall exposure adjustment
+- RGB: single RGB exposure adjustment
+- Input Data Type: Linear | Video/Rec709 | Logarithmic
+
+
+Demo clip: http://vimeo.com/110009669
+
+Matchbox version by ivar@inferno-op.com" Name="crok exposure">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Source" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="source">
+      </Uniform>
+
+	 <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Overall" Type="float" Name="expo_o">
+     </Uniform>
+	  
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Red" Type="float" Name="expo_r">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Green" Type="float" Name="expo_g">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Blue" Type="float" Name="expo_b">
+      </Uniform>
+
+      <Uniform Name="encoding" Type="int"  ValueType="Popup" DisplayName="Selection" Page="0" Col="2" Row="0" Tooltip="" Default="2" >
+        <PopupEntry Title="Linear" Value="0">
+        </PopupEntry>
+        <PopupEntry Title="Video" Value="1">
+        </PopupEntry>
+        <PopupEntry Title="Logarithmic" Value="2">
+        </PopupEntry>
+     </Uniform>
+	 
+	  
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Overall Exposure" Col="0" Page="0">
+      </Col>
+      <Col Name="RGB Exposure" Col="1" Page="0">
+      </Col>
+      <Col Name="Input Data Type" Col="2" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
