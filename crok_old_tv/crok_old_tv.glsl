@@ -28,7 +28,6 @@ uniform float tv_dots_blend;
 uniform float bw_soft;
 uniform float bw_threshold;
 
-//uniform float tv_crt_pixel_size;
 uniform bool vhs_bars;
 uniform bool vhs_stripes;
 uniform bool moire;
@@ -38,7 +37,9 @@ uniform bool tv_tube_lines;
 uniform bool tube_moire;
 uniform bool rgb_offset;
 uniform bool b_w;
-//uniform bool tv_crt_pixels;
+uniform bool vcr_distortion;
+uniform bool slow_scan, scanline_scan, tube_distortion, scanline_distort;
+
 uniform vec3 monochrome;
 
 
@@ -67,9 +68,11 @@ float ramp(float y, float start, float end)
 	return (1.-fact) * inside;
 }
 
-float scanline(vec2 uv) {
+float scanline(vec2 uv) 
+{
 	return sin(iResolution.y * uv.y * pScanline - iGlobalTime * 10.0);
 }
+
 float slowscan(vec2 uv) {
 	return sin(iResolution.y * uv.y * pSlowscan + iGlobalTime * 6.0);
 }
@@ -85,10 +88,6 @@ vec2 crt(vec2 coord, float bend)
 	return coord;
 }
 
-vec2 colorshift(vec2 uv, float amount, float rand) 
-{
-	return vec2(uv.x + amount * pColorshift_x * .05 * sin (iGlobalTime * rand * .9), uv.y + amount * pColorshift_y * .04 * sin (iGlobalTime * rand * .7));
-}
 
 vec2 scandistort(vec2 uv) {
 	float scan1 = clamp(cos(uv.y * speed + iGlobalTime*timer), 0.0, 1.0);
@@ -97,6 +96,35 @@ vec2 scandistort(vec2 uv) {
 	uv.x -= pDistort * mix(texture2D(iChannel0, vec2(uv.x, amount)).r * amount, amount, 0.9);
 	return uv;
 }
+
+
+// added today
+float onOff(float a, float b, float c)
+{
+	return step(c, sin(iGlobalTime + a*cos(iGlobalTime*b)));
+}
+
+vec3 getVideo(vec2 uv)
+{
+	vec2 look = uv;
+	float window = 1./(1.+20.*(look.y-mod(iGlobalTime/4.,1.))*(look.y-mod(iGlobalTime/4.,1.)));
+	look.x = look.x + sin(look.y*10. + iGlobalTime)/50.*onOff(4.,4.,.3)*(1.+cos(iGlobalTime*80.))*window;
+	float vShift = 0.4*onOff(2.,3.,.9)*(sin(iGlobalTime)*sin(iGlobalTime*20.) + 
+										 (0.5 + 0.1*sin(iGlobalTime*200.)*cos(iGlobalTime)));
+	look.y = mod(look.y + vShift, 1.);
+	vec3 video = vec3(texture2D(iChannel0,look));
+	return video;
+}
+
+vec2 screenDistort(vec2 uv)
+{
+	uv -= vec2(.5,.5);
+	uv = uv*1.2*(1./1.2+2.*uv.x*uv.x*uv.y*uv.y);
+	uv += vec2(.5,.5);
+	return uv;
+}
+
+// end added today
  
 float vignette(vec2 uv) {
 	uv = (uv - 0.5) * 0.98;
@@ -114,41 +142,32 @@ void main(void)
 	vec2 uv = gl_FragCoord.xy / iResolution.xy;
 	vec2 uv2 = gl_FragCoord.xy / iResolution.xy*2.-1.;
 	vec2 uv3 = gl_FragCoord.xy / iResolution.xy*2.-1.;
-	vec2 sd_uv = scandistort(uv);
-	vec2 crt_uv = crt(sd_uv, 2.0);
-	vec4 color;
-
-	if ( rgb_offset )
-	{
-	color.r = texture2D(iChannel0, crt(colorshift(sd_uv, rand(0.025)* .1 * pColorshift_x, 1.0), 2.0)).r;
-	color.g = texture2D(iChannel0, crt(colorshift(sd_uv, rand(0.01)* .1 * pColorshift_x, 1.0), 2.0)).g;
-	color.b = texture2D(iChannel0, crt(colorshift(sd_uv, rand(0.024)* .1 * pColorshift_x, 1.0), 2.0)).b;	
-	}
-
-	else
-		
-		color.r = texture2D(iChannel0, crt(colorshift(sd_uv, 0.0, 1.0), 2.0)).r;
-		color.g = texture2D(iChannel0, crt(colorshift(sd_uv, 0.0, 1.0), 2.0)).g;
-		color.b = texture2D(iChannel0, crt(colorshift(sd_uv, 0.0, 1.0), 2.0)).b;	
-		
-		
-	vec4 scanline_color = vec4(scanline(crt_uv));
-	vec4 slowscan_color = vec4(slowscan(crt_uv));
-
-	if ( b_w )
-	{
-		float bw_s = 1.2 * 1.0 / bw_soft / 2.0;
-		float bw_t_a = 0.4 * 1.0 / bw_threshold - bw_s;
-		float bw_t_b = 0.4 * 1.0 / bw_threshold + bw_s;
 	
-		vec4 tx = texture2D(iChannel0, crt_uv);
-		float l = (tx.x + tx.y + tx.z) / 3.0;
-		float v = smoothstep(bw_t_a, bw_t_b, l);
-		color = vec4(v);
-		color *= vec4(monochrome, 1.0);
+	vec2 sd_uv = uv;
+	if ( scanline_distort )
+		sd_uv = scandistort(uv);
+	
+	vec2 crt_uv = sd_uv;
+	
+	if ( tube_distortion )
+		crt_uv = crt(sd_uv, 2.0);
+	
+	vec4 color = texture2D(iChannel0, crt_uv).rgba;
+	vec4 scanline_color = color;
+	vec4 slowscan_color = color;
+	
+	if ( vcr_distortion )
+	{
+		color = vec4(getVideo(crt_uv), 1.0);
+	}	
+	
+	if ( scanline_scan )
+		scanline_color = vec4(scanline(crt_uv));
+	
+	if ( slow_scan )
+		slowscan_color = vec4(slowscan(crt_uv));
 
-
-	}
+	
 	if(tube_moire)
 		{
 		color*=1.00+tv_dots_blend*.2*sin(crt_uv.x*float(iResolution.x*5.0*tv_dots));
@@ -174,6 +193,7 @@ void main(void)
 		color.g*=(.55+abs(.5-mod(crt_uv.y+.007,.021)/.021) * tv_lines_opacity) *1.2;
 		color.b*=(.55+abs(.5-mod(crt_uv.y+.014,.021)/.021) * tv_lines_opacity) *1.2;
 	}
-
-		gl_FragColor = mix(color, mix(scanline_color, slowscan_color, 0.5), 0.05);
+	
+		
+	gl_FragColor = mix(color, mix(scanline_color, slowscan_color, 0.5), 0.05);
 }

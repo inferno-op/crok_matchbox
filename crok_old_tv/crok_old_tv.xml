@@ -21,7 +21,7 @@ Setup:
 - Bars: add VHS Bars 
 - TV Tube Dots: add CRT style pattern
 - Moire: add moire style noise
-- Colorshift: colour offset
+- VCR Distortion: add a vcr distortion like effect
 - Monochrome: convert to monochrome 
 
 Demo clip: http://vimeo.com/82188245
@@ -38,16 +38,15 @@ This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAl
 
 Matchbox version by ivar@inferno-op.com" Name="crok old tv">
    <Shader OutputBitDepth="Output" Index="1">
-      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.01" Inc="0.005" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Slowscan" Type="float" Name="pSlowscan">
+      <Uniform Row="0" Col="0" Page="0" Default="True" Tooltip="" DisplayName="Enable Slow Scan" Type="bool" Name="slow_scan">
       </Uniform>
-      <Uniform ResDependent="None" Max="2.0" Min="0.0" Default="0.6" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Scanlines" Type="float" Name="pScanline">
+	  <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.01" Inc="0.005" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Slowscan" Type="float" Name="pSlowscan">
       </Uniform>
-	  <Uniform Row="2" Col="0" Page="0" Default="False" Tooltip="Enable / Disable TV Lines" DisplayName="Add TV Lines" Type="bool" Name="tv_tube_lines">
-	  </Uniform>
-      <Uniform ResDependent="None" Max="10.0" Min="0.01" Default="2.5" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Lines" Type="float" Name="tv_lines">
+      <Uniform Row="2" Col="0" Page="0" Default="True" Tooltip="" DisplayName="Enable Scanlines" Type="bool" Name="scanline_scan">
       </Uniform>
-	  <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.1" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Opacity" Type="float" Name="tv_lines_opacity">
+      <Uniform ResDependent="None" Max="2.0" Min="0.0" Default="0.6" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Scanlines" Type="float" Name="pScanline">
       </Uniform>
+
 
 	  <Uniform Row="0" Col="1" Page="0" Default="True" Tooltip="Enable / Disable Vignette" DisplayName="Add Vignette" Type="bool" Name="add_vignette">
 	  </Uniform>      
@@ -65,16 +64,15 @@ Matchbox version by ivar@inferno-op.com" Name="crok old tv">
       <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="2.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Gain" Type="float" Name="pGrainsize">
       </Uniform>
 
-      <Uniform ResDependent="None" Max="5.0" Min="0.0" Default="0.03" Inc="0.01" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Scanline Distort" Type="float" Name="pDistort">
+      <Uniform Row="0" Col="3" Page="0" Default="True" Tooltip="" DisplayName="Add Scanline Distortion" Type="bool" Name="scanline_distort">
       </Uniform>
-      <Uniform ResDependent="None" Max="5.0" Min="0.0" Default="0.85" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Frequency" Type="float" Name="timer">
+	  <Uniform ResDependent="None" Max="5.0" Min="0.0" Default="0.03" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Scanline Distort" Type="float" Name="pDistort">
       </Uniform>
-      <Uniform ResDependent="None" Max="5.0" Min="1.0" Default="2.0" Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="Speed" Type="float" Name="speed">
+      <Uniform ResDependent="None" Max="5.0" Min="0.0" Default="0.85" Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="Frequency" Type="float" Name="timer">
       </Uniform>
-      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Tube Distortion" Type="float" Name="Distort">
+      <Uniform ResDependent="None" Max="5.0" Min="1.0" Default="2.0" Inc="0.01" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Speed" Type="float" Name="speed">
       </Uniform>
-      <Uniform ResDependent="None" Max="10.0" Min="1.0" Default="1.06" Inc="0.01" Tooltip="" Row="4" Col="3" Page="0" DisplayName="Scale" Type="float" Name="Scale">
-      </Uniform>
+
       
       <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="iChannel0">
       </Uniform>
@@ -104,27 +102,24 @@ Matchbox version by ivar@inferno-op.com" Name="crok old tv">
       <Uniform ResDependent="None" Max="100.0" Min="0.01" Default="0.15" Inc="0.001" Tooltip="" Row="2" Col="2" Page="1" DisplayName="Scale" Type="float" Name="moire_scale">
       </Uniform>         
 
-	  <Uniform Row="0" Col="3" Page="1" Default="True" Tooltip="Enable / Disable RGB Offset" DisplayName="Add RGB Offset" Type="bool" Name="rgb_offset">
+      <Uniform Row="0" Col="3" Page="1" Default="False" Tooltip="" DisplayName="Add VCR Distortion" Type="bool" Name="vcr_distortion">
+      </Uniform>
+	  
+	  
+	  <Uniform Row="0" Col="0" Page="2" Default="True" Tooltip="Enable Tube Distortion" DisplayName="Add CRT Distortion" Type="bool" Name="tube_distortion">
 	  </Uniform>
-      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="3" Page="1" DisplayName="Colorshift X" Type="float" Name="pColorshift_x">
+      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="2" DisplayName="Tube Distortion" Type="float" Name="Distort">
       </Uniform>
-      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="3" Page="1" DisplayName="Colorshift Y" Type="float" Name="pColorshift_y">
+      <Uniform ResDependent="None" Max="10.0" Min="1.0" Default="1.06" Inc="0.01" Tooltip="" Row="2" Col="0" Page="2" DisplayName="Scale" Type="float" Name="Scale">
       </Uniform>
-      
-	  <Uniform Row="0" Col="0" Page="2" Default="False" Tooltip="Enable / Disable Monochrome" DisplayName="Add Monochrome" Type="bool" Name="b_w">
+	  
+	  <Uniform Row="0" Col="1" Page="2" Default="False" Tooltip="Enable / Disable TV Lines" DisplayName="Add TV Lines" Type="bool" Name="tv_tube_lines">
 	  </Uniform>
-      <Uniform Inc="0.01" Tooltip="" Row="1" Col="0" Page="2" DisplayName="Colour" ValueType="Colour" Type="vec3" Name="monochrome">
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         </SubUniform>
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         </SubUniform>
-         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
-         </SubUniform>
+      <Uniform ResDependent="None" Max="10.0" Min="0.01" Default="2.5" Inc="0.01" Tooltip="" Row="1" Col="1" Page="2" DisplayName="Lines" Type="float" Name="tv_lines">
       </Uniform>
-      <Uniform ResDependent="None" Max="10.0" Min="0.01" Default="1.00" Inc="0.01" Tooltip="" Row="2" Col="0" Page="2" DisplayName="Contrast" Type="float" Name="bw_soft">
+	  <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.1" Tooltip="" Row="2" Col="1" Page="2" DisplayName="Opacity" Type="float" Name="tv_lines_opacity">
       </Uniform>
-      <Uniform ResDependent="None" Max="3.0" Min="0.0" Default="1.00" Inc="0.01" Tooltip="" Row="3" Col="0" Page="2" DisplayName="Brightness" Type="float" Name="bw_threshold">
-      </Uniform>
+	  
       
    </Shader>
    <Page Name="Page 1" Page="0">
@@ -144,11 +139,13 @@ Matchbox version by ivar@inferno-op.com" Name="crok old tv">
       </Col>
       <Col Name="Moire" Col="2" Page="1">
       </Col>
-      <Col Name="Colour Shifts" Col="3" Page="1">
-      </Col>  
+      <Col Name="VCR Distortion" Col="3" Page="1">
+      </Col>
     </Page>
     <Page Name="Page 3" Page="2">
-      <Col Name="Monochrome" Col="0" Page="2">
+      <Col Name="CRT Distortion" Col="0" Page="2">
+      </Col>
+      <Col Name="TV Lines" Col="1" Page="2">
       </Col>
    </Page>
 </ShaderNodePreset>
