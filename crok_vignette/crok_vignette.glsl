@@ -2,14 +2,16 @@ uniform sampler2D Source;
 uniform float adsk_result_w, adsk_result_h;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 
-uniform float radius, softness, blend;
+uniform float radius, softness, blend, aspect;
 uniform vec3 v_color;
 uniform bool organic;
+uniform vec2 center;
 
 void main( void ) 
 {
     vec2 uv = gl_FragCoord.xy / resolution.xy;
-	vec2 center = 2.0 * ((gl_FragCoord.xy / resolution.xy) - 0.5);
+	vec2 center = (2.0 * ((gl_FragCoord.xy / resolution.xy) - 0.25) - center);
+	center.x = center.x  / aspect;
 	vec3 original = texture2D(Source, uv).rgb;
 	vec3 tint_col = v_color * original;
 	
