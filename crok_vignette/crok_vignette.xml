@@ -11,6 +11,8 @@ Setup:
 - Radius: Radius of the vignette
 - Softness: softness of the vignette
 - Blend: strenght of the vignette effect
+- Center: vignette center position
+- Aspect: Aspect ratio of the vignette
 
 Demo clip: http://vimeo.com/110702478
 
