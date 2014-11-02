@@ -13,7 +13,8 @@ Setup:
 - Vignette softness: softness of the vignette
 - Vignette scale: scale of the vignette
 - TV Tube Vignette: add TV boarder around image
-- Noise opacity: opacity of the noise
+- Noise Strenght: opacity of the noise
+- Noise Saturation: color saturation of the noise
 - Distort: distort the incoming image
 - Frequency: frequency of the distort effect
 - Speed: how fast the distortion is running through the image
@@ -60,7 +61,9 @@ Matchbox version by ivar@inferno-op.com" Name="crok old tv">
       
       <Uniform Row="0" Col="2" Page="0" Default="True" Tooltip="" DisplayName="Add Noise" Type="bool" Name="pAddGrain">
       </Uniform>
-      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="2.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Gain" Type="float" Name="pGrainsize">
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Saturation" Type="float" Name="g_saturation">
+      </Uniform>
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="5.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Strength" Type="float" Name="grain_opacity">
       </Uniform>
 
       <Uniform Row="0" Col="3" Page="0" Default="True" Tooltip="" DisplayName="Add Scanline Distortion" Type="bool" Name="scanline_distort">

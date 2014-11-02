@@ -8,7 +8,8 @@ uniform float pColorshift_y;
 uniform float pVignettessoftness;
 uniform float pVignettescale;
 uniform bool pAddGrain;
-uniform float pGrainsize;
+uniform float grain_opacity;
+uniform float g_saturation;
 uniform float pFrequency;
 uniform float pDistort;
 uniform float timer;
@@ -50,12 +51,34 @@ float rand(vec2 co){
     return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
 }
 
-float noise(vec2 p)
-{
-	float sample = texture2D(iChannel0,vec2(1.,2.*cos(iGlobalTime))*iGlobalTime*8. + p*1.).x;
-	sample *= sample;
-	return sample;
+
+vec3 noise(vec2 uv) {
+	vec2 c = (iResolution.x)*vec2(1.,(iResolution.y/iResolution.x));
+	vec3 col = vec3(0.0);
+	uv.y = uv.y;
+   	float r = rand(vec2((2.+iGlobalTime) * floor(uv.x*c.x)/c.x, (2.+iGlobalTime) * floor(uv.y*c.y)/c.y ));
+   	float g = rand(vec2((5.+iGlobalTime) * floor(uv.x*c.x)/c.x, (5.+iGlobalTime) * floor(uv.y*c.y)/c.y ));
+   	float b = rand(vec2((9.+iGlobalTime) * floor(uv.x*c.x)/c.x, (9.+iGlobalTime) * floor(uv.y*c.y)/c.y ));
+
+	col = vec3(r,g,b);
+
+	return col;
 }
+
+float overlay( float s, float d )
+{
+	return (d < 0.5) ? 2.0 * s * d : 1.0 - 2.0 * (1.0 - s) * (1.0 - d);
+}
+
+vec3 overlay( vec3 s, vec3 d )
+{
+	vec3 c;
+	c.x = overlay(s.x,d.x);
+	c.y = overlay(s.y,d.y);
+	c.z = overlay(s.z,d.z);
+	return c;
+}
+
 
 float rand(float c){
 	return rand(vec2(c,1.0));
@@ -142,6 +165,8 @@ void main(void)
 	vec2 uv = gl_FragCoord.xy / iResolution.xy;
 	vec2 uv2 = gl_FragCoord.xy / iResolution.xy*2.-1.;
 	vec2 uv3 = gl_FragCoord.xy / iResolution.xy*2.-1.;
+	vec3 grain = noise(uv);
+	vec3 grau = vec3 (0.5);
 	
 	vec2 sd_uv = uv;
 	if ( scanline_distort )
@@ -180,8 +205,13 @@ void main(void)
 		color *= (12. + mod(crt_uv.y * bars_count + iGlobalTime,1.))/13.;
 	if ( moire )
 		color *= (.45+(rand(crt_uv * .01 * moire_scale)) * opacity_moire);
-    if ( pAddGrain )
-        color *= (.8+(rand(crt_uv * iGlobalTime)-.2)*.15*pGrainsize);
+	if ( pAddGrain ) 	
+	{
+		grain = mix(grau, grain, grain_opacity * .1);
+		vec3 bw_grain = vec3(grain.r);
+		grain = mix(bw_grain, grain, g_saturation);
+		color = vec4(overlay(grain, vec3(color)), 1.0);
+	}
 	if ( add_vignette )
 		color *= vignette(uv);
 	if ( tv_tube_vignette )
