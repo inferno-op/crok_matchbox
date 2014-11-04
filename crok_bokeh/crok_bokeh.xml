@@ -1,10 +1,11 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1.1" Description="
 This Matchbox shader creates a bokeh blur.
 
 Input:
 - Front: source clip
 
 Setup:
+- Style: select different bokeh styles
 - Size: blur size
 - Gain: adjust the gain of the image, to get better highligths
 - Steps: blur resolution
@@ -16,14 +17,32 @@ Based on: https://www.shadertoy.com/view/4d2Xzw by David Hoskins
 
 Matchbox version by ivar@inferno-op.com" Name="crok bokeh">
    <Shader OutputBitDepth="Output" Index="1">
-       <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="iChannel0" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="source">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Source" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="source">
        </Uniform>
-      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Size" Type="float" Name="blur">
+       <Uniform Name="style" Type="int"  ValueType="Popup" DisplayName="Style" Page="0" Col="0" Row="0" Tooltip="" Default="0" >
+         <PopupEntry Title="Circle" Value="0">
+         </PopupEntry>
+         <PopupEntry Title="Ring" Value="1">
+         </PopupEntry>
+         <PopupEntry Title="Donut" Value="2">
+         </PopupEntry>
+         <PopupEntry Title="Spiral" Value="3">
+         </PopupEntry>
+         <PopupEntry Title="3 Star" Value="6">
+         </PopupEntry>
+         <PopupEntry Title="5 Star" Value="5">
+         </PopupEntry>
+         <PopupEntry Title="8 Star" Value="4">
+         </PopupEntry>
+     </Uniform>
+
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Size" Type="float" Name="blur">
       </Uniform>
-      <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Gain" Type="float" Name="gain">
+      <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Gain" Type="float" Name="gain">
       </Uniform>
-      <Uniform ResDependent="None" Max="1000.0" Min="1.0" Default="300.0" Inc="1.00" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Steps" Type="float" Name="NUMBER">
+      <Uniform ResDependent="None" Max="1000.0" Min="1.0" Default="300.0" Inc="1.00" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Steps" Type="float" Name="NUMBER">
       </Uniform>
+
    </Shader>
    <Page Name="" Page="0">
       <Col Name="Look" Col="0" Page="0">
