@@ -1,4 +1,5 @@
 #version 120
+#extension GL_ARB_shader_texture_lod : enable
 
 uniform float blur_fg, adsk_result_w, adsk_result_h;
 uniform sampler2D source;
