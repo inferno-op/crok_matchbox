@@ -11,14 +11,14 @@ Setup:
 - Position: light position in x / y
 
 
-Demo clip: http://vimeo.com/110009669
+Demo clip: http://vimeo.com/112310423
 
 Based on https://www.shadertoy.com/view/XdlGz8
 License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 
 Matchbox version by ivar@inferno-op.com" Name="crok emboss">
    <Shader OutputBitDepth="Output" Index="1">
-      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="source">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="source">
       </Uniform>
 
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="10.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Height" Type="float" Name="fNormalScale">
@@ -29,7 +29,6 @@ Matchbox version by ivar@inferno-op.com" Name="crok emboss">
       </Uniform>
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="View Height" Type="float" Name="fViewHeight">
       </Uniform>
-
 
       <Uniform Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Position" Type="vec2" Name="position">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.50">
