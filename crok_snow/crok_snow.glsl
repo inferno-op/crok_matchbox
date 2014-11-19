@@ -6,6 +6,7 @@ uniform int Layers; //50
 uniform float Depth; // .5
 uniform float Wind; // .3
 uniform float Speed; // .6
+uniform float size;
 
 
 vec2 iResolution = vec2(adsk_result_w, adsk_result_h);
@@ -45,17 +46,17 @@ void main(void)
 	float dof = 5.*sin(iGlobalTime*.1);
 	for (int i=0;i<Layers;i++) {
 		float fi = float(i);
-		vec2 q = uv*(1.+fi*Depth);
+		vec2 q = uv*(1.+fi * Depth);
 		q += vec2(q.y*(Wind*mod(fi*7.238917,1.)-Wind*.5),Speed*iGlobalTime/(1.+fi*Depth*.03));
 		vec3 n = vec3(floor(q),31.189+fi);
 		vec3 m = floor(n)*.00001 + fract(n);
 		vec3 mp = (31415.9+m)/fract(p*m);
 		vec3 r = fract(mp);
 		vec2 s = abs(mod(q,1.)-.5+.9*r.xy-.45);
-		s += .01*abs(2.*fract(10.*q.yx)-1.); 
+		s += .01*abs(2. *fract(10.* q.yx)-1.); 
 		float d = .6*max(s.x-s.y,s.x+s.y)+max(s.x,s.y)-.01;
-		float edge = .005+.05*min(.5*abs(fi-5.-dof),1.);
-		acc += vec3(smoothstep(edge,-edge,d)*(r.x/(1.+.02*fi*Depth)));
+		float edge = .005+.05*min(.5 * abs(fi-5.-dof),1.);
+		acc += vec3(smoothstep(edge,-edge,d)*(r.x/(1.0 + size/fi)));
 	}
 	gl_FragColor = vec4(vec3(acc),1.0);
 }
