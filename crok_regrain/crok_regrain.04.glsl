@@ -1,6 +1,6 @@
 uniform float adsk_result_w, adsk_result_h;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
-uniform sampler2D adsk_results_pass3, Source;
+uniform sampler2D adsk_results_pass3, Source, Alpha;
 
 uniform float blend, low, mid, high;
 
@@ -28,6 +28,7 @@ void main(void)
 	vec3 noise = texture2D(adsk_results_pass3, uv).rgb;
 	vec3 col = overlay(noise, front);
     vec3 matte = texture2D(Source, uv).rgb;
+	vec3 alpha = texture2D(Alpha, uv).rgb;
 	vec3 p_level = vec3(0.0, 1.0, 1.0);
 
 // Kodak 5245
@@ -111,6 +112,8 @@ void main(void)
 	}
 
 	vec3 inv_matte = 1.0 - matte;
-	gl_FragColor = vec4(inv_matte * col + (matte) * front , matte);
-
+	vec4 fin_col = vec4(inv_matte * col + (matte) * front , matte);
+	fin_col.rgb = vec3(alpha * fin_col.rgb + (1.0 - alpha) * front);
+	
+	gl_FragColor = vec4(fin_col.rgb, alpha * matte);
 }

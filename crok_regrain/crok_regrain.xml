@@ -1,9 +1,10 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1.1" Description="
 This Matchbox shader simulates film grain.
 
 Input:
 
 - Front: source clip
+- Matte:
 
 Setup:
 
@@ -65,7 +66,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok regrain">
    <Shader OutputBitDepth="Output" Index="2">
       <Uniform ResDependent="None" Max="10.0" Min="1.0" Default="2.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Softness" Type="float" Name="blur">
       </Uniform>
-      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass1">
       </Uniform>
       <Uniform Type="float" Name="size">
          <Duplicate>
@@ -81,13 +82,15 @@ Matchbox version by ivar@inferno-op.com" Name="crok regrain">
          <Duplicate>
          </Duplicate>
       </Uniform>
-	  <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+	  <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass2">
       </Uniform>
    </Shader>
    <Shader OutputBitDepth="Output" Index="4">
-      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Source">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Source" InputType ="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="Source">
       </Uniform>
-      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+      <Uniform Index="1" NoInput="White" Tooltip="" DisplayName="Matte" InputType ="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="Alpha">
+      </Uniform>
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass3">
       </Uniform>
 	  
       <Uniform ResDependent="None" Max="10.0" Min="-5.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Low" Type="float" Name="low"
