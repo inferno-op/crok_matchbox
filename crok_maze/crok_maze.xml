@@ -1,0 +1,35 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates a maze like structure.
+
+Setup:
+- Width: wall width
+- Zoom: zoom in | out of the maze
+- Position: offset the maze position
+
+
+Demo clip: http://vimeo.com/112577354
+
+Based on: http://glslsandbox.com/e#21316.0
+
+Matchbox version by ivar@inferno-op.com" Name="crok maze">
+   <Shader OutputBitDepth="Output" Index="1">
+       <Uniform ResDependent="None" Max="1000000.0" Min="0.501" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Width" Type="float" Name="width">
+       </Uniform>
+
+       <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="6.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Zoom" Type="float" Name="zoom">
+       </Uniform>
+       <Uniform Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Center" Type="vec2" Name="center">
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+          </SubUniform>
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+          </SubUniform>
+       </Uniform>
+
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Style" Col="0" Page="0">
+      </Col>
+      <Col Name="Position" Col="1" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
