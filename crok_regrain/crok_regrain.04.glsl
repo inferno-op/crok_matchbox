@@ -2,7 +2,7 @@ uniform float adsk_result_w, adsk_result_h;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
 uniform sampler2D adsk_results_pass3, Source, Alpha;
 
-uniform float blend, low, mid, high;
+uniform float blend, low, mid, high, gamma;
 
 uniform int stock;
 
@@ -113,6 +113,9 @@ void main(void)
 
 	vec3 inv_matte = 1.0 - matte;
 	vec4 fin_col = vec4(inv_matte * col + (matte) * front , matte);
+	
+	alpha = pow(alpha, vec3(gamma));
+	
 	fin_col.rgb = vec3(alpha * fin_col.rgb + (1.0 - alpha) * front);
 	
 	gl_FragColor = vec4(fin_col.rgb, alpha * matte);
