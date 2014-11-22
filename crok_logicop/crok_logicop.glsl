@@ -15,8 +15,9 @@
 //	~bj.2013
 //	
 uniform sampler2D iChannel0, iChannel1, iChannel2;
-uniform float adsk_result_w, adsk_result_h;
+uniform float adsk_result_w, adsk_result_h, blend;
 uniform int LogicOp;
+uniform bool clamp_color;
 
 // uniform bool idarken,imultiply,icolorBurn,ilinearBurn,idarkerColor,ilighten,iscreen,icolorDodge,ilinearDodge,ilighterColor,ioverlay,isoftLight,ihardLight,ivividLight,ilinearLight,ipinLight,ihardMix,idifference,iexclusion,isubstract,idivide,ihue,icolor,isaturation,iluminosity;
 
@@ -299,6 +300,11 @@ void main(void)
    
    vec3 matte =  vec3( texture2D(iChannel2, uv).rgb);
    vec3 original = vec3( texture2D(iChannel1, uv).rgb);
+   c = mix(original, c, blend);
+   c = vec3(matte * c + (1.0 - matte) * original);
 
-	gl_FragColor = vec4(matte * c + (1.0 - matte) * original , matte);
+   if ( clamp_color )
+	   c = clamp(c, 0.0, 1.0);
+   
+	gl_FragColor = vec4(c, matte);
 }
