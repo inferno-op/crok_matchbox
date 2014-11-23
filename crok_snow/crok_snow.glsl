@@ -21,12 +21,12 @@ float iGlobalTime = adsk_time*.05;
 void main(void)
 {
 	const mat3 p = mat3(13.323122,23.5112,21.71123,21.1212,28.7312,11.9312,21.8112,14.7212,61.3934);
-	vec2 uv = Position.xy * 1000. /iResolution.xy + vec2(1.,iResolution.y/iResolution.x)*gl_FragCoord.xy / iResolution.xy;
+	vec2 uv = (gl_FragCoord.xy / iResolution.xy) - Position;	
 	
 	float c=cos(rot*0.01),si=sin(rot*0.01);
-	uv=(uv-0.5)*mat2(c,si,-si,c);	
+	uv=(vec2(uv.x- .5, uv.y-1.))*mat2(c,si,-si,c);	
 	
-		vec3 acc = vec3(0.0);
+	vec3 acc = vec3(0.0);
 	float dof = 5.*sin(iGlobalTime*.1);
 	for (int i=0;i<Layers;i++) {
 		float fi = float(i);
