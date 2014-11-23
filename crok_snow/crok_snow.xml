@@ -30,7 +30,10 @@ Matchbox version by ivar@inferno-op.com" Name="crok snow">
       </Uniform>
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Size" Type="float" Name="size">
       </Uniform>
-      <Uniform Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Position" Type="vec2" Name="Position">
+	  
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Rotation" Type="float" Name="rot">
+      </Uniform>
+      <Uniform Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Position" Type="vec2" Name="Position">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
          </SubUniform>
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">

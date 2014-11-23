@@ -1,5 +1,4 @@
-uniform float adsk_time;
-uniform float adsk_result_w, adsk_result_h;
+uniform float adsk_time, adsk_result_w, adsk_result_h, rot;
 uniform vec2 Position;
 
 uniform int Layers; //50
@@ -12,9 +11,6 @@ uniform float size;
 vec2 iResolution = vec2(adsk_result_w, adsk_result_h);
 float iGlobalTime = adsk_time*.05;
 
-
-
-
 // Copyright (c) 2013 Andrew Baldwin (twitter: baldand, www: http://thndl.com)
 // License = Attribution-NonCommercial-ShareAlike (http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US)
 
@@ -22,27 +18,15 @@ float iGlobalTime = adsk_time*.05;
 // Simple (but not cheap) snow made from multiple parallax layers with randomly positioned 
 // flakes and directions. Also includes a DoF effect. Pan around with mouse.
 
-/*
-#define LIGHT_SNOW // Comment this out for a blizzard
-
-#ifdef LIGHT_SNOW
-	#define Layers 50
-	#define Depth .5
-	#define Wind .3
-	#define Speed .6
-#else // BLIZZARD
-	#define Layers 200
-	#define Depth .1
-	#define Wind .8
-	#define Speed 1.5
-#endif
-*/
-
 void main(void)
 {
 	const mat3 p = mat3(13.323122,23.5112,21.71123,21.1212,28.7312,11.9312,21.8112,14.7212,61.3934);
 	vec2 uv = Position.xy * 1000. /iResolution.xy + vec2(1.,iResolution.y/iResolution.x)*gl_FragCoord.xy / iResolution.xy;
-	vec3 acc = vec3(0.0);
+	
+	float c=cos(rot*0.01),si=sin(rot*0.01);
+	uv=(uv-0.5)*mat2(c,si,-si,c);	
+	
+		vec3 acc = vec3(0.0);
 	float dof = 5.*sin(iGlobalTime*.1);
 	for (int i=0;i<Layers;i++) {
 		float fi = float(i);
