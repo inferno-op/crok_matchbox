@@ -24,7 +24,6 @@ void main(void)
 	{
     	float s=texture2D(iChannel1,uv*(1.0/i*spacing)+vec2(time)*vec2(0.02,0.501)+vec2(i, i/2.3)).r;
     	col=mix(col,vec3(1.0),smoothstep(0.9,1.0, s * intensity));
-        if(i>layers) break;
 	}
 
 	gl_FragColor = vec4(col,1.0);
