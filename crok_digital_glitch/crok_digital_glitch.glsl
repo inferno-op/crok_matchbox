@@ -162,7 +162,6 @@ void main(void)
     float blend = snoise(vec2(adsk_time*100.0));
     blend = clamp((blend-(1.0-bias))*999999.0, 0.0, opacity);
 	col = mix(original, col, blend);
-	vec3 matte = difference( original, col );
 	
 	if ( drunk_fx )
 	{
@@ -176,6 +175,7 @@ void main(void)
 	    vec3 compo = (tc + tl + tR + tD + tU)/5.;
 		col = mix(col, compo, blend_drunk_fx);
 	}	
+	vec3 matte = difference( original, col );
 	
 	gl_FragColor = vec4(col, matte);
 }
