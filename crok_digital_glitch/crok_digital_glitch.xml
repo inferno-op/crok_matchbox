@@ -12,7 +12,9 @@ Setup:
 - RGB Offset: adjust thr RGB offset
 - Blend: adjust the opacity of the effect
 - Lines Threshold: threshold for the green lines
-- BW Threshold: black and white threshold 
+- BW Threshold: black and white threshold
+- Enable: enable Drunk Vision mode
+- Bias: adjust the time between the effect kicks in (0 = never 1 = always)
 
 
 Demo clip: http://vimeo.com/111442395
