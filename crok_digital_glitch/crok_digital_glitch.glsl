@@ -1,12 +1,12 @@
 #version 120
 
-// based on https://www.shadertoy.com/view/Md2GDw
-// original glsl shader by kusma
+// based on https://www.shadertoy.com/view/Md2GDw and  https://www.shadertoy.com/view/4sBSDd
+// original glsl shader by kusma and bytewave 
 uniform sampler2D Source;
 
 uniform float adsk_time, adsk_result_w, adsk_result_h;
-uniform float g_noise, scale, b_threshold, l_threshold, rgb_offset, bias, opacity;
-
+uniform float g_noise, scale, b_threshold, l_threshold, rgb_offset, bias, opacity, drunk_bias;
+uniform bool drunk_fx;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 float time = adsk_time *.05;
 
@@ -158,11 +158,24 @@ void main(void)
 			mask = vec3(0.0, 0.0, 3.0);
 		col = col.rgb * mask;
 	}
-	
+
     float blend = snoise(vec2(adsk_time*100.0));
     blend = clamp((blend-(1.0-bias))*999999.0, 0.0, opacity);
-	
 	col = mix(original, col, blend);
 	vec3 matte = difference( original, col );
+	
+	if ( drunk_fx )
+	{
+		float blend_drunk_fx = snoise(vec2(adsk_time*150.0));
+	    blend_drunk_fx = clamp((blend_drunk_fx-(1.0-drunk_bias))*999999.0, 0.0, 1.0);
+	    vec3 tc = texture2D(Source,uv).rgb;    
+	    vec3 tl = texture2D(Source, uv - vec2(sin(.05 *n_scale),0.)).rgb;    
+	    vec3 tR = texture2D(Source,uv + vec2(sin(.082 *n_g_noise),0.)).rgb;    
+	    vec3 tD = texture2D(Source,uv - vec2(0.,sin(0.03*n_scale))).rgb;    
+	    vec3 tU = texture2D(Source,uv + vec2(0.,sin(0.02*n_g_noise))).rgb;        
+	    vec3 compo = (tc + tl + tR + tD + tU)/5.;
+		col = mix(col, compo, blend_drunk_fx);
+	}	
+	
 	gl_FragColor = vec4(col, matte);
 }
