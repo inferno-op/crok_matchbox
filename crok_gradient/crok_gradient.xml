@@ -1,0 +1,91 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="This Matchbox creates a gradient effect for your timeline.
+This shader gives you a gradient effect for the timeline.
+
+
+Input:
+- Source: source image 
+
+Setup:
+- Color: different colors being used for the gradient
+- Bias: adjust the ramp of the gradient
+- Blend: dissolve between source and result
+- Direction: select a direction preset
+- Position: adjust the position of the gradients
+- Rotation: rotate the gradient
+
+Demo clip: http://vimeo.com/113095600
+
+Based on https://www.shadertoy.com/view/MsSSDd
+
+Matchbox version by ivar@inferno-op.com" Name="crok gradient">
+   <Shader OutputBitDepth="Output" Index="1">
+	   
+       <Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Color 1" ValueType="Colour" Type="vec3" Name="color1">
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+          </SubUniform>
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+          </SubUniform>
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+          </SubUniform>
+       </Uniform>
+       <Uniform Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Color 2" ValueType="Colour" Type="vec3" Name="color2">
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+          </SubUniform>
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.2">
+          </SubUniform>
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.3">
+          </SubUniform>
+       </Uniform>
+       <Uniform ResDependent="None" Max="0.99" Min="0.01" Default="0.75" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Bias" Type="float" Name="bias">
+       </Uniform>
+	   
+       <Uniform Name="direction" Type="int"  ValueType="Popup" DisplayName="Direction" Page="0" Col="1" Row="0" Tooltip="" Default="2" >
+         <PopupEntry Title="Top Bottom" Value="0">
+         </PopupEntry>
+         <PopupEntry Title="Left Right" Value="1">
+         </PopupEntry>
+         <PopupEntry Title="Bottom Top" Value="2">
+         </PopupEntry>
+         <PopupEntry Title="Right Left" Value="3">
+         </PopupEntry>
+     </Uniform>
+   	<Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Color 1" Type="float" Name="position1">
+       </Uniform>
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="2.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Color 2" Type="float" Name="position2">
+       </Uniform>
+       
+	 
+	 
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="2">
+      <Uniform Index="0" NoInput="White" Tooltip="" DisplayName="Source" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="source">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+	  
+      <Uniform ResDependent="None" Max="2.00" Min="0.00" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Blend" Type="float" Name="blend">
+      </Uniform>
+      <Uniform Name="LogicOp" Type="int"  ValueType="Popup" DisplayName="Output" Page="0" Col="0" Row="4" Tooltip="" Default="1" >
+        <PopupEntry Title="Blend" Value="0">
+        </PopupEntry>
+        <PopupEntry Title="Multiply" Value="1">
+        </PopupEntry>
+        <PopupEntry Title="Add" Value="2">
+        </PopupEntry>
+        <PopupEntry Title="Screen" Value="3">
+        </PopupEntry>
+        <PopupEntry Title="Overlay" Value="4">
+        </PopupEntry>
+    </Uniform>
+	
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.1" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Rotation" Type="float" Name="rot">
+      </Uniform>
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Style" Col="0" Page="0">
+      </Col>
+      <Col Name="Position / Rotation" Col="1" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
