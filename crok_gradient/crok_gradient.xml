@@ -1,4 +1,4 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="This Matchbox creates a gradient effect for your timeline.
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="
 This shader gives you a gradient effect for the timeline.
 
 
@@ -16,6 +16,7 @@ Setup:
 Demo clip: http://vimeo.com/113095600
 
 Based on https://www.shadertoy.com/view/MsSSDd
+License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 
 Matchbox version by ivar@inferno-op.com" Name="crok gradient">
    <Shader OutputBitDepth="Output" Index="1">
