@@ -48,7 +48,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok skin">
    <Shader OutputBitDepth="Output" Index="2">
       <Uniform ResDependent="None" Max="2.0" Min="0.001" Default="0.5" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Sharpness" Type="float" Name="sharpness">
       </Uniform>
-      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
       </Uniform>
    </Shader>
    <Page Name="" Page="0">
