@@ -1,14 +1,12 @@
 #version 120
 
-// based on https://www.shadertoy.com/view/Md2GDw and  https://www.shadertoy.com/view/4sBSDd
-// original glsl shader by kusma and bytewave 
-uniform sampler2D Source;
-
+uniform sampler2D adsk_results_pass1;
 uniform float adsk_time, adsk_result_w, adsk_result_h;
 uniform float g_noise, scale, b_threshold, l_threshold, rgb_offset, bias, opacity, drunk_bias;
-uniform bool drunk_fx;
+uniform bool drunk_fx, horizontal_slice;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 float time = adsk_time *.05;
+
 
 vec3 difference( vec3 s, vec3 d )
 {
@@ -109,7 +107,7 @@ float n_g_noise = rand2(vec2((time), (5.+time) * floor(300.0))) * 3123.0;
 void main(void)
 {
 	vec2 uv = gl_FragCoord.xy / resolution.xy;
-	vec3 original = texture2D(Source, uv).rgb;
+	vec3 original = texture2D(adsk_results_pass1, uv).rgb;
 	vec2 block = floor(gl_FragCoord.xy / vec2(n_scale));
 	vec2 uv_noise = block / vec2(n_g_noise);
 	uv_noise += floor(vec2(time) * vec2(1234.0, 3543.0)) / vec2(64);
@@ -118,10 +116,7 @@ void main(void)
 	float line_thresh = pow(fract(time * 2236.0453), l_threshold);
 	vec2 uv_r = uv, uv_g = uv, uv_b = uv;
 
-	// glitch some blocks and lines
-	// if (texture2D(Noise, uv_noise).r < block_thresh ||
 	if (d_noise.r < block_thresh ||
-		//texture2D(Noise, vec2(uv_noise.y, 0.0)).g < line_thresh) {
 		rand1(vec2(uv_noise.y, 0.0)).g < line_thresh)
 	{
 		vec2 dist = (fract(uv_noise) - 0.5) * 0.3;
@@ -129,25 +124,19 @@ void main(void)
 		uv_g += dist * 0.02 * rgb_offset;
 		uv_b += dist * 0.0125 * rgb_offset;
 	}
-	gl_FragColor.r = texture2D(Source, uv_r).r;
-	gl_FragColor.g = texture2D(Source, uv_g).g;
-	gl_FragColor.b = texture2D(Source, uv_b).b;
+	gl_FragColor.r = texture2D(adsk_results_pass1, uv_r).r;
+	gl_FragColor.g = texture2D(adsk_results_pass1, uv_g).g;
+	gl_FragColor.b = texture2D(adsk_results_pass1, uv_b).b;
 
 	vec3 col = gl_FragColor.rgb;
-	// loose luma for some blocks
-	// if (texture2D(Noise, uv_noise).g < block_thresh)
+
 	if (d_noise.g < block_thresh)
 		col.rgb = col.ggg;
 
-	// discolor block lines
-	// if (texture2D(Noise, vec2(uv_noise.y, 0.0)).b * 3.5 < line_thresh)
 	if (rand1(vec2(uv_noise.y, 0.0)).b * 3.5 < line_thresh)
 		col.rgb = vec3(0.0, dot(col.rgb, vec3(1.0)), 0.0);
 
-	// interleave lines in some blocks
-	// if (texture2D(Noise, uv_noise).g * 1.5 < block_thresh ||
 	if (d_noise.g * 1.5 < block_thresh ||
-	//	texture2D(Noise, vec2(uv_noise.y, 0.0)).g * 2.5 < line_thresh) {
 		rand1(vec2(uv_noise.y, 0.0)).g * 2.5 < line_thresh ) 
 	{
 		float line = fract(gl_FragCoord.y / 3.0);
@@ -167,14 +156,16 @@ void main(void)
 	{
 		float blend_drunk_fx = snoise(vec2(adsk_time*150.0));
 	    blend_drunk_fx = clamp((blend_drunk_fx-(1.0-drunk_bias))*999999.0, 0.0, 1.0);
-	    vec3 tc = texture2D(Source,uv).rgb;    
-	    vec3 tl = texture2D(Source, uv - vec2(sin(.05 *n_scale),0.)).rgb;    
-	    vec3 tR = texture2D(Source,uv + vec2(sin(.082 *n_g_noise),0.)).rgb;    
-	    vec3 tD = texture2D(Source,uv - vec2(0.,sin(0.03*n_scale))).rgb;    
-	    vec3 tU = texture2D(Source,uv + vec2(0.,sin(0.02*n_g_noise))).rgb;        
+	    vec3 tc = texture2D(adsk_results_pass1,uv).rgb;    
+	    vec3 tl = texture2D(adsk_results_pass1, uv - vec2(sin(.05 *n_scale),0.)).rgb;    
+	    vec3 tR = texture2D(adsk_results_pass1,uv + vec2(sin(.082 *n_g_noise),0.)).rgb;    
+	    vec3 tD = texture2D(adsk_results_pass1,uv - vec2(0.,sin(0.03*n_scale))).rgb;    
+	    vec3 tU = texture2D(adsk_results_pass1,uv + vec2(0.,sin(0.02*n_g_noise))).rgb;        
 	    vec3 compo = (tc + tl + tR + tD + tU)/5.;
 		col = mix(col, compo, blend_drunk_fx);
 	}	
+
+	
 	vec3 matte = difference( original, col );
 	
 	gl_FragColor = vec4(col, matte);
