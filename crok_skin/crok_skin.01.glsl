@@ -6,8 +6,8 @@ uniform float adsk_result_w, adsk_result_h;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 
 uniform int octaves;
-uniform float persistence, zoom_small, zoom_large, seed, contrast, sharpness, blend, overall_zoom;
-uniform vec3 tint;
+uniform float persistence, zoom_small, zoom_large, seed, contrast, sharpness, blend, overall_zoom, large_blend;
+uniform vec3 tint, large_tint;
 #define PI 3.14159265
 #define octaves 10
 #define persistence 0.76
@@ -181,8 +181,10 @@ void main( void )
 	vec3 col = mix(vec3(0.5), vec3(noise), contrast);
 	col =  overlay(col, tint);
 	
-    float voronoi = fbm( Zoom / zoom_large * 2.*uv / overall_zoom);
-	col = mix(col, overlay(vec3(voronoi), col), blend* .2);
+    vec3 voronoi = vec3(fbm( Zoom / zoom_large * 2.*uv / overall_zoom));
+	//col = mix(large_tint, vec3(voronoi), contrast);
+	voronoi = mix(large_tint, voronoi, large_blend);
+	col = mix(col, overlay(voronoi, col), blend* .2);
 		
 	
 	gl_FragColor = vec4( col, voronoi );

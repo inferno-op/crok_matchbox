@@ -32,6 +32,17 @@ Matchbox version by ivar@inferno-op.com" Name="crok skin">
           <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.493">
           </SubUniform>
        </Uniform>
+ 
+	   <Uniform Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Color" ValueType="Colour" Type="vec3" Name="large_tint">
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default=".494">
+          </SubUniform>
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.230">
+          </SubUniform>
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.493">
+          </SubUniform>
+       </Uniform>
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="large_blend" Type="float" Name="large_blend">
+       </Uniform>
 
 
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Zoom Small" Type="float" Name="zoom_small">

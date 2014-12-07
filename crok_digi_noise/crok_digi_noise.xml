@@ -1,0 +1,27 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This shader creates crezy digital noise structures.
+
+IMPORTANT: This shader is TOTALLY random.
+It will create a different pattern, everytime you copy it or replace it.
+
+
+Setup:
+- Scale: scale in / out of the texture
+
+
+Demo clip: http://vimeo.com/113208838
+
+Matchbox version by ivar@inferno-op.com" Name="crok digi noise">
+   <Shader OutputBitDepth="Output" Index="1">
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="2">
+	  <Uniform ResDependent="None" Max="10.0" Min="0.001" Default="2.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Scale" Type="float" Name="scale">
+      </Uniform>
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Style" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
