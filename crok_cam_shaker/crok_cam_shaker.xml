@@ -1,0 +1,95 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates handheld camera shakes.
+
+Input:
+
+- Front: source clip
+
+Setup:
+
+- Seed: adjust that slider to get different results
+- Amplitude: overall amplitude of all the effects
+- Frequency: overall frequncy of all the effect
+- Zoom: overall zoom in / out
+- Rotation: overall rotation
+
+- Amplitude X/Y: adjust the postion amplitude
+- Frequency: adjust the position frequency
+- Amplitude Zoom: adjust the zoom amplitude
+- Frequency: adjust the zoom frequency
+- Amplitude Rotation: adjust the rotation amplitude
+- Frequency: adjust the rotation frequency
+- Samples: how many motionblur samples
+- Shutter: adjust shutter speed
+
+
+Demo clip: http://vimeo.com/114378228
+
+Matchbox version by ivar@inferno-op.com" Name="crok cam shaker">
+   <Shader OutputBitDepth="Output" Index="1">
+       <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="source">
+       </Uniform>
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="2341.0" Inc="1.0" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Seed" Type="float" Name="overall_seed">
+       </Uniform>
+	   <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Amplitude" Type="float" Name="overall_amp">
+       </Uniform>	   
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Frequency" Type="float" Name="overall_frq">
+       </Uniform>
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.98" Inc="0.001" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Zoom" Type="float" Name="zoom">
+       </Uniform>	
+	   <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.001" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Rotation" Type="float" Name="rotation">
+       </Uniform>	
+  
+  
+       <Uniform Row="0" Col="1" Page="0" Default="True" Tooltip="" DisplayName="Enable" Type="bool" Name="enbl_position">
+       </Uniform>
+      <Uniform ResDependent="None" Max="1.0" Min="-1.0" Default="0.1" Inc="0.001" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Amplitude X" Type="float" Name="pos_amp_x">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1.0" Min="-1.0" Default="0.1" Inc="0.001" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Amplitude Y" Type="float" Name="pos_amp_y">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5" Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Frequency" Type="float" Name="pos_frq">
+      </Uniform>
+	  
+      
+      <Uniform Row="0" Col="2" Page="0" Default="True" Tooltip="" DisplayName="Enable" Type="bool" Name="enbl_zoom">
+      </Uniform>
+	  <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.3" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Amplitude" Type="float" Name="zoom_amp">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.2" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Frequency" Type="float" Name="zoom_frq">
+      </Uniform>
+	  	  
+	  
+      <Uniform Row="0" Col="3" Page="0" Default="True" Tooltip="" DisplayName="Enable" Type="bool" Name="enbl_rotation">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.25" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Amplitude" Type="float" Name="rot_amp">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.3" Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="Frequency" Type="float" Name="rot_frq">
+      </Uniform>
+  
+  
+      <Uniform Row="0" Col="0" Page="1" Default="False" Tooltip="" DisplayName="Enable" Type="bool" Name="enbl_moblur">
+      </Uniform>
+	  <Uniform ResDependent="None" Max="256.0" Min="16.0" Default="128.0" Inc="1.0" Tooltip="" Row="1" Col="0" Page="1" DisplayName="Samples" Type="float" Name="moblur_samples">
+      </Uniform>
+      <Uniform ResDependent="None" Max="100.0" Min="0.01" Default="0.5" Inc="0.01" Tooltip="" Row="2" Col="0" Page="1" DisplayName="Shutter" Type="float" Name="moblur_shutter">
+      </Uniform>
+
+	  	  
+	  
+
+   </Shader>
+   <Page Name="Motion" Page="0">
+      <Col Name="Overall" Col="0" Page="0">
+      </Col>
+      <Col Name="Position" Col="1" Page="0">
+      </Col>
+      <Col Name="Zoom" Col="2" Page="0">
+      </Col>
+      <Col Name="Rotation" Col="3" Page="0">
+      </Col>
+   </Page>
+   <Page Name="Blur" Page="1">
+      <Col Name="Setup Motion Blur" Col="0" Page="1">
+      </Col>
+   </Page>
+</ShaderNodePreset>
