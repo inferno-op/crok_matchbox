@@ -3,7 +3,7 @@
 //based on http://glslsandbox.com/e#21316.0
 
 uniform float zoom, width, rot;
-uniform float adsk_time, adsk_result_w, adsk_result_h;
+uniform float adsk_time, adsk_result_w, adsk_result_h, adsk_result_frameratio;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 
 uniform vec2 center;
@@ -60,10 +60,13 @@ float cross(float x)
 void main( void ) 
 {
 	vec2 uv = ((gl_FragCoord.xy / resolution.xy) - 0.5) - center;
+		
+    mat2 rotation = mat2( cos(-rot*.1), -sin(-rot*.1), sin(-rot *.1), cos(-rot * .1));
+    uv.x *= adsk_result_frameratio;
+    uv *= rotation;
+	uv.x /= adsk_result_frameratio;
 	
-	// rotation		
-	float c=cos(rot*0.01),s=sin(rot*0.01);
-	uv=uv*mat2(c,s,-s,c);
+	
 
 	float m = maze(uv);
 		
