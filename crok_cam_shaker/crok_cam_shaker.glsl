@@ -1,7 +1,7 @@
 uniform sampler2D source;
  
 uniform float adsk_time, zoom, adsk_result_frameratio, rotation;
-uniform float overall_seed, overall_frq, overall_amp, pos_frq, pos_amp_x, pos_amp_y, pos_seed, zoom_amp, zoom_frq, zoom_seed, rot_frq, rot_amp, rot_seed, moblur_samples, moblur_shutter;
+uniform float overall_seed, overall_frq, overall_amp, pos_frq, pos_amp_x, pos_amp_y, zoom_amp, zoom_frq, rot_frq, rot_amp, moblur_samples, moblur_shutter;
  
 uniform float adsk_result_w, adsk_result_h;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
@@ -113,8 +113,8 @@ void main()
 	if ( enbl_position )
 	{
 		// random x y
-		off_center.x = fbm(vec2((time + 34414. + pos_seed) * pos_frq * 0.1, (time + 123515. + overall_seed) * pos_frq * 0.1)) * pos_amp_x * .3 * overall_amp;
-		off_center.y = fbm(vec2((time + 54635. + pos_seed) * pos_frq * 0.1, (time + 545. + overall_seed) * pos_frq * 0.1)) * pos_amp_y * .3 * overall_amp;
+		off_center.x = fbm(vec2((time + 34414. + overall_seed) * pos_frq * 0.1, (time + 123515. + overall_seed) * pos_frq * 0.1)) * pos_amp_x * .3 * overall_amp;
+		off_center.y = fbm(vec2((time + 54635. + overall_seed) * pos_frq * 0.1, (time + 545. + overall_seed) * pos_frq * 0.1)) * pos_amp_y * .3 * overall_amp;
 		
 		center.x = pos_amp_x * .3 * overall_amp / 2.0;
 		center.y = pos_amp_y * .3 * overall_amp / 2.0;
@@ -169,8 +169,8 @@ void main()
 			if ( enbl_position )
 			{
 				// random x y
-				off_center.x = fbm(vec2((time + 34414. + overall_seed) * pos_frq * 0.1, (time + 123515. + pos_seed) * pos_frq * 0.1)) * pos_amp_x *.3 * overall_amp;
-				off_center.y = fbm(vec2((time + 54635. + overall_seed) * pos_frq * 0.1, (time + 545. + pos_seed) * pos_frq * 0.1)) * pos_amp_y * .3 * overall_amp;
+				off_center.x = fbm(vec2((time + 34414. + overall_seed) * pos_frq * 0.1, (time + 123515. + overall_seed) * pos_frq * 0.1)) * pos_amp_x * .3 * overall_amp;
+				off_center.y = fbm(vec2((time + 54635. + overall_seed) * pos_frq * 0.1, (time + 545. + overall_seed) * pos_frq * 0.1)) * pos_amp_y * .3 * overall_amp;
 		
 				center.x = pos_amp_x * .3 * overall_amp / 2.0;
 				center.y = pos_amp_y * .3 * overall_amp / 2.0;
@@ -178,7 +178,7 @@ void main()
 				uv.x += center.x - off_center.x;
 				uv.y += center.y - off_center.y;
 			}
- 
+
 			if ( enbl_rotation )
 			{
 			 	// random rotation 
@@ -196,7 +196,9 @@ void main()
 			    //We add the 0.5 we substracted back to the coords before applying the rotation.
 			    uv += vec2(0.5);
 			}
-					
+
+
+
 			if ( enbl_zoom )
 			{
 				// random Zoom
@@ -204,12 +206,12 @@ void main()
 				uv *= 1.0 - fbm(vec2((time + 24234. + overall_seed) * zoom_frq * .1 )) * zoom_amp * .05 * overall_amp;
 				uv += vec2(0.5);
 			}
-		
+
 			// overall zoom
 			uv -= vec2(0.5);
 			uv *= zoom;
 			uv += vec2(0.5);
-		
+
 			col += texture2D(source, uv).rgb;
 		}
 
