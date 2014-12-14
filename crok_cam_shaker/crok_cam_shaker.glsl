@@ -163,7 +163,7 @@ void main()
 	{
 	 	for(float mytime = adsk_time-moblur_shutter/2.0; mytime < adsk_time+moblur_shutter/2.0; mytime += moblur_shutter/moblur_samples)
 		{
-			float time = mytime * 0.05 * overall_frq;
+			float time = mytime * 0.2 * overall_frq;
 			vec2 uv = (gl_FragCoord.xy / resolution.xy);
  
 			if ( enbl_position )
