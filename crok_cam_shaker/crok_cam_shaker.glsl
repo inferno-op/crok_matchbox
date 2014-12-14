@@ -109,55 +109,6 @@ void main()
 	vec2 uv = (gl_FragCoord.xy / resolution.xy);
 	vec2 off_center;
 	vec2 center; 
-
-	if ( enbl_position )
-	{
-		// random x y
-		off_center.x = fbm(vec2((time + 34414. + overall_seed) * pos_frq * 0.1, (time + 123515. + overall_seed) * pos_frq * 0.1)) * pos_amp_x * .3 * overall_amp;
-		off_center.y = fbm(vec2((time + 54635. + overall_seed) * pos_frq * 0.1, (time + 545. + overall_seed) * pos_frq * 0.1)) * pos_amp_y * .3 * overall_amp;
-		
-		center.x = pos_amp_x * .3 * overall_amp / 2.0;
-		center.y = pos_amp_y * .3 * overall_amp / 2.0;
-		
-		uv.x += center.x - off_center.x;
-		uv.y += center.y - off_center.y;
-	}
-
-	if ( enbl_rotation )
-	{
-	 	// random rotation 
-		float rnd = fbm(vec2((time + 3542. + overall_seed) * rot_frq * .1 )) * rot_amp * .05 * overall_amp;
-		float rot_cent = rot_amp * .05 * overall_amp / 2.0;
- 	    mat2 rot = mat2( cos(-rotation + rnd - rot_cent), -sin(-rotation + rnd - rot_cent), sin(-rotation + rnd - rot_cent), cos(-rotation + rnd - rot_cent));
-	    //We remove 0.5 from the coords to apply the rotation.
-	    uv -= vec2(0.5);
-	    //We multiply the X value by the frame ratio before applying the rotation.
-	    uv.x *= adsk_result_frameratio;
-	    //We apply the rotation
-	    uv *= rot;
-		//We divide the X value by the frame ratio after applying the rotation.
-		uv.x /= adsk_result_frameratio;
-	    //We add the 0.5 we substracted back to the coords before applying the rotation.
-	    uv += vec2(0.5);
-	}
-
-
-
-	if ( enbl_zoom )
-	{
-		// random Zoom
-		uv -= vec2(0.5);
-		uv *= 1.0 - fbm(vec2((time + 24234. + overall_seed) * zoom_frq * .1 )) * zoom_amp * .05 * overall_amp;
-		uv += vec2(0.5);
-	}
-
-	// overall zoom
-	uv -= vec2(0.5);
-	uv *= zoom;
-	uv += vec2(0.5);
-
-	col += texture2D(source, uv).rgb;
-
 	
 	if (enbl_moblur)
 	{
@@ -217,6 +168,63 @@ void main()
 
 		col /= moblur_samples + 1.;
 	}
+	else
+	{
+		if ( enbl_position )
+		{
+			// random x y
+			off_center.x = fbm(vec2((time + 34414. + overall_seed) * pos_frq * 0.1, (time + 123515. + overall_seed) * pos_frq * 0.1)) * pos_amp_x * .3 * overall_amp;
+			off_center.y = fbm(vec2((time + 54635. + overall_seed) * pos_frq * 0.1, (time + 545. + overall_seed) * pos_frq * 0.1)) * pos_amp_y * .3 * overall_amp;
+		
+			center.x = pos_amp_x * .3 * overall_amp / 2.0;
+			center.y = pos_amp_y * .3 * overall_amp / 2.0;
+		
+			uv.x += center.x - off_center.x;
+			uv.y += center.y - off_center.y;
+		}
+
+		if ( enbl_rotation )
+		{
+		 	// random rotation 
+			float rnd = fbm(vec2((time + 3542. + overall_seed) * rot_frq * .1 )) * rot_amp * .05 * overall_amp;
+			float rot_cent = rot_amp * .05 * overall_amp / 2.0;
+	 	    mat2 rot = mat2( cos(-rotation + rnd - rot_cent), -sin(-rotation + rnd - rot_cent), sin(-rotation + rnd - rot_cent), cos(-rotation + rnd - rot_cent));
+		    //We remove 0.5 from the coords to apply the rotation.
+		    uv -= vec2(0.5);
+		    //We multiply the X value by the frame ratio before applying the rotation.
+		    uv.x *= adsk_result_frameratio;
+		    //We apply the rotation
+		    uv *= rot;
+			//We divide the X value by the frame ratio after applying the rotation.
+			uv.x /= adsk_result_frameratio;
+		    //We add the 0.5 we substracted back to the coords before applying the rotation.
+		    uv += vec2(0.5);
+		}
+
+
+
+		if ( enbl_zoom )
+		{
+			// random Zoom
+			uv -= vec2(0.5);
+			uv *= 1.0 - fbm(vec2((time + 24234. + overall_seed) * zoom_frq * .1 )) * zoom_amp * .05 * overall_amp;
+			uv += vec2(0.5);
+		}
+
+		// overall zoom
+		uv -= vec2(0.5);
+		uv *= zoom;
+		uv += vec2(0.5);
+
+		col += texture2D(source, uv).rgb;	
+	}
+		
+		
+
+	
+
+	
+
 	
 
  
