@@ -215,7 +215,7 @@ void main()
 			col += texture2D(source, uv).rgb;
 		}
 
-		col /= moblur_samples;
+		col /= moblur_samples + 1.;
 	}
 	
 
