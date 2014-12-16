@@ -118,8 +118,10 @@ Matchbox version by ivar@inferno-op.com" Name="crok lava">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
          </SubUniform>
       </Uniform>
+      <Uniform Row="0" Col="1" Page="1" Default="True" Tooltip="" DisplayName="Clamp" Type="bool" Name="clamp">
+      </Uniform>
     </Shader>
-   <Page Name="Setup" Page="0">
+   <Page Name="Page 1" Page="0">
       <Col Name="Style" Col="0" Page="0">
       </Col>
       <Col Name="Timing / Scale" Col="1" Page="0">
@@ -129,8 +131,10 @@ Matchbox version by ivar@inferno-op.com" Name="crok lava">
       <Col Name="Colour" Col="3" Page="0">
       </Col>
    </Page>
-   <Page Name="Colour Definition" Page="1">
+   <Page Name="Page 2" Page="1">
       <Col Name="Colour Pots" Col="0" Page="1">
+      </Col>
+      <Col Name="Output" Col="1" Page="1">
       </Col>
 
    </Page>
