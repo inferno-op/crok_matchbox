@@ -19,7 +19,7 @@ License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported Licen
 
 Matchbox version by ivar@inferno-op.com" Name="crok skin">
    <Shader OutputBitDepth="Output" Index="1">
-       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Large Detail" Type="float" Name="blend">
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Large Detail" Type="float" Name="blend">
        </Uniform>
        <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Small Detail" Type="float" Name="contrast">
        </Uniform>
@@ -53,21 +53,89 @@ Matchbox version by ivar@inferno-op.com" Name="crok skin">
       </Uniform>
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="55.4540" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Seed" Type="float" Name="seed">
       </Uniform>
+   </Shader>
+   
+   <Shader OutputBitDepth="Output" Index="2">
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="1" DisplayName="Large Detail" Type="float" Name="som_blend">
+       </Uniform>
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="1" DisplayName="Small Detail" Type="float" Name="som_contrast">
+       </Uniform>
+	   	   
+       <Uniform Inc="0.01" Tooltip="" Row="0" Col="2" Page="1" DisplayName="Color" ValueType="Colour" Type="vec3" Name="som_tint">
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default=".742">
+          </SubUniform>
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.514">
+          </SubUniform>
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.391">
+          </SubUniform>
+       </Uniform>
+ 
+	   <Uniform Inc="0.01" Tooltip="" Row="1" Col="2" Page="1" DisplayName="Color" ValueType="Colour" Type="vec3" Name="som_large_tint">
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default=".494">
+          </SubUniform>
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.230">
+          </SubUniform>
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.456">
+          </SubUniform>
+       </Uniform>
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="1" DisplayName="large_blend" Type="float" Name="som_large_blend">
+       </Uniform>
 
+
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5" Inc="0.01" Tooltip="" Row="0" Col="3" Page="1" DisplayName="Zoom Small" Type="float" Name="som_zoom_small">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5" Inc="0.01" Tooltip="" Row="1" Col="3" Page="1" DisplayName="Zoom Large" Type="float" Name="som_zoom_large">
+      </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="0.001" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="3" Page="1" DisplayName="Overall Zoom" Type="float" Name="som_overall_zoom">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="455.351" Inc="0.01" Tooltip="" Row="3" Col="3" Page="1" DisplayName="Seed" Type="float" Name="som_seed">
+      </Uniform>
+   </Shader>
+   
+
+   <Shader OutputBitDepth="Output" Index="3">
+       <Uniform Max="50" Min="1" Default="12" Inc="1" Tooltip="" Row="1" Col="0" Page="1" DisplayName="Amount" Type="int" Name="iterations">
+       </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="50.0" Inc="0.1" Tooltip="" Row="2" Col="0" Page="1" DisplayName="Zoom" Type="float" Name="zoom">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1681.0" Inc="1.0" Tooltip="" Row="3" Col="0" Page="1" DisplayName="Seed" Type="float" Name="offset">
+      </Uniform>
 
    </Shader>
-   <Shader OutputBitDepth="Output" Index="2">
+
+   <Shader OutputBitDepth="Output" Index="4">
       <Uniform ResDependent="None" Max="2.0" Min="0.001" Default="0.5" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Sharpness" Type="float" Name="sharpness">
       </Uniform>
+      <Uniform ResDependent="None" Max="3.0" Min="0.001" Default="0.6" Inc="0.01" Tooltip="" Row="2" Col="1" Page="1" DisplayName="Sharpness" Type="float" Name="som_sharpness">
+       </Uniform>
       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
       </Uniform>
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+      </Uniform>
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+      </Uniform>
+	  
+      <Uniform Row="0" Col="0" Page="1" Default="False" Tooltip="" DisplayName="Enable" Type="bool" Name="sommer">
+      </Uniform>
+	  
    </Shader>
-   <Page Name="" Page="0">
+   
+   <Page Name="General Skin" Page="0">
       <Col Name="Style" Col="0" Page="0">
       </Col>
       <Col Name="Skin Colour" Col="1" Page="0">
       </Col>
       <Col Name="Position / Scaling" Col="2" Page="0">
+      </Col>
+   </Page>
+   <Page Name="Sommersprossen" Page="1">
+       <Col Name="Overall" Col="0" Page="1">
+       </Col>	   
+      <Col Name="Style" Col="1" Page="1">
+      </Col>
+      <Col Name="Skin Colour" Col="2" Page="1">
+      </Col>
+      <Col Name="Position / Scaling" Col="3" Page="1">
       </Col>
    </Page>
 </ShaderNodePreset>
