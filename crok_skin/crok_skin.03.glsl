@@ -55,5 +55,10 @@ void main(void)
 		s+=stepsize;
 	}
 
-	gl_FragColor = vec4(v*.005,1.);		
+	// gl_FragColor = vec4(v*.005,1.);	
+	vec4 col = vec4(v*.005,1.);
+	col = clamp (col, 0.0, 1.0);
+	gl_FragColor = col;
+	
+	
 }

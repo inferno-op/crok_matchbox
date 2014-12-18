@@ -1,40 +1,28 @@
 #version 120
 
-uniform sampler2D adsk_results_pass1, adsk_results_pass2, adsk_results_pass3;
-uniform float adsk_result_w, adsk_result_h;
-vec2 resolution = vec2(adsk_result_w, adsk_result_h);
-uniform float sharpness, som_sharpness;
-uniform bool sommer;
+uniform float blur_matte, adsk_result_w, adsk_result_h;
+uniform sampler2D adsk_results_pass3;
 
-vec4 normal( vec4 s, vec4 d )
+void main()
 {
-	return s;
-}
-
-void main()                                            
-{
-	vec2 uv = (gl_FragCoord.xy / resolution.xy);
-	vec3 col = vec3(0.0);
-	vec3 skin_c = texture2D( adsk_results_pass1, uv ).rgb;
-	vec3 som_c = texture2D( adsk_results_pass2, uv ).rgb;
-	vec3 matte = texture2D( adsk_results_pass3, uv ).rgb;
-	matte = clamp (matte, 0.0, 1.0);
-	skin_c -= texture2D( adsk_results_pass1, uv.xy+0.0001).rgb*sharpness*15.;
-	skin_c += texture2D( adsk_results_pass1, uv.xy-0.0001).rgb*sharpness*15.;
-	
-	col = skin_c;
-	
-	
-	if ( sommer )
-	{
-		som_c -= texture2D( adsk_results_pass2, uv.xy+0.0001).rgb * som_sharpness*15.;
-		som_c += texture2D( adsk_results_pass2, uv.xy-0.0001).rgb * som_sharpness*15.;
-
-		col = vec3(matte * som_c + (1.0 - matte) * skin_c);
-	}
-	
-
-	
-	
-	gl_FragColor = vec4(col, matte);
+   vec2 coords = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h );
+   int f0int = int(blur_matte);
+   vec4 accu = vec4(0);
+   float energy = 0.0;
+   vec4 blur_fg_y = vec4(0.0);
+   
+   for( int y = -f0int; y <= f0int; y++)
+   {
+      vec2 currentCoord = vec2(coords.x, coords.y+float(y)/adsk_result_h);
+      vec4 aSample = texture2D(adsk_results_pass3, currentCoord).rgba;
+      float anEnergy = 1.0 - ( abs(float(y)) / blur_matte);
+      energy += anEnergy;
+      accu+= aSample * anEnergy;
+   }
+   
+   blur_fg_y = 
+      energy > 0.0 ? (accu / energy) : 
+                     texture2D(adsk_results_pass3, coords).rgba;
+                     
+   gl_FragColor = vec4( blur_fg_y );
 }
