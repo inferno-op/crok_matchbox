@@ -18,3 +18,5 @@ crok_puffy_noise/crok_puffy_noise_camera/crok_puffy_noise_camera.xml
 crok_dir_blur/.cheditor
 
 crok_lava/crok_lava_setups
+
+crok_checkerboard/crok_checkerboard.glsl
