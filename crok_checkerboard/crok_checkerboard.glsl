@@ -16,12 +16,13 @@ void main(void)
 	uv.x /= Aspect;
 	vec2 div = vec2( zoom, zoom * resolution.y/resolution.x );
 	float bl = 0.0;
+
 	if ( rot != 0.0 )
 		bl += blur; 
+
 	float b = bl * zoom / resolution.x;
     float st = sin(rot);
     float ct = cos(rot);
-
     vec2 xy0 = div* uv;
     vec2 xy;
     xy.x =  ct*xy0.x + st*xy0.y;

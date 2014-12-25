@@ -4,8 +4,10 @@ This Matchbox shader creates a checkerboard pattern.
 Setup:
 
 - Zoom: zoom in / out 
+- Rotation: rotates the checkerboard 
 - Aspect: aspect of the pattern
-- Colour: colour for the 2 tiles  
+- Colour: colour for the 2 tiles
+- Antialiasing: applies an AA filter to the rotated checkboard
 
 Demo clip: http://vimeo.com/87951862
 
