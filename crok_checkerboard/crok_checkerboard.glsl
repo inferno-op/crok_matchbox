@@ -22,12 +22,16 @@ void main(void)
 
 	float b = bl * zoom / resolution.x;
 
+	uv =/zoom;
 	// degrees to radians conversion
 	float rad_rot = rot * PI / 180.0; 
 	
 	// rotation
 	mat2 rotation = mat2( cos(-rad_rot), -sin(-rad_rot), sin(-rad_rot), cos(-rad_rot));
 	uv *= rotation;
+	
+	uv =*zoom;
+	
 	
     vec2 anti_a = sin(PI * uv);
 	vec2 square = smoothstep( -b, b, anti_a );
