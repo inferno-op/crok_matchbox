@@ -13,8 +13,7 @@ vec2 resolution = vec2(adsk_result_w, adsk_result_h);
     
 void main(void)
 {
-	vec2 uv = ((gl_FragCoord.xy / resolution.xy) - 0.5) * zoom;
-	uv.x *= adsk_result_frameratio / Aspect;
+	vec2 uv = ((gl_FragCoord.xy / resolution.xy) - 0.5);
 	float bl = 0.0;
 
 	if ( rot != 0.0 )
@@ -22,15 +21,16 @@ void main(void)
 
 	float b = bl * zoom / resolution.x;
 
-	uv =/zoom;
+	uv.x *= adsk_result_frameratio;
 	// degrees to radians conversion
 	float rad_rot = rot * PI / 180.0; 
-	
+
 	// rotation
 	mat2 rotation = mat2( cos(-rad_rot), -sin(-rad_rot), sin(-rad_rot), cos(-rad_rot));
 	uv *= rotation;
 	
-	uv =*zoom;
+	uv.x *= Aspect;
+	uv *= zoom;
 	
 	
     vec2 anti_a = sin(PI * uv);
