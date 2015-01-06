@@ -2,13 +2,16 @@
 // lewis@lewissaunders.com
 
 
-uniform sampler2D adsk_results_pass4, adsk_results_pass5;
+uniform sampler2D adsk_results_pass4, adsk_results_pass5, strength_map;
 uniform float adsk_result_w, adsk_result_h, blur_length;
 uniform int samples;
 uniform bool radial, normalize, pathy, adsk_degrade;
 
 void main() {
 	vec2 xy = gl_FragCoord.xy;
+	vec2 uv = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h );
+	
+	float strength = texture2D(strength_map, uv).r;
 
 	// Factor to convert [0,1] texture coords to pixels
 	vec2 px = vec2(1.0) / vec2(adsk_result_w, adsk_result_h);
@@ -43,12 +46,12 @@ void main() {
 	// Now accumulate along the path forwards...
 	if(!odd) {
 		// Even number of samples, first step is half length
-		xy += 0.5 * d * blur_length / (sam - 1.0);
+		xy += 0.5 * d * blur_length * strength / (sam - 1.0);
 		a += texture2D(adsk_results_pass5, xy * px);
 	}
 	for(float i = 0.0; i < steps; i++) {
 		d = texture2D(adsk_results_pass4, xy * px).xy;
-		xy += d * blur_length / (sam - 1.0);
+		xy += d * blur_length * strength / (sam - 1.0);
 		a += texture2D(adsk_results_pass5, xy * px);
 	}
 	
@@ -57,11 +60,11 @@ void main() {
 	d = texture2D(adsk_results_pass4, xy * px).xy;
 	if(!odd) {
 		// Even number of samples, first step is half length
-		xy -= 0.5 * d * blur_length / (sam - 1.0);
+		xy -= 0.5 * d * blur_length * strength / (sam - 1.0);
 		a += texture2D(adsk_results_pass5, xy * px);
 	}
 	for(float i = 0.0; i < steps; i++) {
-		xy -= d * blur_length / (sam - 1.0);
+		xy -= d * blur_length * strength / (sam - 1.0);
 		a += texture2D(adsk_results_pass5, xy * px);
 		d = texture2D(adsk_results_pass4, xy * px).xy;
 	}

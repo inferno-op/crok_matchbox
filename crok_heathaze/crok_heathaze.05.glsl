@@ -1,7 +1,7 @@
 // Pass 2: do the displace
 // lewis@lewissaunders.com
 
-uniform sampler2D front, adsk_results_pass4;
+uniform sampler2D front, adsk_results_pass4, strength_map;
 uniform float adsk_result_w, adsk_result_h, blength, spacing;
 
 uniform int oversamples;
@@ -11,6 +11,9 @@ const float sidestep = 0.0;
 
 void main() {
 	vec2 xy = gl_FragCoord.xy;
+	vec2 uv = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h );
+	
+	float strength = texture2D(strength_map, uv).r;
 
 	// Factor to convert pixels to [0,1] texture coords
 	vec2 px = vec2(1.0) / vec2(adsk_result_w, adsk_result_h);
@@ -31,14 +34,14 @@ void main() {
 					// No gradient at this point in the map, early out
 					break;
 				}
-				xy += d * (blength) + blength * sidestep/1000.0 * vec2(-d.y, d.x) + (blength/32.0);
-				dist += length(d * (blength));
+				xy += d * (blength * strength) + blength * strength * sidestep/1000.0 * vec2(-d.y, d.x) + (blength * strength /32.0);
+				dist += length(d * (blength * strength));
 			}
 			// Sample front image where our walk ended up
 			acc.rgb += texture2D(front, xy * px).rgb;
 
 			// Length we've travelled to the matte output
-			acc.a += dist * (blength/32.0);
+			acc.a += dist * (blength * strength / 32.0);
 		}
 	}
 	acc /= float(oversamples * oversamples);
