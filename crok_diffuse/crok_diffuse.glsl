@@ -1,16 +1,17 @@
 #version 120
 // based on https://www.shadertoy.com/view/MdXXWr
 
-uniform float adsk_result_w, adsk_result_h;
-vec2 resolution = vec2(adsk_result_w, adsk_result_h);
-
-uniform float adsk_time, p1, p2;
-float time = adsk_time *.05;
-uniform sampler2D Source;
-float cent = 0.0;
-
+uniform sampler2D Source, strength_map;
+uniform float adsk_result_w, adsk_result_h, adsk_time;
 uniform int itteration;
 uniform float size;
+
+vec2 resolution = vec2(adsk_result_w, adsk_result_h);
+
+float time = adsk_time *.05;
+float cent = 0.0;
+
+
 
 float rand1(vec2 a, out float r)
 {
@@ -28,7 +29,9 @@ float rand2(inout float b)
 void main(void)
 {
 	vec2 uv = gl_FragCoord.xy / resolution.xy;
-	float n = size / resolution.x;
+	
+	float strength = texture2D(strength_map, uv).r;
+	float n = size * strength / resolution.x;
 	rand1(uv, cent);
 	vec4 col = vec4(0.0);
 	for(int i=0;i<itteration;i++)
