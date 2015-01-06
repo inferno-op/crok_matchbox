@@ -3,6 +3,7 @@ This Matchbox shader creates a noisy blur.
 
 Input:
 - Front: source clip
+- Strength: strength matte
 
 Setup:
 - Amount: blur strenth
