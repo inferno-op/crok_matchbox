@@ -1,7 +1,10 @@
-uniform sampler2D adsk_results_pass2;
+#version 120
+// chromatic abberation
 
+uniform sampler2D adsk_results_pass2;
 uniform float adsk_result_w, adsk_result_h;
 uniform float chromatic_abb;
+uniform vec2 center;
 
 int num_iter = 3;
 
@@ -9,7 +12,7 @@ vec2 iResolution = vec2(adsk_result_w, adsk_result_h);
 
 vec2 barrelDistortion(vec2 coord, float amt) {
 	
-	vec2 cc = (((gl_FragCoord.xy/iResolution.xy) - 0.5 ));
+	vec2 cc = (((gl_FragCoord.xy/iResolution.xy) - center ));
 	float distortion = dot(cc * .3, cc);
 	return coord + cc * amt * -.05;
 }

@@ -1,6 +1,10 @@
 <ShaderNodePreset Name="crok watercolor" SupportsAdaptiveDegradation="0" Description="
 This Matchbox shader simulates watercolor like textures.
 
+Input:
+
+- Use External Matte: use an external displacment matte
+
 
 Setup:
 
@@ -13,6 +17,7 @@ Setup:
 - Blur: blur the painterly effect
 - Radius: define the radius of the paint fx
 - Velocity: define the speed of the paint fx
+- Offset: move the center of the pain fx
 
 
 Demo clip: http://vimeo.com/116442578
@@ -23,13 +28,18 @@ Matchbox version by ivar@inferno-op.com">
   <Uniform Name="Seed"               DisplayName="Seed"               Page="0" Col="0" Row="4" Type="float"      Default="0.0"        Min="-1000000.0" Max="1000000.0"  Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
  </Shader>
  <Shader OutputBitDepth="Output" Index="2">
+  <Uniform Name="Source"             DisplayName="Displace"           Type="sampler2D"  Index="0" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" Mipmaps="False" Tooltip="" NoInput="White" GL_TEXTURE_MIN_FILTER="GL_NEAREST" GL_TEXTURE_WRAP_S="GL_REPEAT"></Uniform>
   <Uniform Name="adsk_results_pass1" Type="sampler2D"  GL_TEXTURE_MIN_FILTER="GL_NEAREST" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" Mipmaps="White" GL_TEXTURE_WRAP_S="GL_REPEAT"></Uniform>
-  <Uniform Name="Zoom"               DisplayName="Zoom"               Page="0" Col="0" Row="0" Type="float"      Default="-3.0"        Min="-1000000.0" Max="1000000.0"  Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
-  <Uniform Name="Detail"             DisplayName="Detail"             Page="0" Col="0" Row="1" Type="float"      Default="0.25"       Min="-1000000.0" Max="1000000.0"  Inc="0.001"       ResDependent="None"       Tooltip=""></Uniform>
+  <Uniform Name="Zoom"               DisplayName="Zoom"               Page="0" Col="0" Row="0" Type="float"      Default="-3.0"       Min="-1000000.0" Max="1000000.0"  Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
+  <Uniform Name="Detail"             DisplayName="Detail"             Page="0" Col="0" Row="1" Type="float"      Default="0.25"       Min="-1000000.0" Max="1000000.0"  Inc="0.001"      ResDependent="None"       Tooltip=""></Uniform>
+  <Uniform Name="input_type"         DisplayName="Use External Matte" Page="0" Col="2" Row="0" Type="bool"       Default="False"                                                                                   Tooltip=""></Uniform>
  </Shader>
  <Shader OutputBitDepth="Output" Index="3">
   <Uniform Name="adsk_results_pass2" Type="sampler2D"  GL_TEXTURE_MIN_FILTER="GL_NEAREST" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" Mipmaps="False" GL_TEXTURE_WRAP_S="GL_REPEAT"></Uniform>
-  <Uniform Name="chromatic_abb"      DisplayName="Depth"      Page="0" Col="0" Row="3" Type="float"      Default="25.0"       Min="-1000000.0" Max="1000000.0"  Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
+  <Uniform Name="chromatic_abb"      DisplayName="Depth"              Page="0" Col="0" Row="3" Type="float"      Default="25.0"       Min="-1000000.0" Max="1000000.0"  Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
+  <Uniform Name="center"             DisplayName="Offset"             Page="0" Col="1" Row="3" Type="vec2"                                                              Inc="0.01"                                 Tooltip="">
+                                                                                                     <SubUniform Default="2.9"        Min="-1000000.0" Max="1000000.0"                   ResDependent="None"></SubUniform>
+                                                                                                     <SubUniform Default="5.29"        Min="-1000000.0" Max="1000000.0"                   ResDependent="None"></SubUniform></Uniform>
  </Shader>
  <Shader OutputBitDepth="Output" Index="4">
   <Uniform Name="adsk_results_pass3" Type="sampler2D"  GL_TEXTURE_MIN_FILTER="GL_NEAREST" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" Mipmaps="False" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE"></Uniform>
@@ -47,6 +57,6 @@ Matchbox version by ivar@inferno-op.com">
  <Page Page="0" Name="">
   <Col Page="0" Col="0" Name="Texture"></Col>
   <Col Page="0" Col="1" Name="Paint FX"></Col>
-  
+  <Col Page="0" Col="2" Name="Input / Output"></Col>
  </Page>
 </ShaderNodePreset>

@@ -1,12 +1,11 @@
 #version 120
+// crazy noise
 // created by ztri
 
 uniform sampler2D Source, adsk_results_pass1;
-
 uniform float adsk_result_w, adsk_result_h;
 vec2 iResolution = vec2(adsk_result_w, adsk_result_h);
 
-//
 float Density = 1.0;
 float Morph = 5.0;
 float Steps = 3.0;
@@ -15,23 +14,10 @@ float Resolution_Y = 2.1;
 float Contrast = 6.15;
 float time = 1.0;
 
-
 uniform float Zoom;
 uniform float Detail;
+uniform bool input_type;
 
-/*
-uniform float Contrast;
-uniform float Steps;
-uniform float Resolution_X;
-uniform float Resolution_Y;
-uniform float Morph;
-uniform float Density;
-uniform float Zoom;
-uniform float Detail;
-*/
-
-
-	 
 vec3 rotate(vec3 r, float v){ return vec3(r.x*cos(v)+r.z*sin(v),r.y,r.z*cos(v)-r.x*sin(v));}
 
 float noise( in vec3 x )
@@ -41,7 +27,10 @@ float noise( in vec3 x )
 	vec2 offt = vec2(time*0.001,time*-0.005);
 	vec2 uv1 = x.xy + offz*floor(z) + offt; 
 	vec2 uv2 = uv1  + offz;
-	return mix(texture2D( adsk_results_pass1, uv1 ,-100.0).x,texture2D( adsk_results_pass1, uv2 ,-100.0).x,fract(z))-0.5;
+	if ( input_type )
+		return mix(texture2D( Source, uv1 ,-100.0).x,texture2D( Source, uv2 ,-100.0).x,fract(z))-0.5;
+	else
+		return mix(texture2D( adsk_results_pass1, uv1 ,-100.0).x,texture2D( adsk_results_pass1, uv2 ,-100.0).x,fract(z))-0.5;
 }
 
 float noises( in vec3 p){
@@ -69,5 +58,7 @@ void main(void)
 		dist += test;
     }
 	
-	gl_FragColor = vec4(sqrt(vec3(1.0,1.0,0.95)+ray.y*0.3+(sin(pos*0.1)*0.03)-abs(dist*Contrast*.03)-dot(uv,uv)*0.3),1.0);
+	vec4 col = vec4((vec3(1.0,1.0,0.95)+ray.y*0.3+(sin(pos*0.1)*0.03)-abs(dist*Contrast*.03)+dot(uv,uv)*0.3),1.0);
+	col = sqrt(abs(col+0.001));
+	gl_FragColor = col;
 }
