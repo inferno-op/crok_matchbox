@@ -59,5 +59,7 @@ void main(void)
 		dist += test;
     }
 	
-	gl_FragColor = vec4(sqrt(vec3(1.0,1.0,0.95)+ray.y*0.3+(sin(pos*0.1)*0.03)-abs(dist*Contrast*.03)-dot(uv,uv)*0.3),1.0);
+	vec4 col = vec4((vec3(1.0,1.0,0.95)+ray.y*0.3+(sin(pos*0.1)*0.03)-abs(dist*Contrast*.03)+dot(uv,uv)*0.3),1.0);
+	col = sqrt(abs(col+0.001));
+	gl_FragColor = col;
 }
