@@ -24,7 +24,7 @@ Matchbox version by ivar@inferno-op.com">
  </Shader>
  <Shader OutputBitDepth="Output" Index="2">
   <Uniform Name="adsk_results_pass1" Type="sampler2D"  GL_TEXTURE_MIN_FILTER="GL_NEAREST" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" Mipmaps="White" GL_TEXTURE_WRAP_S="GL_REPEAT"></Uniform>
-  <Uniform Name="Zoom"               DisplayName="Zoom"               Page="0" Col="0" Row="0" Type="float"      Default="-1.0"        Min="-1000000.0" Max="1000000.0"  Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
+  <Uniform Name="Zoom"               DisplayName="Zoom"               Page="0" Col="0" Row="0" Type="float"      Default="-3.0"        Min="-1000000.0" Max="1000000.0"  Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
   <Uniform Name="Detail"             DisplayName="Detail"             Page="0" Col="0" Row="1" Type="float"      Default="0.25"       Min="-1000000.0" Max="1000000.0"  Inc="0.001"       ResDependent="None"       Tooltip=""></Uniform>
  </Shader>
  <Shader OutputBitDepth="Output" Index="3">
