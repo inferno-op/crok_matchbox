@@ -112,8 +112,8 @@ void main()
 			float additional_n_frq = add_noise_frq * 0.1;
 			float additional_n_amp_x = add_noise_amp_x * 0.05;
 			float additional_n_amp_y = add_noise_amp_y * 0.05;
-			off_center.x += fbm(vec2((time + 974657. + overall_seed) * additional_n_frq, (time + 74563. + overall_seed) * additional_n_frq * additional_overall_frq)) * additional_n_amp_x * additional_overall_amp;
-			off_center.y += fbm(vec2((time + 345623. + overall_seed) * additional_n_frq, (time + 73562. + overall_seed) * additional_n_frq * additional_overall_frq)) * additional_n_amp_y * additional_overall_amp;
+			off_center.x += fbm(vec2((time + 974657. + overall_seed) * additional_n_frq, (time + 74563. + overall_seed) * additional_n_frq * additional_overall_frq)) * additional_n_amp_x * additional_overall_amp * overall_amp;
+			off_center.y += fbm(vec2((time + 345623. + overall_seed) * additional_n_frq, (time + 73562. + overall_seed) * additional_n_frq * additional_overall_frq)) * additional_n_amp_y * additional_overall_amp * overall_amp;
 		}
 
 		
@@ -135,7 +135,7 @@ void main()
 		rnd = fbm(vec2((time + 5678. + overall_seed) * rot_frq * .1 )) * rot_amp * .05 * overall_amp;
 		
 		if (enbl_add_rot_noise )
-			rnd += fbm(vec2((time + 3542. + overall_seed) * additional_rot_frq * additional_overall_frq)) * additional_rot_amp * .01 * additional_overall_amp;
+			rnd += fbm(vec2((time + 3542. + overall_seed) * additional_rot_frq * additional_overall_frq)) * additional_rot_amp * .01 * additional_overall_amp * overall_amp;
 				
 		float rot_cent = rot_amp * .05 * overall_amp / 2.0;
  	    mat2 rot = mat2( cos(-rotation + rnd - rot_cent), -sin(-rotation + rnd - rot_cent), sin(-rotation + rnd - rot_cent), cos(-rotation + rnd - rot_cent));
@@ -153,7 +153,7 @@ void main()
 		uv *= 1.0 - fbm(vec2((time + 24234. + overall_seed) * zoom_frq * .1 )) * zoom_amp * .05 * overall_amp;
 		
 		if ( enbl_add_zoom_noise )
-			uv *= 1.0 - fbm(vec2((time + 9135. + overall_seed) * additional_zoom_frq * .5 * additional_overall_frq)) * additional_zoom_amp *.03 * additional_overall_amp;
+			uv *= 1.0 - fbm(vec2((time + 9135. + overall_seed) * additional_zoom_frq * .5 * additional_overall_frq)) * additional_zoom_amp *.03 * additional_overall_amp * overall_amp;
 			
 		uv += vec2(0.5);
 	}
@@ -194,8 +194,8 @@ void main()
 					float additional_n_frq = add_noise_frq * 0.1;
 					float additional_n_amp_x = add_noise_amp_x * 0.05;
 					float additional_n_amp_y = add_noise_amp_y * 0.05;
-					off_center.x += fbm(vec2((time + 974657. + overall_seed) * additional_n_frq, (time + 74563. + overall_seed) * additional_n_frq * additional_overall_frq)) * additional_n_amp_x * additional_overall_amp;
-					off_center.y += fbm(vec2((time + 345623. + overall_seed) * additional_n_frq, (time + 73562. + overall_seed) * additional_n_frq * additional_overall_frq)) * additional_n_amp_y * additional_overall_amp;
+					off_center.x += fbm(vec2((time + 974657. + overall_seed) * additional_n_frq, (time + 74563. + overall_seed) * additional_n_frq * additional_overall_frq)) * additional_n_amp_x * additional_overall_amp * overall_amp;
+					off_center.y += fbm(vec2((time + 345623. + overall_seed) * additional_n_frq, (time + 73562. + overall_seed) * additional_n_frq * additional_overall_frq)) * additional_n_amp_y * additional_overall_amp * overall_amp;
 				}
 
 		
@@ -217,7 +217,7 @@ void main()
 				rnd = fbm(vec2((time + 5678. + overall_seed) * rot_frq * .1 )) * rot_amp * .05 * overall_amp;
 		
 				if (enbl_add_rot_noise )
-					rnd += fbm(vec2((time + 3542. + overall_seed) * additional_rot_frq * additional_overall_frq)) * additional_rot_amp * .01 * additional_overall_amp;
+					rnd += fbm(vec2((time + 3542. + overall_seed) * additional_rot_frq * additional_overall_frq)) * additional_rot_amp * .01 * additional_overall_amp * overall_amp;
 				
 				float rot_cent = rot_amp * .05 * overall_amp / 2.0;
 		 	    mat2 rot = mat2( cos(-rotation + rnd - rot_cent), -sin(-rotation + rnd - rot_cent), sin(-rotation + rnd - rot_cent), cos(-rotation + rnd - rot_cent));
@@ -235,7 +235,7 @@ void main()
 				uv *= 1.0 - fbm(vec2((time + 24234. + overall_seed) * zoom_frq * .1 )) * zoom_amp * .05 * overall_amp;
 		
 				if ( enbl_add_zoom_noise )
-					uv *= 1.0 - fbm(vec2((time + 9135. + overall_seed) * additional_zoom_frq * .5 * additional_overall_frq)) * additional_zoom_amp *.03 * additional_overall_amp;
+					uv *= 1.0 - fbm(vec2((time + 9135. + overall_seed) * additional_zoom_frq * .5 * additional_overall_frq)) * additional_zoom_amp *.03 * additional_overall_amp * overall_amp;
 			
 				uv += vec2(0.5);
 			}
