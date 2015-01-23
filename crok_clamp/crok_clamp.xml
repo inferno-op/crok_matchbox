@@ -1,0 +1,27 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+Use this shader to get broadcast safe colors
+
+Input:
+- Front: source clip
+
+Clamp:
+- Chroma: max chrominance
+- Luma: max luminance 
+
+
+Demo clip: http://vimeo.com/117628260
+
+Matchbox version by lewis@lewissaunders.com and ivar@inferno-op.com" Name="crok clamp">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="source">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.5" Inc="0.001" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Chroma" Type="float" Name="c_sat">
+      </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.001" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Luminance" Type="float" Name="c_lum">
+      </Uniform>
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Clamp" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
