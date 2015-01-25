@@ -20,3 +20,5 @@ crok_dir_blur/.cheditor
 crok_lava/crok_lava_setups
 
 crok_checkerboard/crok_checkerboard.glsl
+*.mp4
+

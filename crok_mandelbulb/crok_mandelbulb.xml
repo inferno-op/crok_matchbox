@@ -1,4 +1,11 @@
-<ShaderNodePreset Name="crok mandeldbulb" SupportsAdaptiveDegradation="0" Description="">
+<ShaderNodePreset Description="
+This shader creates MandelBulb Fractals.   
+
+Demo clip: http://vimeo.com/117717079
+
+Based on: http://hirnsohle.de/test/fractalLab/
+
+Matchbox version by ivar@inferno-op.com" Name="crok mandelbulb" SupportsAdaptiveDegradation="0">
  <Shader OutputBitDepth="Output" Index="1">
   <Uniform Name="power"              DisplayName="Power"              Page="0" Col="0" Row="0" Type="float"      Default="8.0"        Min="0.0"        Max="100.0"      Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
   <Uniform Name="surfaceDetail"      DisplayName="Detail"             Page="0" Col="0" Row="1" Type="float"      Default="0.6"        Min="0.0"        Max="50.0"       Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
@@ -27,9 +34,9 @@
                                                                                                      <SubUniform Default="-16.0"      Min="-1000000.0" Max="1000000.0"                   ResDependent="None"></SubUniform>
                                                                                                      <SubUniform Default="100.0"      Min="-1000000.0" Max="1000000.0"                   ResDependent="None"></SubUniform>
                                                                                                      <SubUniform Default="-60.0"      Min="-1000000.0" Max="1000000.0"                   ResDependent="None"></SubUniform></Uniform>
-																								     <Uniform Name="aoIntensity"        DisplayName="Intensity"          Page="1" Col="2" Row="0" Type="float"      Default="0.15"       Min="0.0"        Max="10.0"       Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
-																								     <Uniform Name="aoSpread"           DisplayName="Spread"             Page="1" Col="2" Row="1" Type="float"      Default="9.0"        Min="-1000000.0" Max="1000000.0"  Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
-																								     <Uniform Name="aoIterations"       DisplayName="Iterations"         Page="1" Col="2" Row="2" Type="int"        Default="4"          Min="-1000000"   Max="1000000"    Inc="1"                                    Tooltip=""></Uniform>
+  <Uniform Name="aoIntensity"        DisplayName="Intensity"          Page="1" Col="2" Row="0" Type="float"      Default="0.15"       Min="0.0"        Max="10.0"       Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
+  <Uniform Name="aoSpread"           DisplayName="Spread"             Page="1" Col="2" Row="1" Type="float"      Default="9.0"        Min="-1000000.0" Max="1000000.0"  Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
+  <Uniform Name="aoIterations"       DisplayName="Iterations"         Page="1" Col="2" Row="2" Type="int"        Default="4"          Min="-1000000"   Max="1000000"    Inc="1"                                    Tooltip=""></Uniform>
   <Uniform Name="fog"                DisplayName="Intensity"          Page="1" Col="3" Row="0" Type="float"      Default="0.0"        Min="-1000000.0" Max="1000000.0"  Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
   <Uniform Name="fogFalloff"         DisplayName="Falloff"            Page="1" Col="3" Row="1" Type="float"      Default="0.0"        Min="0.0"        Max="1000000.0"  Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
   <Uniform Name="colorIterations"    DisplayName="Iterations"         Page="2" Col="0" Row="0" Type="int"        Default="4"          Min="0"          Max="10"         Inc="1"                                    Tooltip=""></Uniform>
@@ -70,13 +77,11 @@
   <Uniform Name="outerGlowIntensity" DisplayName="Outer Glow"         Page="2" Col="2" Row="4" Type="float"      Default="0.0"        Min="0.0"        Max="50.0"       Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
   <Uniform Name="specularity"        DisplayName="Specularity"        Page="2" Col="3" Row="0" Type="float"      Default="1.0"        Min="-1000000.0" Max="1000000.0"  Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
   <Uniform Name="specularExponent"   DisplayName="Exponent"           Page="2" Col="3" Row="1" Type="float"      Default="5.0"        Min="-1000000.0" Max="1000000.0"  Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
-  
   <Uniform Name="maxIterations"      DisplayName="Iterations"         Page="3" Col="0" Row="0" Type="int"        Default="8"          Min="0"          Max="100"        Inc="1"                                    Tooltip=""></Uniform>
   <Uniform Name="stepLimit"          DisplayName="Max Steps"          Page="3" Col="0" Row="1" Type="int"        Default="500"        Min="0"          Max="5000"       Inc="1"                                    Tooltip=""></Uniform>
   <Uniform Name="antialiasing"       DisplayName="Enable"             Page="3" Col="1" Row="0" Type="bool"       Default="False"                                                                                   Tooltip=""></Uniform>
   <Uniform Name="aa_strength"        DisplayName="Strength"           Page="3" Col="1" Row="1" Type="float"      Default="0.2"        Min="0.0"        Max="1.0"        Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
-  <Uniform Name="render_on_black"	 DisplayName="Render on Black"    Page="3" Col="2" Row="0" Type="bool"       Default="False"                                                                                   Tooltip=""></Uniform>
-  
+  <Uniform Name="render_on_black"    DisplayName="Render on Black"    Page="3" Col="2" Row="0" Type="bool"       Default="False"                                                                                   Tooltip=""></Uniform>
  </Shader>
  <Page Page="0" Name="Fractal">
   <Col Page="0" Col="0" Name="Setup"></Col>
