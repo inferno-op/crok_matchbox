@@ -1,0 +1,191 @@
+<ShaderNodePreset Description="" SupportsAdaptiveDegradation="0" Name="crok mandeldbulb">
+   <Shader Index="1" OutputBitDepth="Output">
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="100.0" Min="0.0" Default="8.0" Type="float" Row="0" Col="0" Page="0" DisplayName="Power" Name="power">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="50.0" Min="0.0" Default="0.6" Type="float" Row="1" Col="0" Page="0" DisplayName="Detail" Name="surfaceDetail">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="10.0" Min="-10.0" Default="0.8" Type="float" Row="2" Col="0" Page="0" DisplayName="Smoothness" Name="surfaceSmoothness">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="100.0" Min="0.0" Default="5.0" Type="float" Row="3" Col="0" Page="0" DisplayName="Bounding Radius" Name="boundingRadius">
+      </Uniform>
+      <Uniform Tooltip="" ValueType="Position" Inc="0.01" Type="vec3" Row="0" Col="1" Page="0" DisplayName="Offset" Name="offset">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform Tooltip="" ValueType="Position" Inc="0.1" Type="vec3" Row="2" Col="1" Page="0" DisplayName="Rotation" Name="objRotation">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="1000000.0" Min="-1000000.0" Default="0.0" Type="float" Row="0" Col="2" Page="0" DisplayName="Julia Bulb Factor" Name="juliaFactor">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="1000000.0" Min="-1000000.0" Default="0.0" Type="float" Row="1" Col="2" Page="0" DisplayName="Radiolaria" Name="radiolaria">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="1000000.0" Min="-1000000.0" Default="0.0" Type="float" Row="2" Col="2" Page="0" DisplayName="Radiolaria Factor" Name="radiolariaFactor">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.1" Max="1000000.0" Min="-1000000.0" Default="0.0" Type="float" Row="0" Col="0" Page="1" DisplayName="Roll" Name="cameraRoll">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.1" Max="1000000.0" Min="-1000000.0" Default="0.0" Type="float" Row="1" Col="0" Page="1" DisplayName="Pitch" Name="cameraPitch">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.1" Max="1000000.0" Min="-1000000.0" Default="0.0" Type="float" Row="2" Col="0" Page="1" DisplayName="Yaw" Name="cameraYaw">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="1000000.0" Min="0.0" Default="0.9" Type="float" Row="3" Col="0" Page="1" DisplayName="Focal Length" Name="cameraFocalLength">
+      </Uniform>
+      <Uniform Tooltip="" ValueType="Position" Inc="0.01" Type="vec3" Row="0" Col="1" Page="1" DisplayName="Camera" Name="cameraPosition">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="-2.5625.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform Tooltip="" ValueType="Position" Inc="0.1" Type="vec3" Row="2" Col="1" Page="1" DisplayName="Light" Name="light">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="-16.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="100.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="-60.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="10.0" Min="0.0" Default="0.15" Type="float" Row="0" Col="2" Page="1" DisplayName="Intensity" Name="aoIntensity">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="1000000.0" Min="-1000000.0" Default="9.0" Type="float" Row="1" Col="2" Page="1" DisplayName="Spread" Name="aoSpread">
+      </Uniform>
+      <Uniform Tooltip="" Inc="1" Max="1000000" Min="-1000000" Default="4" Type="int" Row="2" Col="2" Page="1" DisplayName="Iterations" Name="aoIterations">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="1000000.0" Min="-1000000.0" Default="0.0" Type="float" Row="0" Col="3" Page="1" DisplayName="Intensity" Name="fog">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="1000000.0" Min="0.0" Default="0.0" Type="float" Row="1" Col="3" Page="1" DisplayName="Falloff" Name="fogFalloff">
+      </Uniform>
+      <Uniform Tooltip="" Inc="1" Max="10" Min="0" Default="4" Type="int" Row="0" Col="0" Page="2" DisplayName="Iterations" Name="colorIterations">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="1000000.0" Min="-1000000.0" Default="5.0" Type="float" Row="1" Col="0" Page="2" DisplayName="Ambient Color" Name="ambientColor">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="1000000.0" Min="-1000000.0" Default="0.7" Type="float" Row="2" Col="0" Page="2" DisplayName="AmbientIntensity" Name="ambientIntensity">
+      </Uniform>
+      <Uniform Tooltip="" ValueType="Colour" Inc="0.01" Type="vec3" Row="3" Col="0" Page="2" DisplayName="Background Top" Name="background1Color">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.4">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.9">
+         </SubUniform>
+      </Uniform>
+      <Uniform Tooltip="" ValueType="Colour" Inc="0.01" Type="vec3" Row="4" Col="0" Page="2" DisplayName="background2Color" Name="background2Color">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform Tooltip="" ValueType="Colour" Inc="0.01" Type="vec3" Row="0" Col="1" Page="2" DisplayName="Color 1" Name="color1">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform Tooltip="" ValueType="Colour" Inc="0.01" Type="vec3" Row="1" Col="1" Page="2" DisplayName="Color 2" Name="color2">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.9">
+         </SubUniform>
+      </Uniform>
+      <Uniform Tooltip="" ValueType="Colour" Inc="0.01" Type="vec3" Row="2" Col="1" Page="2" DisplayName="Color 3" Name="color3">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform Tooltip="" ValueType="Colour" Inc="0.01" Type="vec3" Row="3" Col="1" Page="2" DisplayName="Inner Glow" Name="innerGlowColor">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.4">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.9">
+         </SubUniform>
+      </Uniform>
+      <Uniform Tooltip="" ValueType="Colour" Inc="0.01" Type="vec3" Row="4" Col="1" Page="2" DisplayName="Outer Glow" Name="outerGlowColor">
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="1.0" Min="0.0" Default="0.45" Type="float" Row="0" Col="2" Page="2" DisplayName="Color 1" Name="color1Intensity">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="1.0" Min="0.0" Default="0.3" Type="float" Row="1" Col="2" Page="2" DisplayName="Color 2" Name="color2Intensity">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="1.0" Min="0.0" Default="0.0" Type="float" Row="2" Col="2" Page="2" DisplayName="Color 3" Name="color3Intensity">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="50.0" Min="0.0" Default="5.0" Type="float" Row="3" Col="2" Page="2" DisplayName="Inner Glow" Name="innerGlowIntensity">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="50.0" Min="0.0" Default="0.0" Type="float" Row="4" Col="2" Page="2" DisplayName="Outer Glow" Name="outerGlowIntensity">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="1000000.0" Min="-1000000.0" Default="1.0" Type="float" Row="0" Col="3" Page="2" DisplayName="Specularity" Name="specularity">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="1000000.0" Min="-1000000.0" Default="5.0" Type="float" Row="1" Col="3" Page="2" DisplayName="Exponent" Name="specularExponent">
+      </Uniform>
+      <Uniform Tooltip="" Inc="1" Max="100" Min="0" Default="8" Type="int" Row="0" Col="0" Page="3" DisplayName="Iterations" Name="maxIterations">
+      </Uniform>
+      <Uniform Tooltip="" Inc="1" Max="5000" Min="0" Default="500" Type="int" Row="1" Col="0" Page="3" DisplayName="Max Steps" Name="stepLimit">
+      </Uniform>
+      <Uniform Tooltip="" Default="False" Type="bool" Row="0" Col="1" Page="3" DisplayName="Enable" Name="antialiasing">
+      </Uniform>
+      <Uniform Tooltip="" ResDependent="None" Inc="0.01" Max="1.0" Min="0.0" Default="0.2" Type="float" Row="1" Col="1" Page="3" DisplayName="Strength" Name="aa_strength">
+      </Uniform>
+      <Uniform Tooltip="" Default="False" Type="bool" Row="0" Col="2" Page="3" DisplayName="Render on Black" Name="render_on_black">
+      </Uniform>
+   </Shader>
+   <Page Name="Fractal" Page="0">
+      <Col Name="Setup" Col="0" Page="0">
+      </Col>
+      <Col Name="Position / Rotation" Col="1" Page="0">
+      </Col>
+      <Col Name="Additional Parameters" Col="2" Page="0">
+      </Col>
+   </Page>
+   <Page Name="Camera / Light" Page="1">
+      <Col Name="Camera" Col="0" Page="1">
+      </Col>
+      <Col Name="Position" Col="1" Page="1">
+      </Col>
+      <Col Name="Ambient Occlusion" Col="2" Page="1">
+      </Col>
+      <Col Name="Fog" Col="3" Page="1">
+      </Col>
+   </Page>
+   <Page Name="Look" Page="2">
+      <Col Name="General" Col="0" Page="2">
+      </Col>
+      <Col Name="Color" Col="1" Page="2">
+      </Col>
+      <Col Name="Intensity" Col="2" Page="2">
+      </Col>
+      <Col Name="Shininess" Col="3" Page="2">
+      </Col>
+   </Page>
+   <Page Name="Render" Page="3">
+      <Col Name="Fractal" Col="0" Page="3">
+      </Col>
+      <Col Name="Antialiasing" Col="1" Page="3">
+      </Col>
+      <Col Name="Output" Col="2" Page="3">
+      </Col>
+   </Page>
+</ShaderNodePreset>
+
