@@ -36,7 +36,6 @@
 #define MIN_NORM 1.5e-7
 #define minRange 6e-5
 #define bailout 4.0
-#define gamma 1.0                // {"label":"Gamma correction", "default":1, "min":0.1, "max":2, "step":0.01, "group":"Colour"}
 
 // Constants TAB
 #define dE Mandelbox             // {"label":"Fractal type", "control":"select", "options":["MengerSponge", "SphereSponge", "Mandelbulb", "Mandelbox", "OctahedralIFS", "DodecahedronIFS"]}
@@ -336,7 +335,7 @@ vec4 render(vec2 pixel)
     float ray_length = minRange;
     vec3  ray = cameraPosition + ray_length * ray_direction;
 	if (render_on_black )
-		bg_color = vec4(clamp(mix(vec3(0.0), vec3(0.0), (sin(ray_direction.y * HALFPI) + 1.0) * 0.5), 0.0, 1.0), 1.0);
+		bg_color = vec4(0.0);
 	else
 		bg_color = vec4(clamp(mix(background2Color, background1Color, (sin(ray_direction.y * HALFPI) + 1.0) * 0.5), 0.0, 1.0), 1.0);
     vec4  color = vec4(0.0);
@@ -392,13 +391,23 @@ vec4 render(vec2 pixel)
             aof = ambientOcclusion(ray, normal, eps);
         }
         
+		// creating the matte pass
+		color.a = float(mix(color1, mix(color2, color3, 1.0), 1.0));
+		
+		// creating the beauty pass 
         color.rgb = mix(color1, mix(color2, color3, dist.y * color2Intensity), dist.z * color3Intensity);
-        color.rgb = blinnPhong(clamp(color.rgb * color1Intensity, 0.0, 1.0), ray, normal);
-		matte = clamp(color.rgb / bg_color.rgb, 0.0, 1.0);
-		color.a = float(matte);
-        color.rgb = mix(color.rgb, innerGlowColor, glow);
+		
+		// add shading
+		color.rgb = blinnPhong(clamp(color.rgb * color1Intensity, 0.0, 1.0), ray, normal);
+        
+		// add inner glow
+		color.rgb = mix(color.rgb, innerGlowColor, glow);
+		
+		// add AO
 		color.rgb *= aof;
-        color.rgb = mix(bg_color.rgb, color.rgb, exp(-pow(ray_length * exp(fogFalloff * .1), 2.0) * fog * .1));
+        
+		// add fog
+		color.rgb = mix(bg_color.rgb, color.rgb, exp((ray_length * exp(fogFalloff * .1), 2.0) * fog * .1));
 
 		
 		
@@ -409,20 +418,13 @@ vec4 render(vec2 pixel)
         ray_length = tmax;
 		if (render_on_black )
 		{
-			bg_color.rgb = mix(vec3(0.0), color.rgb, exp(-pow(ray_length * exp(fogFalloff * .1), 2.0)) * fog * .1);
-			matte = clamp(color.rgb / bg_color.rgb, 0.0, 1.0);
-			color.a = float(matte);
+			bg_color.rgb = mix(vec3(0.0), color.rgb, exp((ray_length * exp(fogFalloff * .1), 2.0)) * fog * .1);
 		}
 		else
 		{
-			color.rgb = mix(bg_color.rgb, color.rgb, exp(-pow(ray_length * exp(fogFalloff * .1), 2.0)) * fog * .1);
-	        glow = clamp(glowAmount * outerGlowIntensity * 3.0, 0.0, 1.0);
+			color.rgb = mix(bg_color.rgb, color.rgb, exp((ray_length * exp(fogFalloff * .1), 2.0)) * fog * .1);
+			glow = clamp(glowAmount * outerGlowIntensity * 3.0, 0.0, 1.0);
 	        color.rgb = mix(color.rgb, outerGlowColor, glow);
-		}
-	    
-		if (depthMap) 
-		{
-			 depth = vec3(ray_length / 10.0);
 		}
 
     }
