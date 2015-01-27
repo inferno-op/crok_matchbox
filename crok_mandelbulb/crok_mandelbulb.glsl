@@ -404,7 +404,7 @@ vec4 render(vec2 pixel)
 		color.rgb *= aof;
         
 		// add fog
-		color.rgb = mix(bg_color.rgb, color.rgb, exp((ray_length * exp(fogFalloff * .1), 2.0) * fog * .1));
+		color.rgb = mix(bg_color.rgb, color.rgb, exp(-pow(ray_length * exp(fogFalloff * .1), 2.0) * fog * .1));
 
 		
 		
@@ -415,11 +415,11 @@ vec4 render(vec2 pixel)
         ray_length = tmax;
 		if (render_on_black )
 		{
-			bg_color.rgb = mix(vec3(0.0), color.rgb, exp((ray_length * exp(fogFalloff * .1), 2.0)) * fog * .1);
+			bg_color.rgb = mix(vec3(0.0), color.rgb, exp(-pow(ray_length * exp(fogFalloff * .1), 2.0)) * fog * .1);
 		}
 		else
 		{
-			color.rgb = mix(bg_color.rgb, color.rgb, exp((ray_length * exp(fogFalloff * .1), 2.0)) * fog * .1);
+			color.rgb = mix(bg_color.rgb, color.rgb, exp(-pow(ray_length * exp(fogFalloff * .1), 2.0)) * fog * .1);
 	        glow = clamp(glowAmount * outerGlowIntensity * 3.0, 0.0, 1.0);
 	        color.rgb = mix(color.rgb, outerGlowColor, glow);
 		}
