@@ -21,19 +21,19 @@ Matchbox version by ivar@inferno-op.com" Name="crok mandelbox" SupportsAdaptiveD
                                                                                                      <SubUniform Default="0.0"        Min="-1000000.0" Max="1000000.0"                   ResDependent="None"></SubUniform></Uniform>
  
  
-  <Uniform Name="fracRotation1"        DisplayName="fracRotation1"    Page="0" Col="2" Row="0" Type="vec3"                                                              Inc="0.1"                                  ValueType="Position" Tooltip="">
+  <Uniform Name="fracRotation1"        DisplayName="Frac Rotation1"    Page="0" Col="2" Row="0" Type="vec3"                                                              Inc="0.1"                                  ValueType="Position" Tooltip="">
       <SubUniform Default="57.0"        Min="-1000000.0" Max="1000000.0"                   ResDependent="None"></SubUniform>
       <SubUniform Default="-123.0"        Min="-1000000.0" Max="1000000.0"                   ResDependent="None"></SubUniform>
       <SubUniform Default="0.0"        Min="-1000000.0" Max="1000000.0"                   ResDependent="None"></SubUniform></Uniform>
 	  
-  <Uniform Name="fracRotation2"        DisplayName="fracRotation2"    Page="0" Col="2" Row="2" Type="vec3"                                                              Inc="0.1"                                  ValueType="Position" Tooltip="">
+  <Uniform Name="fracRotation2"        DisplayName="Frac Rotation2"    Page="0" Col="2" Row="2" Type="vec3"                                                              Inc="0.1"                                  ValueType="Position" Tooltip="">
       <SubUniform Default="0.0"        Min="-1000000.0" Max="1000000.0"                   ResDependent="None"></SubUniform>
       <SubUniform Default="-58.0"        Min="-1000000.0" Max="1000000.0"                   ResDependent="None"></SubUniform>
       <SubUniform Default="-58.0"        Min="-1000000.0" Max="1000000.0"                   ResDependent="None"></SubUniform></Uniform>
-  <Uniform Name="sphereScale"          DisplayName="sphereScale"       Page="0" Col="3" Row="0" Type="float"      Default="0.63"        Min="-1000000.0" Max="1000000.0"  Inc="0.01"        ResDependent="None"       Tooltip=""></Uniform>
-  <Uniform Name="boxScale"        	   DisplayName="boxScale"          Page="0" Col="3" Row="1" Type="float"      Default="0.757"        Min="-1000000.0" Max="1000000.0"  Inc="0.01"        ResDependent="None"       Tooltip=""></Uniform>
-  <Uniform Name="boxFold"          	   DisplayName="boxFold"           Page="0" Col="3" Row="2" Type="float"      Default="1.026"        Min="-1000000.0" Max="1000000.0"  Inc="0.01"        ResDependent="None"       Tooltip=""></Uniform>
-  <Uniform Name="fudgeFactor"          DisplayName="fudgeFactor"       Page="0" Col="3" Row="3" Type="float"      Default="0.0"        Min="0.0"        Max="1000000.0"  Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>	  
+  <Uniform Name="sphereScale"          DisplayName="Sphere Scale"       Page="0" Col="3" Row="0" Type="float"      Default="0.63"        Min="-1000000.0" Max="1000000.0"  Inc="0.01"        ResDependent="None"       Tooltip=""></Uniform>
+  <Uniform Name="boxScale"        	   DisplayName="Box Scale"          Page="0" Col="3" Row="1" Type="float"      Default="0.757"        Min="-1000000.0" Max="1000000.0"  Inc="0.01"        ResDependent="None"       Tooltip=""></Uniform>
+  <Uniform Name="boxFold"          	   DisplayName="Box Fold"           Page="0" Col="3" Row="2" Type="float"      Default="1.026"        Min="-1000000.0" Max="1000000.0"  Inc="0.01"        ResDependent="None"       Tooltip=""></Uniform>
+  <Uniform Name="fudgeFactor"          DisplayName="Fudge Factor"       Page="0" Col="3" Row="3" Type="float"      Default="0.0"        Min="0.0"        Max="1000000.0"  Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>	  
  
  
  
@@ -99,8 +99,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok mandelbox" SupportsAdaptiveD
   <Uniform Name="stepLimit"          DisplayName="Max Steps"          Page="3" Col="0" Row="1" Type="int"        Default="105"        Min="0"          Max="5000"       Inc="1"                                    Tooltip=""></Uniform>
   <Uniform Name="antialiasing"       DisplayName="Enable"             Page="3" Col="1" Row="0" Type="bool"       Default="False"                                                                                   Tooltip=""></Uniform>
   <Uniform Name="aa_strength"        DisplayName="Strength"           Page="3" Col="1" Row="1" Type="float"      Default="0.2"        Min="0.0"        Max="1.0"        Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
-  <Uniform Name="render_on_black"    DisplayName="Render on Black"    Page="3" Col="2" Row="0" Type="bool"       Default="False"                                                                                   Tooltip=""></Uniform>
-  <Uniform Name="depthMap"    	     DisplayName="Depth Matte"    	  Page="3" Col="2" Row="1" Type="bool"       Default="False"                                                                                   Tooltip=""></Uniform>
+  <Uniform Name="depthMap"    	     DisplayName="Depth Matte"    	  Page="3" Col="2" Row="0" Type="bool"       Default="False"                                                                                   Tooltip=""></Uniform>
   
  </Shader>
  <Page Page="0" Name="Fractal">
