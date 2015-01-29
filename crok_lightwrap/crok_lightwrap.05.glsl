@@ -2,7 +2,7 @@ uniform float adsk_result_w, adsk_result_h;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
 uniform sampler2D adsk_results_pass2, adsk_results_pass4, compo, matte;
 
-uniform float blend, low, threshold, high, gain;
+uniform float blend, lm_threshold, gain;
 uniform int LogicOp;
 uniform int result;
 
@@ -60,16 +60,14 @@ void main(void)
 	vec3 lightwrap_matte = vec3(0.0);
 	vec3 comp = vec3(0.0);
 	vec3 black = vec3(0.0); 
-	vec3 p_level = vec3(low, threshold, high);
 	vec3 front = texture2D(compo, uv).rgb;
 	vec3 back = texture2D(adsk_results_pass2, uv).rgb;
 	vec3 bg_histo = back;
-//	vec3 bg_histo = texture2D(bg, uv).rgb;
     vec3 alpha = texture2D(matte, uv).rgb;
 	vec3 blurred_matte = texture2D(adsk_results_pass4, uv).rgb;
 	vec3 inv_matte = 1.0 - blurred_matte;
 	
-    bg_histo = pow(back, vec3(p_level.y));
+    bg_histo = pow(back, vec3(lm_threshold));
 	bg_histo = vec3(max(max(bg_histo.r, bg_histo.g), bg_histo.b));
 	bg_histo = bg_histo * gain;
 	

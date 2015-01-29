@@ -13,10 +13,18 @@ Setup:
 - Size: amount of lightwrap 
 - Blend: blend in / out lightwrap
 - Blur BG: amount of blur applied to the incomming BG plate
+
 - Gain: adjust gain of the lighwrap matte
-- Threshold: adjust lightwrap matte threshold 
-- Amount: amount of edgebolur applied
+- Threshold: adjust lightwrap matte threshold
+
+- Gain: adjust gain of the edge matte
+- Threshold: adjust edge matte threshold
 - Size: size of the edge blur
+- Blur: blur the generated edge matte
+
+- Blur Amount: amount of edgeblur applied
+- Grain Amount: amount of grain applied
+
 - Output: Comp / Lightwrap 
 
 Demo clip: http://vimeo.com/107401261
@@ -92,12 +100,12 @@ Matchbox version by ivar@inferno-op.com" Name="crok lightwrap">
 
       <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Gain" Type="float" Name="gain">
       </Uniform>
-      <Uniform ResDependent="None" Max="50.0" Min="0.0" Default="5.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Threshold" Type="float" Name="threshold">
+      <Uniform ResDependent="None" Max="50.0" Min="0.0" Default="5.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Threshold" Type="float" Name="lm_threshold">
       </Uniform>
 
 
 
-      <Uniform Name="result" Type="int"  ValueType="Popup" DisplayName="Result" Page="0" Col="3" Row="0" Tooltip="" Default="0" >
+      <Uniform Name="result" Type="int"  ValueType="Popup" DisplayName="Result" Page="1" Col="0" Row="0" Tooltip="" Default="0" >
           <PopupEntry Title="Comp" Value="0">
           </PopupEntry>
           <PopupEntry Title="Lightwrap" Value="1">
@@ -109,7 +117,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok lightwrap">
 
 
       <Shader OutputBitDepth="Output" Index="6">
-         <Uniform ResDependent="None" Max="100.0" Min="1.0" Default="2.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Amount" Type="float" Name="blur_comp">
+         <Uniform ResDependent="None" Max="100.0" Min="1.0" Default="2.0" Inc="0.01" Tooltip="" Row="0" Col="3" Page="0" DisplayName="Blur Amount" Type="float" Name="blur_comp">
          </Uniform>
          <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass5">
          </Uniform>
@@ -122,40 +130,78 @@ Matchbox version by ivar@inferno-op.com" Name="crok lightwrap">
          <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass6">
          </Uniform>
       </Shader>
-      <Shader OutputBitDepth="Output" Index="8">
-         <Uniform Index="5" Tooltip="" DisplayName="matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="matte">
-            <Duplicate>
-            </Duplicate>
+      
+	  
+	  
+	  <Shader OutputBitDepth="Output" Index="8">
+	      <Uniform Index="4" Tooltip="" DisplayName="matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="matte">
+	         <Duplicate>
+	         </Duplicate>
+	      </Uniform>
+         <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
          </Uniform>
-         <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="2.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Size" Type="float" Name="edge">
-         </Uniform>
-         <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass7">
+         <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="2.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Size" Type="float" Name="edge">
          </Uniform>
          <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass5">
          </Uniform>
-         <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Grain Amount" Type="float" Name="grain_amount">
+         <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Gain" Type="float" Name="em_gain">
          </Uniform>
-		 
-         <Uniform Name="matte_output" Type="int"  ValueType="Popup" DisplayName="Matte" Page="0" Col="3" Row="1" Tooltip="" Default="0" >
-             <PopupEntry Title="LightWrap" Value="0">
-             </PopupEntry>
-             <PopupEntry Title="EdgeBlur" Value="1">
-             </PopupEntry>
+         <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="0.0" Inc="0.1" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Threshold" Type="float" Name="em_threshold">
          </Uniform>
-		 
+      </Shader>
+	  
+      <Shader OutputBitDepth="Output" Index="9">
+         <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass8">
+         </Uniform>
+         <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="5.0" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Blur" Type="float" Name="blur_em">
+         </Uniform>
+      </Shader>
+      <Shader OutputBitDepth="Output" Index="10">
+         <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass9">
+         </Uniform>
+         <Uniform Type="float" Name="blur_em">
+            <Duplicate>
+            </Duplicate>
+         </Uniform>
       </Shader>
 	  
 	  
+      <Shader OutputBitDepth="Output" Index="11">
+          <Uniform Name="matte_output" Type="int"  ValueType="Popup" DisplayName="Matte" Page="1" Col="0" Row="1" Tooltip="" Default="0" >
+              <PopupEntry Title="LightWrap" Value="0">
+              </PopupEntry>
+              <PopupEntry Title="EdgeBlur" Value="1">
+              </PopupEntry>
+          </Uniform>
+         <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass2">
+         </Uniform>
+         <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Grain Amount" Type="float" Name="grain_amount">
+         </Uniform>
+         <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass10">
+         </Uniform>
+         <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass7">
+         </Uniform>
+         <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
+         </Uniform>
+      </Shader>
+	  
+	  
+	  
+	  
 
 
-   <Page Name="" Page="0">
+   <Page Name="Look" Page="0">
       <Col Name="Lightwrap" Col="0" Page="0">
       </Col>
       <Col Name="Lightwrap Matte" Col="1" Page="0">
       </Col>
-      <Col Name="Edge Blur" Col="2" Page="0">
+      <Col Name="Edge Matte" Col="2" Page="0">
       </Col>
-      <Col Name="Output" Col="3" Page="0">
+      <Col Name="Edge Blur / Regrain" Col="3" Page="0">
+      </Col>
+   </Page>
+   <Page Name="Output" Page="1">
+      <Col Name="Output" Col="0" Page="1">
       </Col>
    </Page>
 </ShaderNodePreset>

@@ -1,18 +1,10 @@
 uniform float adsk_result_w, adsk_result_h, adsk_time;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
-uniform sampler2D adsk_results_pass5, adsk_results_pass7, matte;
+uniform sampler2D adsk_results_pass5, adsk_results_pass7, adsk_results_pass2, matte, adsk_results_pass10;
 float time = adsk_time *.05;
 
-uniform float edge, grain_amount;
+uniform float grain_amount;
 uniform int matte_output;
-
-// edge detection based on https://www.shadertoy.com/view/Mdf3zr
-float lookup(vec2 p, float dx, float dy)
-{
-    vec2 uv = (p.xy + vec2(dx * edge, dy * edge)) / res.xy;
-    vec4 e_matte = texture2D(matte, uv.xy);
-    return 0.2126*e_matte.r + 0.7152*e_matte.g + 0.0722*e_matte.b;
-}
 
 float overlay( float s, float d )
 {
@@ -27,6 +19,7 @@ vec3 overlay( vec3 s, vec3 d )
 	c.z = overlay(s.z,d.z);
 	return c;
 }
+
 
 // regrain
 float rand2(vec2 co) 
@@ -49,8 +42,12 @@ void main(void)
 {
 	vec2 uv = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h);
 	vec3 normal_comp = texture2D(adsk_results_pass5, uv).rgb;
-	vec3 n_matte = texture2D(adsk_results_pass5, uv).rgb;
 	vec3 blured_comp = texture2D(adsk_results_pass7, uv).rgb;
+	vec3 back = texture2D(adsk_results_pass2, uv).rgb;
+    vec3 edge_matte = texture2D(adsk_results_pass10, uv).rgb;
+	
+	vec3 bg_histo = back;
+	
 	float matte_out = 1.0;
 
 // add regrain
@@ -59,34 +56,9 @@ void main(void)
 	grain = mix(grau, grain, grain_amount * .03);
 	grain = vec3(grain.r);
 
-	vec3 p_level = vec3(0.0, 1.0, 1.0);
-    n_matte = min(max(n_matte - vec3(p_level.x), vec3(0.0)) / (vec3(p_level.z) - vec3(p_level.x)), vec3(1.0));
-    n_matte = pow(n_matte, vec3(p_level.y));
-
-// add edge blur	
-    vec2 p = gl_FragCoord.xy;
-    float gx = 0.0;
-    gx += -1.0 * lookup(p, -1.0, -1.0);
-    gx += -2.0 * lookup(p, -1.0,  0.0);
-    gx += -1.0 * lookup(p, -1.0,  1.0);
-    gx +=  1.0 * lookup(p,  1.0, -1.0);
-    gx +=  2.0 * lookup(p,  1.0,  0.0);
-    gx +=  1.0 * lookup(p,  1.0,  1.0);
-    float gy = 0.0;
-    gy += -1.0 * lookup(p, -1.0, -1.0);
-    gy += -2.0 * lookup(p,  0.0, -1.0);
-    gy += -1.0 * lookup(p,  1.0, -1.0);
-    gy +=  1.0 * lookup(p, -1.0,  1.0);
-    gy +=  2.0 * lookup(p,  0.0,  1.0);
-    gy +=  1.0 * lookup(p,  1.0,  1.0);
-    float g = gx*gx + gy*gy;
-    
-    vec4 edge_matte = texture2D(matte, p / res.xy);
-    edge_matte = vec4(g, g, g, 1.0);
-	edge_matte = clamp (edge_matte, 0.0, 1.0);
-	vec3 comp = mix(normal_comp, blured_comp, edge_matte.rgb);
+   	vec3 comp = mix(normal_comp, blured_comp, edge_matte);
 	vec3 grain_c = overlay(grain, comp);
-	comp = mix(comp, grain_c, edge_matte.rgb);
+	comp = mix(comp, grain_c, edge_matte);
 	
 	if ( matte_output == 0 )
 		matte_out = texture2D(adsk_results_pass5, uv).a;
