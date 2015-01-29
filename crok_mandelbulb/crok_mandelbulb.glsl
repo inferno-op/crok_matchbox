@@ -99,11 +99,8 @@ uniform float adsk_result_w, adsk_result_h;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 
 
-
-
-// uniform mat3  fractalRotation1;     // {"label":["Rotate x", "Rotate y", "Rotate z"], "group":"Fractal", "control":"rotation", "default":[0,0,0], "min":-360, "max":360, "step":1, "group_label":"Fractal rotation 1"}
-//uniform vec3 fracRotation1;
 uniform bool  depthMap;             // {"label":"Depth map", "default": false, "value":1, "group":"Shading"}
+uniform bool  super_aa;
 
 
 
@@ -301,9 +298,18 @@ vec3 blinnPhong(vec3 color, vec3 p, vec3 n)
     return ambColor * color + color * diffuse + specular * specularity;
 }
 
-vec3 matte = vec3(0.0);
-vec4 bg_color = vec4(0.0);
-
+vec3 depthMatte(vec3 color, vec3 p, vec3 n)
+{
+    // Ambient colour based on background gradient
+    vec3 depthColor = clamp(mix(background2Color, background1Color, (sin(n.y * HALFPI) + 1.0) * 0.5), 0.0, 1.0);
+    depthColor = mix(vec3(ambientColor), depthColor, ambientIntensity);
+    
+    vec3  halfLV = normalize(light - p);
+    float diffuse = max(dot(n, halfLV), 0.0);
+    float specular = pow(diffuse, specularExponent);
+    
+    return depthColor * color + color * diffuse;
+}
 
 // Ambient occlusion approximation.
 // Based upon boxplorer's implementation which is derived from:
@@ -324,6 +330,8 @@ float ambientOcclusion(vec3 p, vec3 n, float eps)
     return clamp(o, 0.0, 1.0);
 }
 
+vec3 z_depth = vec3(0.0);
+
 
 // Calculate the output colour for each input pixel
 vec4 render(vec2 pixel)
@@ -331,11 +339,9 @@ vec4 render(vec2 pixel)
     vec3  ray_direction = rayDirection(pixel);
     float ray_length = minRange;
     vec3  ray = cameraPosition + ray_length * ray_direction;
-	if (render_on_black )
-		bg_color = vec4(clamp(mix(vec3(0.0), vec3(0.0), (sin(ray_direction.y * HALFPI) + 1.0) * 0.5), 0.0, 1.0), 1.0);
-	else
-		bg_color = vec4(clamp(mix(background2Color, background1Color, (sin(ray_direction.y * HALFPI) + 1.0) * 0.5), 0.0, 1.0), 1.0);
     vec4  color = vec4(0.0);
+
+	vec4 bg_color = vec4(clamp(mix(background2Color, background1Color, (sin(ray_direction.y * HALFPI) + 1.0) * 0.5), 0.0, 1.0), 1.0);
     
     float eps = MIN_EPSILON;
     vec3  dist;
@@ -387,45 +393,43 @@ vec4 render(vec2 pixel)
             normal = generateNormal(ray, eps);
             aof = ambientOcclusion(ray, normal, eps);
         }
-        
-		// creating the matte pass
-		color.a = float(mix(color1, mix(color2, color3, 1.0), 1.0));
-		
-		// creating the beauty pass 
-        color.rgb = mix(color1, mix(color2, color3, dist.y * color2Intensity), dist.z * color3Intensity);
-		
-		// add shading
-		color.rgb = blinnPhong(clamp(color.rgb * color1Intensity, 0.0, 1.0), ray, normal);
-        
-		// add inner glow
-		color.rgb = mix(color.rgb, innerGlowColor, glow);
-		
-		// add AO
-		color.rgb *= aof;
-        
-		// add fog
-		color.rgb = mix(bg_color.rgb, color.rgb, exp(-pow(ray_length * exp(fogFalloff * .1), 2.0) * fog * .1));
 
+			// creating the matte pass
+			color.a = float(mix(color1, mix(color2, color3, 1.0), 1.0));
 		
+			// creating the beauty pass 
+	        color.rgb = mix(color1, mix(color2, color3, dist.y * color2Intensity), dist.z * color3Intensity);
 		
+			// add shading
+			color.rgb = blinnPhong(clamp(color.rgb * color1Intensity, 0.0, 1.0), ray, normal);
+        
+			// add inner glow
+			color.rgb = mix(color.rgb, innerGlowColor, glow);
+		
+			// add AO
+			color.rgb *= aof;
+        
+			// add fog
+			color.rgb = mix(bg_color.rgb, color.rgb, exp(-pow(ray_length * exp(fogFalloff * .1), 2.0) * fog * .1));	
 
 		
     } else {
         // Apply outer glow and fog
         ray_length = tmax;
-		if (render_on_black )
-		{
-			bg_color.rgb = mix(vec3(0.0), color.rgb, exp(-pow(ray_length * exp(fogFalloff * .1), 2.0)) * fog * .1);
-		}
-		else
-		{
-			color.rgb = mix(bg_color.rgb, color.rgb, exp(-pow(ray_length * exp(fogFalloff * .1), 2.0)) * fog * .1);
-	        glow = clamp(glowAmount * outerGlowIntensity * 3.0, 0.0, 1.0);
-	        color.rgb = mix(color.rgb, outerGlowColor, glow);
-		}
-
+		color.rgb = mix(bg_color.rgb, color.rgb, exp(-pow(ray_length * exp(fogFalloff * .1), 2.0)) * fog * .1);
+		glow = clamp(glowAmount * outerGlowIntensity * 3.0, 0.0, 1.0);
+	    color.rgb = mix(color.rgb, outerGlowColor, glow);
 
     }
+	
+	if ( depthMap )
+	{
+		// add shading
+		z_depth.rgb = depthMatte(vec3(0.0), ray, normal);
+
+		// add fog
+		z_depth.rgb = mix(vec3(1.0).rgb, z_depth.rgb, exp(-pow(ray_length, 2.0) * 500. * .1));
+	}
 	
 
     
@@ -440,7 +444,8 @@ vec4 render(vec2 pixel)
 void main()
 {
     vec4 color = vec4(0.0);
-	
+	float aa_mulitplier = 1.0;
+		
     float n = 0.0;
     
     cameraRotation = rotationMatrixVector(v, 180.0 - cameraYaw) * rotationMatrixVector(u, -cameraPitch) * rotationMatrixVector(w, cameraRoll);
@@ -448,7 +453,9 @@ void main()
     
 	if ( antialiasing )
 	{
-	    for (float x = 0.0; x < 1.0; x += float(1.0 - aa_strength * .7)) {
+		if ( super_aa )
+			aa_mulitplier = 2.0;
+	    for (float x = 0.0; x < 1.0; x += float(1.0 - aa_strength * .7 * aa_mulitplier )) {
 	        for (float y = 0.0; y < 1.0; y += float(1.0 - aa_strength * .7)) {
 	            color += render(gl_FragCoord.xy + vec2(x, y));
 				n += 1.0;
@@ -459,6 +466,10 @@ void main()
 
 	else
 		color = render(gl_FragCoord.xy);
-	    
-    gl_FragColor = vec4(color.rgb, color.a);
+	
+	if ( depthMap )
+		    gl_FragColor = vec4(color.rgb, z_depth.r);
+	else
+		gl_FragColor = vec4(color.rgb, color.a);
+	
 }
