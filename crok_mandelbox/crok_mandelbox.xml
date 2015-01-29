@@ -101,6 +101,8 @@ Matchbox version by ivar@inferno-op.com" Name="crok mandelbox" SupportsAdaptiveD
   <Uniform Name="antialiasing"       DisplayName="Enable"             Page="3" Col="1" Row="0" Type="bool"       Default="False"                                                                                   Tooltip=""></Uniform>
   <Uniform Name="aa_strength"        DisplayName="Strength"           Page="3" Col="1" Row="1" Type="float"      Default="0.2"        Min="0.0"        Max="1.0"        Inc="0.01"       ResDependent="None"       Tooltip=""></Uniform>
   <Uniform Name="depthMap"    	     DisplayName="Depth Matte"    	  Page="3" Col="2" Row="0" Type="bool"       Default="False"                                                                                   Tooltip=""></Uniform>
+  <Uniform Name="super_aa"    	     DisplayName="Enable Extreme AA"  Page="3" Col="2" Row="1" Type="bool"       Default="False"                                                                                   Tooltip=""></Uniform>
+  
   
  </Shader>
  <Page Page="0" Name="Fractal">

@@ -106,7 +106,7 @@ vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 
 
 uniform bool  depthMap;             // {"label":"Depth map", "default": false, "value":1, "group":"Shading"}
-
+uniform bool  super_aa;
 
 // start for Flame compatibility reason
 #define pi 3.1415926535897932384624433832795
@@ -449,6 +449,7 @@ vec4 render(vec2 pixel)
 void main()
 {
     vec4 color = vec4(0.0);
+	float aa_mulitplier = 1.0;
 	
     float n = 0.0;
     
@@ -457,7 +458,9 @@ void main()
     
 	if ( antialiasing )
 	{
-	    for (float x = 0.0; x < 1.0; x += float(1.0 - aa_strength * .7)) {
+		if ( super_aa )
+			aa_mulitplier = 2.0;
+	    for (float x = 0.0; x < 1.0; x += float(1.0 - aa_strength * .7 * aa_mulitplier )) {
 	        for (float y = 0.0; y < 1.0; y += float(1.0 - aa_strength * .7)) {
 	            color += render(gl_FragCoord.xy + vec2(x, y));
 				n += 1.0;
