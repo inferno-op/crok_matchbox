@@ -63,7 +63,9 @@ Matchbox version by ivar@inferno-op.com" Name="crok lightwrap">
               </PopupEntry>
               <PopupEntry Title="Overlay" Value="4">
               </PopupEntry>
-        	  <PopupEntry Title="Blend" Value="5">
+              <PopupEntry Title="SpotLightBlend" Value="5">
+              </PopupEntry>
+        	  <PopupEntry Title="Blend" Value="6">
               </PopupEntry>
             </Uniform>
  

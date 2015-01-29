@@ -49,6 +49,11 @@ vec3 overlay( vec3 s, vec3 d )
 	return c;
 }
 
+vec3 spotlightBlend (vec3 s, vec3 d)
+{
+	return ( s * d + s);
+}
+
 void main(void)
 {
 	vec2 uv = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h);
@@ -84,6 +89,8 @@ void main(void)
 		comp = lighterColor(back, front);
     else if ( LogicOp == 4)
 		comp = overlay(back, front);
+    else if ( LogicOp == 5)
+		comp = spotlightBlend(front, back);
     else
 		comp = normal(back, front);
 
