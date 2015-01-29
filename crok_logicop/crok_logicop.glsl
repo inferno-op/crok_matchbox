@@ -178,6 +178,11 @@ vec3 divide( vec3 s, vec3 d )
 	return s / d;
 }
 
+vec3 spotlightBlend( vec3 s, vec3 d )
+{
+	return s*d+s;
+}
+
 //	rgb<-->hsv functions by Sam Hocevar
 //	http://lolengine.net/blog/2013/07/27/rgb-to-hsv-in-glsl
 vec3 rgb2hsv(vec3 c)
@@ -295,6 +300,8 @@ void main(void)
 	   c =  c + color(s,d);
    else if ( LogicOp == 25)
 	   c =  c + luminosity(s,d);
+   else if ( LogicOp == 26)
+	   c =  c + spotlightBlend(s,d);
    else
 	   c = c + normal(s,d);
    
