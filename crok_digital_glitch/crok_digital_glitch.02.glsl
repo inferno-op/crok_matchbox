@@ -2,10 +2,22 @@
 
 uniform sampler2D adsk_results_pass1;
 uniform float adsk_time, adsk_result_w, adsk_result_h;
-uniform float g_noise, scale, b_threshold, l_threshold, rgb_offset, bias, opacity, drunk_bias;
-uniform bool drunk_fx, horizontal_slice;
+uniform float g_noise, scale, b_threshold, l_threshold, bw_bias, rgb_offset, bias, opacity, drunk_bias, errorCarry;
+uniform bool drunk_fx, horizontal_slice, floyd_steinberg;
+
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
+
 float time = adsk_time *.05;
+
+const int lookupSize = 64;
+
+
+float getGrayscale(vec2 coords)
+{
+	vec2 uv = coords / resolution.xy;
+	vec3 sourcePixel = texture2D(adsk_results_pass1, uv).rgb;
+	return length(sourcePixel*vec3(0.2126,0.7152,0.0722));
+}
 
 
 vec3 difference( vec3 s, vec3 d )
@@ -114,6 +126,41 @@ void main(void)
 	vec3 d_noise = rand1(uv_noise);
 	float block_thresh = pow(fract(time * 1236.0453), b_threshold);
 	float line_thresh = pow(fract(time * 2236.0453), l_threshold);
+	
+	vec3 col = vec3(0.0);
+	vec3 f_col = vec3(0.0);
+	
+	
+	if ( floyd_steinberg )
+	{
+		float blend_bw_fx = snoise(vec2(adsk_time*100.0));
+	    blend_bw_fx = clamp((blend_bw_fx-(1.0-bw_bias))*999999.0, 0.0, 1.0);
+		
+		float xError = 0.0;
+		for(int xLook=0; xLook<lookupSize; xLook++)
+		{
+			float grayscale = getGrayscale(gl_FragCoord.xy + vec2(-lookupSize+xLook,0));
+			grayscale += xError;
+			float bit = grayscale >= 0.5 ? 1.0 : 0.0;
+			xError = (grayscale - bit)*errorCarry;
+		}
+		
+		float yError = 0.0;
+		for(int yLook=0; yLook<lookupSize; yLook++)
+		{
+			float grayscale = getGrayscale(gl_FragCoord.xy + vec2(0,-lookupSize+yLook));
+			grayscale += yError;
+			float bit = grayscale >= 0.5 ? 1.0 : 0.0;
+			yError = (grayscale - bit)*errorCarry;
+		}
+		
+		float finalGrayscale = getGrayscale(gl_FragCoord.xy);
+		finalGrayscale += xError*0.5 + yError*0.5;
+		float finalBit = finalGrayscale >= 0.5 ? 1.0 : 0.0;
+		f_col = mix(original, vec3(finalBit), blend_bw_fx);
+	}
+	
+	
 	vec2 uv_r = uv, uv_g = uv, uv_b = uv;
 
 	if (d_noise.r < block_thresh ||
@@ -128,7 +175,7 @@ void main(void)
 	gl_FragColor.g = texture2D(adsk_results_pass1, uv_g).g;
 	gl_FragColor.b = texture2D(adsk_results_pass1, uv_b).b;
 
-	vec3 col = gl_FragColor.rgb;
+	col = mix(gl_FragColor.rgb, f_col, 1.0);
 
 	if (d_noise.g < block_thresh)
 		col.rgb = col.ggg;
@@ -148,9 +195,10 @@ void main(void)
 		col = col.rgb * mask;
 	}
 
-    float blend = snoise(vec2(adsk_time*100.0));
+    float blend = snoise(vec2(adsk_time*200.));
     blend = clamp((blend-(1.0-bias))*999999.0, 0.0, opacity);
-	col = mix(original, col, blend);
+	col = mix(f_col, col, blend);
+
 	
 	if ( drunk_fx )
 	{

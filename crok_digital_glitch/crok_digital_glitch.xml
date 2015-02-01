@@ -19,7 +19,7 @@ Setup:
 
 Demo clip: http://vimeo.com/111442395
 
-Based on https://www.shadertoy.com/view/Md2GDw ,  https://www.shadertoy.com/view/4sBSDd , https://www.shadertoy.com/view/MdfGD2
+Based on https://www.shadertoy.com/view/Md2GDw ,  https://www.shadertoy.com/view/4sBSDd , https://www.shadertoy.com/view/MdfGD2 , https://www.shadertoy.com/view/4sjGRD#
 License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 
 Matchbox version by ivar@inferno-op.com" Name="crok digital glitch">
@@ -37,7 +37,6 @@ Matchbox version by ivar@inferno-op.com" Name="crok digital glitch">
       </Uniform>
       <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="0.5" Inc="0.01" Tooltip="" Row="4" Col="2" Page="0" DisplayName="Horizontal Offset" Type="float" Name="max_ofs_siz">
       </Uniform>
-
 
    </Shader>
    <Shader OutputBitDepth="Output" Index="2">
@@ -57,9 +56,16 @@ Matchbox version by ivar@inferno-op.com" Name="crok digital glitch">
       </Uniform>	  
 	  
 
-      <Uniform Row="0" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Enable" Type="bool" Name="drunk_fx">
+      <Uniform Row="0" Col="3" Page="0" Default="True" Tooltip="" DisplayName="Enable" Type="bool" Name="floyd_steinberg">
       </Uniform>
-      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="0.5" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Bias" Type="float" Name="drunk_bias">
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="0.3" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Bias" Type="float" Name="bw_bias">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.4" Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="BW Look" Type="float" Name="errorCarry">
+      </Uniform>
+
+      <Uniform Row="0" Col="0" Page="1" Default="False" Tooltip="" DisplayName="Enable" Type="bool" Name="drunk_fx">
+      </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="0.5" Inc="0.01" Tooltip="" Row="1" Col="0" Page="1" DisplayName="Bias" Type="float" Name="drunk_bias">
       </Uniform>
 
 
@@ -68,14 +74,18 @@ Matchbox version by ivar@inferno-op.com" Name="crok digital glitch">
       </Uniform>
 
    </Shader>
-   <Page Name="" Page="0">
+   <Page Name="Distortion" Page="0">
       <Col Name="Style" Col="0" Page="0">
       </Col>
       <Col Name="Threshold" Col="1" Page="0">
       </Col>
       <Col Name="Horizontal Slices" Col="2" Page="0">
       </Col>
-      <Col Name="Drunk Vision" Col="3" Page="0">
+      <Col Name="Black and White Noise" Col="3" Page="0">
+      </Col>
+   </Page>
+   <Page Name="Drunk FX" Page="1">
+      <Col Name="Drunk Vision" Col="0" Page="1">
       </Col>
    </Page>
 </ShaderNodePreset>

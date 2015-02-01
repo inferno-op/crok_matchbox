@@ -1,5 +1,5 @@
 #version 120
-// based on https://www.shadertoy.com/view/Md2GDw and  https://www.shadertoy.com/view/4sBSDd and https://www.shadertoy.com/view/MdfGD2
+// based on https://www.shadertoy.com/view/Md2GDw and  https://www.shadertoy.com/view/4sBSDd and https://www.shadertoy.com/view/MdfGD2 and https://www.shadertoy.com/view/4sjGRD# 
 // original glsl shader by kusma, hornet and bytewave 
 
 uniform sampler2D Source;
@@ -8,12 +8,13 @@ uniform float adsk_time, adsk_result_w, adsk_result_h;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 float time = adsk_time *.05;
 
-
 const float min_change_frq = 4.0;
+
 uniform float max_ofs_siz;
 uniform float yuv_threshold;
 uniform float time_frq;
 uniform float line_offset_threshold;
+
 float THRESHOLD = line_offset_threshold * 1000. / resolution.x;
 float time_s = mod( time, 32.0 );
 float glitch_threshold = 1.0 - THRESHOLD;
@@ -67,8 +68,7 @@ vec3 rgb2yuv( vec3 rgb )
 	rgb.b = yuv.x + yuv.y * 2.03211;
 	return rgb;
  }
- 
- 
+  
 void main(void)
 {
 	vec2 uv = gl_FragCoord.xy / resolution.xy;
@@ -95,5 +95,6 @@ void main(void)
 		sample_yuv.z += 0.125 * vt_rnd * sat( vt_rnd - yuv_threshold );
 		col = vec3( yuv2rgb(sample_yuv));		
 	}
+
 	gl_FragColor = vec4(col, 1.0);
 }
