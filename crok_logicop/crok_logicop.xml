@@ -27,7 +27,7 @@ Matchbox additions by ivar@inferno-op.com" Name="crok logicop" SupportsAdaptiveD
        <Uniform Index="2" NoInput="White" Tooltip="" DisplayName="Matte" InputType="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="iChannel2">
        </Uniform>
        <Uniform Name="LogicOp" Type="int"  ValueType="Popup" DisplayName="Selection" Page="0" Col="0" Row="0" Tooltip="" Default="0" >
-         <PopupEntry Title="Normal" Value="26">
+         <PopupEntry Title="Normal" Value="27">
          </PopupEntry>
          <PopupEntry Title="___________" Value="5">
          </PopupEntry>

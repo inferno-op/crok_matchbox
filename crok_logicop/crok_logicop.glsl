@@ -302,8 +302,8 @@ void main(void)
 	   c =  c + luminosity(s,d);
    else if ( LogicOp == 26)
 	   c =  c + spotlightBlend(s,d);
-   else
-	   c = c + normal(s,d);
+   else if ( LogicOp == 27)
+	   c =  c + normal(s,d);
    
    vec3 matte =  vec3( texture2D(iChannel2, uv).rgb);
    vec3 original = vec3( texture2D(iChannel1, uv).rgb);
