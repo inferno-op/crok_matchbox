@@ -1,0 +1,46 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader combines multiple LogicOps to streamline your keying batch schematic.
+
+Input:
+
+- Front: greenscreen clips
+- Back: background clip
+- Matte: keyed FG matte
+- Despilled Front: despilled FG clip
+
+
+Setup:
+
+- 2D Histogram: adjust max and min input values of the despilled FG
+
+Demo clip: http://vimeo.com/118993192
+
+Based on this idea: 
+http://forums.autodesk.com/t5/general-discussion/advanced-keying-spill-suppression/td-p/4270497
+
+Video showing the general idea for Smoke and Nuke:
+https://vimeo.com/62523139
+
+
+Matchbox version by ivar@inferno-op.com" Name="crok despill">
+   <Shader OutputBitDepth="Output" Index="1">
+	   <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="front">
+	   </Uniform>
+	   <Uniform Index="1" NoInput="Error" Tooltip="" DisplayName="Back" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="back">
+	   </Uniform>
+	   <Uniform Index="2" NoInput="White" Tooltip="" DisplayName="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte">
+	   </Uniform>
+	   <Uniform Index="3" NoInput="Error" Tooltip="" DisplayName="Despilled Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="f_despilled">
+	   </Uniform>
+	   
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Min Input" Type="float" Name="minInput">
+       </Uniform>
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Max Input" Type="float" Name="maxInput">
+       </Uniform>
+	   
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="2D Histogram" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
