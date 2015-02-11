@@ -1,15 +1,10 @@
 uniform sampler2D source;
 uniform float c_sat, c_lum;
 
-const vec3 lumcoeff = vec3(0.2126,0.7152,0.0722);
-
 
 // RGB to Rec709 YPbPr
 vec3 yuv(vec3 rgb) {
-    //return mat3(0.2215, -0.1145, 0.5016, 0.7154, -0.3855, -0.4556, 0.0721, 0.5, -0.0459) * rgb;
     return mat3(0.2126, -0.0991, 0.615, 0.7152, -0.33609, -0.55861, 0.0722, 0.436, -0.05639) * rgb;
-	
-	
 }
 
 // Rec709 YPbPr to RGB
@@ -22,9 +17,8 @@ void main(void)
 {
 	vec2 uv = gl_TexCoord[0].xy;
 	vec3 col = texture2D(source, uv).rgb;
-	vec3 luma = vec3(dot(col.rgb, lumcoeff));
 
-	// convert to HSV to seperate the saturation
+	// convert to Rec709 YPbPr 
 	col = yuv(col);
 	
 	// clamp the saturation
@@ -32,7 +26,6 @@ void main(void)
 	
 	// clamp the luminance
 	col.r /= max(col.r/c_lum, 1.0);
-	
 		
 	// convert back to RGB 
 	col = rgb(col);
