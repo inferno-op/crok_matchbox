@@ -139,6 +139,7 @@ void main(void)
 	
 	//apply gamma correction 
 	c = pow(c, vec3(gam));
+	//c *= vec3(gam);
 	// apply saturation
 	c = saturation(c, (sat));
 	// apply CDL values
@@ -150,6 +151,6 @@ void main(void)
 		c;
 	else
 		c = vec3(sig(c));
-	
+	//c = clamp(c, 0.0, 1.0);	
     gl_FragColor = vec4(c, 1.0);
 }
