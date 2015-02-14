@@ -1,0 +1,33 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates seamless textures.
+
+Setup:
+
+- Camera Interest: action camera point of interest 
+- FOV: action camera fov
+- Roll: action camera roll
+
+Demo clip: https://vimeo.com/119640186
+
+Shader developer: Inigo Quilez
+
+Based on https://www.shadertoy.com/view/4tsGzf
+
+This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+
+Matchbox version by ivar@inferno-op.com" Name="crok seamless">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="source">
+      </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Shuffle" Type="float" Name="blend">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="20.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Detail" Type="float" Name="zoom">
+      </Uniform>
+      <Uniform ResDependent="None" Max="2.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Smoothness" Type="float" Name="smoothness">
+      </Uniform>
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Setup" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
