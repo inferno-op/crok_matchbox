@@ -75,6 +75,74 @@ void main(void)
 	
 	if ( look == 4 ) 	
 	{
+		slope = vec3(1.12, 1.42, 1.19);
+		offset = vec3(0.04, -0.06, 0.02);
+		power = vec3(0.94, 0.81, 0.83);
+		sat = 0.7;
+		con = 1.06;
+		gam = 1.0;		
+		f_con = 1;
+	}
+	
+	if ( look == 5 ) 	
+	{
+		slope = vec3(1.0);
+		offset = vec3(-0.05, -0.04, -0.03);
+		power = vec3(1.0);
+		sat = 0.0;
+		con = 1.33;
+		gam = 0.6;
+		f_con = 0;
+	}
+	if ( look == 6 ) 	
+	{
+		slope = vec3(1.23, 1.01, 0.75);
+		offset = vec3(0.0);
+		power = vec3(1.21, 1.0, 0.80);
+		sat = 0.5;
+		con = 1.0;
+		gam = 0.76;
+		f_con = 1;
+	}
+	
+	if ( look == 7 ) 	
+	{
+		slope = vec3(0.88, 0.96, 1.24);
+		offset = vec3(0.0);
+		power = vec3(1.45, 1.29, 1.27);
+		sat = 1.0;
+		con = 0.93;
+		gam = 0.9;
+		f_con = 1;
+	}
+	
+	if ( look == 8 ) 	
+	{
+		slope = vec3(1.2, 1.2, 1.2);
+		offset = vec3(0.0);
+		power = vec3(1.3, 1.3, 1.3);
+		sat = 0.0;
+		con = 0.8;
+		gam = 1.2;
+		f_con = 1;
+	}
+	
+	if ( look == 9 ) 	
+	{
+		slope = vec3(0.93, 0.94, 0.96);
+		offset = vec3(0.0);
+		power = vec3(1.6, 1.1, 0.95);
+		sat = 0.4;
+		con = 1.1;
+		gam = 0.7;
+		f_con = 1;
+	}
+	
+	
+	
+	
+	if ( look == 10 ) 	
+	{
 		slope = vec3(1.05, 1.05, 0.95);
 		offset = vec3(0.0);
 		power = vec3(0.76, 0.99, 1.31);
@@ -84,7 +152,7 @@ void main(void)
 		f_con = 1;
 	}
 	
-	if ( look == 5 ) 	
+	if ( look == 11 ) 	
 	{
 		slope = vec3(0.6, 1.0, 0.7);
 		offset = vec3(0.07, 0.0, 0.08);
@@ -95,7 +163,7 @@ void main(void)
 		f_con = 1;		
 	}
 		
-	if ( look == 6 ) 	
+	if ( look == 12 ) 	
 	{
 		slope = vec3(1.19, 1.1, 0.77);
 		offset = vec3(-0.04, -0.08, -0.07);
@@ -105,7 +173,7 @@ void main(void)
 		gam = 0.9;
 		f_con = 1;		
 	}
-	if ( look == 7 ) 	
+	if ( look == 13 ) 	
 	{
 		slope = vec3(1.1, 1.0, 0.8);
 		offset = vec3(0.0);
@@ -116,7 +184,7 @@ void main(void)
 		f_con = 1;
 				
 	}
-	if ( look == 8 ) 	
+	if ( look == 14 ) 	
 	{
 		slope = vec3(1.12, 1.0, 0.79);
 		offset = vec3(0.0);
@@ -126,7 +194,7 @@ void main(void)
 		gam = 0.76;
 		f_con = 1;
 	}
-	if ( look == 9 ) 	
+	if ( look == 15 ) 	
 	{
 		slope = vec3(1.0);
 		offset = vec3(0.0);
@@ -139,7 +207,6 @@ void main(void)
 	
 	//apply gamma correction 
 	c = pow(c, vec3(gam));
-	//c *= vec3(gam);
 	// apply saturation
 	c = saturation(c, (sat));
 	// apply CDL values
@@ -151,6 +218,8 @@ void main(void)
 		c;
 	else
 		c = vec3(sig(c));
-	//c = clamp(c, 0.0, 1.0);	
+	c = clamp(c, 0.0, 1.0);
+	
     gl_FragColor = vec4(c, 1.0);
 }
+
