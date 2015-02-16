@@ -3,9 +3,9 @@ This Matchbox shader creates seamless textures.
 
 Setup:
 
-- Camera Interest: action camera point of interest 
-- FOV: action camera fov
-- Roll: action camera roll
+- Shuffle: rotate the incoming image to create new patterns  
+- Detail: Zoom in / out of the pattern
+- Smoothness: smooth the overlapping parts
 
 Demo clip: https://vimeo.com/119640186
 
