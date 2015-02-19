@@ -180,7 +180,7 @@ vec3 divide( vec3 s, vec3 d )
 
 vec3 spotlightBlend( vec3 s, vec3 d )
 {
-	return s*d+s;
+	return d*s+d;
 }
 
 //	rgb<-->hsv functions by Sam Hocevar

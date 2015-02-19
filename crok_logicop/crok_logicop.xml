@@ -89,6 +89,8 @@ Matchbox additions by ivar@inferno-op.com" Name="crok logicop" SupportsAdaptiveD
          </PopupEntry>
          <PopupEntry Title="Luminosity" Value="25">
          </PopupEntry>
+         <PopupEntry Title="___________" Value="99">
+         </PopupEntry>
          <PopupEntry Title="SpotlightBlend" Value="26">
          </PopupEntry>
       </Uniform>
