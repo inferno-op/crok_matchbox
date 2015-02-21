@@ -16,6 +16,8 @@ uniform int branches;
 uniform vec2 center;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 
+uniform bool out_gamma;
+
 
 float time = adsk_time * 0.05;
 
@@ -210,5 +212,11 @@ void main(void)
     blend = clamp((blend-(1.0-bias))*999999.0, 0.0, 1.0);
 	col = mix(vec3(0.0), col, blend);
 	
+	if ( out_gamma )
+	{
+	    col = pow(col, vec3(2.2));
+	}
+
+		
 	gl_FragColor = vec4(col, 1.0);
 }
