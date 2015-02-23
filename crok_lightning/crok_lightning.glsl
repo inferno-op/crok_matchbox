@@ -34,7 +34,7 @@ struct ITSC
 
 void tPlane(inout ITSC hit, vec3 ro, vec3 rd, vec3 o, vec3 n, vec3 tg, vec2 si)
 {
-    vec2 uv;
+    vec2 uv = vec2(0.0);
     ro -= o;
     float t = -dot(ro, n) / dot(rd, n);
     if(t < 0.0)
@@ -178,8 +178,9 @@ void main(void)
     vec3 col = vec3(0.0);
     vec4 rnd = vec4(0.1, 0.2, 0.3, 0.4);
  
-    float arcv = 0.0, arclight = 0.0;
-    float v;
+    float arcv = 0.0;
+	float arclight = 0.0;
+    float v = 0.0;
     rnd = fract(sin(rnd * 1.111111) * 298729.258972);
     float ts = rnd.z * 1.61803398875 + 1.0;
     float arcfl = ts * rot;
