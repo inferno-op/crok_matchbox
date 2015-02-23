@@ -52,7 +52,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok lightning" HelpLink="https:/
 
 	   <Uniform ResDependent="None" Max="10.0" Min="-10.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Thickness" Type="float" Name="glow">
 	   </Uniform>
-       <Uniform ResDependent="None" Max="4.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Intensity" Type="float" Name="gain">
+       <Uniform ResDependent="None" Max="4.9" Min="-4.9" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Intensity" Type="float" Name="gain">
        </Uniform>
 	   
        <Uniform Row="0" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Linear" Type="bool" Name="out_gamma">
