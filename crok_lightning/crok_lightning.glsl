@@ -12,14 +12,15 @@ uniform sampler2D iChannel0;
 uniform float adsk_time;
 uniform float adsk_result_w, adsk_result_h;
 uniform float speed, rot, glow, noise, size, bias, smoothness, gain, p1, p2;
+uniform float moblur_samples, moblur_shutter;
 uniform int branches;
 uniform vec2 center;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 
 uniform bool out_gamma;
+uniform bool enbl_moblur;
 
-
-float time = adsk_time * 0.05;
+float time = adsk_time * 0.05 + 0.69;
 
 #define pi 3.1415926535897932384626433832795
 
@@ -169,18 +170,14 @@ float arcc(vec2 p, float sd)
 
 void main(void)
 {
-	//vec2 uv = gl_FragCoord.xy / resolution.xy;
 	vec2 uv = (gl_FragCoord.xy / resolution.xy) - center;
-	
     uv.x *= resolution.x / resolution.y;
     
     vec3 ro = vec3(0.0);
     vec3 rd = normalize(vec3(uv, 1.2));
-   
-    vec3 col;
-   
-
+    vec3 col = vec3(0.0);
     vec4 rnd = vec4(0.1, 0.2, 0.3, 0.4);
+ 
     float arcv = 0.0, arclight = 0.0;
     float v;
     rnd = fract(sin(rnd * 1.111111) * 298729.258972);
@@ -191,32 +188,50 @@ void main(void)
     arcits.dist = 1e38;
     float arcz = ro.z + 1.0 + rnd.x / size;
     tPlane(arcits, ro, rd, vec3(0.0, 0.0, arcz), vec3(0.0, 0.0, -1.0), vec3(cos(arcfl), sin(arcfl), 0.0), vec2(2.0));
+	
+	vec3 arccol = vec3(0.9, 0.7, 0.7);
+	
+	if (enbl_moblur)
+	{
+	 	for(float mytime = time-moblur_shutter /2.0; mytime < time+moblur_shutter /2.0; mytime += moblur_shutter /moblur_samples)
+		{
+		    float arcseed = floor(mytime * 12.0 * speed + rnd.y);
+		    if(arcits.dist < 20.0)
+		        {
+		            arcits.uv *= 0.8;
+		            v = arcc(vec2(arcits.uv.x, arcits.uv.y * sign(arcits.uv.x)) * 1.4, arcseed * 0.0003333 / -smoothness);
+		        }
+			    arcv += v;
+		}
 
-    float arcseed = floor(time * 12.0 * speed + rnd.y);
-    if(arcits.dist < 20.0)
-        {
+		arcv /= moblur_samples;
+	}
+	
+	else
+	{
+	    float arcseed = floor(time * 12.0 * speed + rnd.y);
+		if(arcits.dist < 20.0)
+		{
             arcits.uv *= 0.8;
             // 2 bolts from the center 
 			//v = arcc(vec2(abs(arcits.uv.x), arcits.uv.y * sign(arcits.uv.x)) * 1.4, arcseed * 0.0033333);
             v = arcc(vec2(arcits.uv.x, arcits.uv.y * sign(arcits.uv.x)) * 1.4, arcseed * 0.0003333 / -smoothness);
 			
         }
-
     arcv += v;
-	vec3 arccol = vec3(0.9, 0.7, 0.7);
+	}
+
     col = mix(col, arccol, clamp(arcv, 0.0, 1.0));
     col = pow(col, vec3(1.0, 0.8, 0.5) * 1.5) * 1.5;
 	
-	
-    float blend = snoise(vec2(adsk_time*200.));
-    blend = clamp((blend-(1.0-bias))*999999.0, 0.0, 1.0);
+    float blend = snoise(vec2(adsk_time * 200.));
+    blend = clamp((blend-(1.0-bias))*9.0, 0.0, 1.0);
 	col = mix(vec3(0.0), col, blend);
-	
+
 	if ( out_gamma )
 	{
-	    col = pow(col, vec3(2.2));
+		col = pow(col, vec3(2.2));
 	}
-
-		
+	
 	gl_FragColor = vec4(col, 1.0);
 }

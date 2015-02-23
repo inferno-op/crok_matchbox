@@ -57,6 +57,18 @@ Matchbox version by ivar@inferno-op.com" Name="crok lightning" HelpLink="https:/
 	   
        <Uniform Row="0" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Linear" Type="bool" Name="out_gamma">
        </Uniform>
+	   
+	   <!--
+
+       <Uniform Row="1" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Motion Blur" Type="bool" Name="enbl_moblur">
+       </Uniform>
+       <Uniform ResDependent="None" Max="256.0" Min="1.0" Default="16.0" Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="moblur_samples" Type="float" Name="moblur_samples">
+       </Uniform>
+       <Uniform ResDependent="None" Max="100.0" Min="0.01" Default="0.5" Inc="0.01" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Shutter" Type="float" Name="moblur_shutter">
+       </Uniform>
+		   
+	   -->
+
 
 	  
    </Shader>
