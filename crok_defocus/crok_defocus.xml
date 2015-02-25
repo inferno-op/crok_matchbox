@@ -1,5 +1,5 @@
 <ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1.2" Description="
-This Matchbox comps front and back and adds a dof blur.
+This Matchbox comps front and back and adds a defocus effect.
 
 Input:
 - Front: front clip
