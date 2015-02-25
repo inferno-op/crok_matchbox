@@ -15,8 +15,10 @@
 //	~bj.2013
 //	
 uniform sampler2D iChannel0, iChannel1, iChannel2;
-uniform float adsk_result_w, adsk_result_h, blend;
-uniform int LogicOp;
+uniform float adsk_time, adsk_result_w, adsk_result_h, blend;
+uniform float Speed;
+float time = adsk_time * 0.05;
+uniform int LogicOp, Math;
 uniform bool clamp_color;
 
 // uniform bool idarken,imultiply,icolorBurn,ilinearBurn,idarkerColor,ilighten,iscreen,icolorDodge,ilinearDodge,ilighterColor,ioverlay,isoftLight,ihardLight,ivividLight,ilinearLight,ipinLight,ihardMix,idifference,iexclusion,isubstract,idivide,ihue,icolor,isaturation,iluminosity;
@@ -307,11 +309,26 @@ void main(void)
    
    vec3 matte =  vec3( texture2D(iChannel2, uv).rgb);
    vec3 original = vec3( texture2D(iChannel1, uv).rgb);
-   c = mix(original, c, blend);
+   float blend_fin = 0.0;
+    
+   // adding math functions to the blend slider
+   if ( Math == 0 )
+	   blend_fin = blend;
+   else if ( Math == 1 )
+	   blend_fin = clamp(sin( time * Speed ), 0.0, 1.0) * blend;
+   else if ( Math == 2 )
+	   blend_fin = fract( time * Speed ) * blend;
+   else if ( Math == 3 )
+	   blend_fin = (fract( sin( time * Speed ) * 99.) * -1.0 + 1.0) * blend;
+   else if ( Math == 4 )
+	   blend_fin = (fract( sin( floor( time * Speed ) ) * 999. ) * -1. + 1.) * blend;
+     
+   c = mix(original, c, blend_fin);
    c = vec3(matte * c + (1.0 - matte) * original);
 
    if ( clamp_color )
 	   c = clamp(c, 0.0, 1.0);
    
+      
 	gl_FragColor = vec4(c, matte);
 }

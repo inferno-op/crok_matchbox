@@ -32,6 +32,14 @@ struct ITSC
     vec2 uv;
 };
 
+vec3 p = vec3(0.0);
+float dist = 0.0;
+vec3 n = vec3(0.0);
+vec2 uv = vec2(0.0);
+
+
+
+
 void tPlane(inout ITSC hit, vec3 ro, vec3 rd, vec3 o, vec3 n, vec3 tg, vec2 si)
 {
     vec2 uv = vec2(0.0);
