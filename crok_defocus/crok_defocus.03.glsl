@@ -3,13 +3,16 @@
 // https://www.shadertoy.com/view/4d2Xzw#
 // License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 
-uniform sampler2D adsk_results_pass2, back;
+uniform sampler2D adsk_results_pass2, back, back_strength_matte;
 uniform float adsk_result_w, adsk_result_h;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 
 uniform float backBlur, backGain, backNUMBER, backp1, backp2;
 uniform int backStyle;
 uniform bool srcIsPreMult;
+
+float b_strength = 1.0;
+
 
 // This is (3.-sqrt(5.0))*PI radians, which doesn't precompiled for some reason.
 // The compiler is a dunce I tells-ya!!
@@ -63,16 +66,17 @@ vec3 Bokeh(sampler2D tex, vec2 uv, float radius, float amount)
 void main(void)
 {
 	vec2 uv = gl_FragCoord.xy / resolution.xy;
+	b_strength = texture2D(back_strength_matte, uv).r;
 
-        vec4 frontResult = texture2D(adsk_results_pass2, uv);
-	vec4 backResult = vec4(Bokeh(back, uv, backBlur * .4, backGain ), 1.0);
+    vec4 frontResult = texture2D(adsk_results_pass2, uv);
+	vec4 backResult = vec4(Bokeh(back, uv, backBlur * .4 * b_strength, backGain ), 1.0);
 	
 	if ( srcIsPreMult && frontResult.a != 0.0 )
         {
            frontResult.rgb /= vec3(frontResult.a);
         }
-	
-    gl_FragColor = vec4(mix(backResult.rgb, frontResult.rgb, frontResult.a), frontResult.a);
+		
+	gl_FragColor = vec4(mix(backResult.rgb, frontResult.rgb, frontResult.a), frontResult.a);
 
 }
     
