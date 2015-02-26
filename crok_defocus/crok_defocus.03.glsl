@@ -55,7 +55,7 @@ vec3 Bokeh(sampler2D tex, vec2 uv, float radius, float amount)
 	
 	for (float j = 0.0; j < ITERATIONS; j += GOLDEN_ANGLE)
     {
-		vec3 col = texture2D(tex, uv + pixel * Sample(j, r)).xyz;
+		vec3 col = clamp(texture2D(tex, uv + pixel * Sample(j, r)).xyz, 0.0, 1000000000.0);
 		vec3 bokeh = vec3(5.0) + pow(col, vec3(9.0)) * amount;
 		acc += col * floor(bokeh);
 		div += floor(bokeh);
