@@ -84,7 +84,7 @@ Matchbox version by ivar@inferno-op.com and some friendly fokes" Name="crok defo
       </Uniform>
       <Uniform ResDependent="None" Max="1000.0" Min="1.0" Default="300.0" Inc="1.00" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Steps" Type="float" Name="backNUMBER">
       </Uniform>
-      <Uniform Row="0" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Front Is Premultiplied" Type="bool" Name="srcIsPreMult">
+      <Uniform Row="0" Col="2" Page="0" Default="True" Tooltip="" DisplayName="Front Is Premultiplied" Type="bool" Name="srcIsPreMult">
       </Uniform>
    </Shader>
    <Page Name="" Page="0">
