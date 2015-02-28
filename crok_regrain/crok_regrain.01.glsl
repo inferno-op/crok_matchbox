@@ -2,12 +2,11 @@
 
 vec2 center = vec2(.5);
 
-uniform float adsk_time, adsk_result_w, adsk_result_h, adsk_result_frameratio;
+uniform float adsk_time, adsk_result_w, adsk_result_h;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
 float time = adsk_time *.05;
 
-uniform bool color_noise;
-uniform float amount_r, amount_g, amount_b, overall, size, aspect;
+uniform float amount_r, amount_g, amount_b, overall, r_size, g_size, b_size;
 
 uniform int stock;
 
@@ -18,15 +17,12 @@ float rand2(vec2 co)
 }
 
 vec3 noise(vec2 uv) {
-	vec2 c = ((1./size)*res.x)*vec2(1.,(res.y/res.x));
+	vec2 c = res.x*vec2(1.,(res.y/res.x));
 	vec3 col = vec3(0.0);
-	if ( aspect < 1.0 )
-		uv.x = uv.x / aspect;
-	else 
-		uv.y = uv.y * aspect;
-   	float r = rand2(vec2((2.+time) * floor(uv.x*c.x)/c.x, (2.+time) * floor(uv.y*c.y)/c.y ));
-   	float g = rand2(vec2((5.+time) * floor(uv.x*c.x)/c.x, (5.+time) * floor(uv.y*c.y)/c.y ));
-   	float b = rand2(vec2((9.+time) * floor(uv.x*c.x)/c.x, (9.+time) * floor(uv.y*c.y)/c.y ));
+
+   	float r = rand2(vec2((2.+time) * floor(uv.x*c.x / r_size)/c.x / r_size, (2.+time) * floor(uv.y*c.y / r_size)/c.y / r_size));
+   	float g = rand2(vec2((5.+time) * floor(uv.x*c.x / g_size)/c.x / g_size, (5.+time) * floor(uv.y*c.y / g_size)/c.y / g_size));
+   	float b = rand2(vec2((9.+time) * floor(uv.x*c.x / b_size)/c.x / b_size, (9.+time) * floor(uv.y*c.y / b_size)/c.y / b_size));
 
 	col = vec3(r,g,b);
 
@@ -49,9 +45,9 @@ void main(void)
 		float p_green = 5.31;
 		float p_blue = 12.00;
 		
-		grain.r = mix(grau.r, grain.r, p_red * .05 * overall);
-		grain.g = mix(grau.g, grain.g, p_green * .05 * overall);
-		grain.b = mix(grau.b, grain.b, p_blue * .05 * overall);
+		grain.r = mix(grau.r, grain.r, p_red * amount_r * .05 * overall);
+		grain.g = mix(grau.g, grain.g, p_green * amount_g * .05 * overall);
+		grain.b = mix(grau.b, grain.b, p_blue * amount_b * .05 * overall);
 	}
 
 // Kodak 5248
@@ -61,9 +57,9 @@ void main(void)
 		float p_green = 4.09;
 		float p_blue = 7.50;
 		
-		grain.r = mix(grau.r, grain.r, p_red * .05 * overall);
-		grain.g = mix(grau.g, grain.g, p_green * .05 * overall);
-		grain.b = mix(grau.b, grain.b, p_blue * .05 * overall);
+		grain.r = mix(grau.r, grain.r, p_red * amount_r * .05 * overall);
+		grain.g = mix(grau.g, grain.g, p_green * amount_g * .05 * overall);
+		grain.b = mix(grau.b, grain.b, p_blue * amount_b * .05 * overall);
 	}
 
 // Kodak 5287
@@ -73,9 +69,9 @@ void main(void)
 		float p_green = 2.05;
 		float p_blue = 3.64;
 		
-		grain.r = mix(grau.r, grain.r, p_red * .05 * overall);
-		grain.g = mix(grau.g, grain.g, p_green * .05 * overall);
-		grain.b = mix(grau.b, grain.b, p_blue * .05 * overall);
+		grain.r = mix(grau.r, grain.r, p_red * amount_r * .05 * overall);
+		grain.g = mix(grau.g, grain.g, p_green * amount_g * .05 * overall);
+		grain.b = mix(grau.b, grain.b, p_blue * amount_b * .05 * overall);
 	}	
 
 // Kodak 5293
@@ -85,9 +81,9 @@ void main(void)
 		float p_green = 4.63;
 		float p_blue = 5.78;
 		
-		grain.r = mix(grau.r, grain.r, p_red * .05 * overall);
-		grain.g = mix(grau.g, grain.g, p_green * .05 * overall);
-		grain.b = mix(grau.b, grain.b, p_blue * .05 * overall);
+		grain.r = mix(grau.r, grain.r, p_red * amount_r * .05 * overall);
+		grain.g = mix(grau.g, grain.g, p_green * amount_g * .05 * overall);
+		grain.b = mix(grau.b, grain.b, p_blue * amount_b * .05 * overall);
 	}	
 	
 // Kodak 5296
@@ -97,9 +93,9 @@ void main(void)
 		float p_green = 4.48;
 		float p_blue = 16.43;
 		
-		grain.r = mix(grau.r, grain.r, p_red * .05 * overall);
-		grain.g = mix(grau.g, grain.g, p_green * .05 * overall);
-		grain.b = mix(grau.b, grain.b, p_blue * .05 * overall);
+		grain.r = mix(grau.r, grain.r, p_red * amount_r * .05 * overall);
+		grain.g = mix(grau.g, grain.g, p_green * amount_g * .05 * overall);
+		grain.b = mix(grau.b, grain.b, p_blue * amount_b * .05 * overall);
 	}	
 
 // Kodak 5298
@@ -109,9 +105,9 @@ void main(void)
 		float p_green = 1.59;
 		float p_blue = 1.96;
 		
-		grain.r = mix(grau.r, grain.r, p_red * .05 * overall);
-		grain.g = mix(grau.g, grain.g, p_green * .05 * overall);
-		grain.b = mix(grau.b, grain.b, p_blue * .05 * overall);
+		grain.r = mix(grau.r, grain.r, p_red * amount_r * .05 * overall);
+		grain.g = mix(grau.g, grain.g, p_green * amount_g * .05 * overall);
+		grain.b = mix(grau.b, grain.b, p_blue * amount_b * .05 * overall);
 	}	
 	
 // Kodak 5217
@@ -121,9 +117,9 @@ void main(void)
 		float p_green = 4.05;
 		float p_blue = 8.09;
 		
-		grain.r = mix(grau.r, grain.r, p_red * .05 * overall);
-		grain.g = mix(grau.g, grain.g, p_green * .05 * overall);
-		grain.b = mix(grau.b, grain.b, p_blue * .05 * overall);
+		grain.r = mix(grau.r, grain.r, p_red * amount_r * .05 * overall);
+		grain.g = mix(grau.g, grain.g, p_green * amount_g * .05 * overall);
+		grain.b = mix(grau.b, grain.b, p_blue * amount_b * .05 * overall);
 	}
 		
 // Kodak 5218
@@ -133,9 +129,9 @@ void main(void)
 		float p_green = 2.51;
 		float p_blue = 11.60;
 		
-		grain.r = mix(grau.r, grain.r, p_red * .05 * overall);
-		grain.g = mix(grau.g, grain.g, p_green * .05 * overall);
-		grain.b = mix(grau.b, grain.b, p_blue * .05 * overall);
+		grain.r = mix(grau.r, grain.r, p_red * amount_r * .05 * overall);
+		grain.g = mix(grau.g, grain.g, p_green * amount_g * .05 * overall);
+		grain.b = mix(grau.b, grain.b, p_blue * amount_b * .05 * overall);
 	}
 
 // Kodak BW

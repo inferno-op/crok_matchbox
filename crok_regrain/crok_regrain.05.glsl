@@ -1,10 +1,12 @@
 uniform float adsk_result_w, adsk_result_h;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
-uniform sampler2D adsk_results_pass3, Source, Alpha;
-
-uniform float blend, low, mid, high, gamma;
-
+uniform sampler2D adsk_results_pass4, Source, Alpha;
+uniform float blend, low, mid, high, gamma, uv_scale;
 uniform int stock;
+uniform bool grain_only;
+
+vec2 resolution = vec2(adsk_result_w, adsk_result_h);
+
 
 float overlay( float s, float d )
 {
@@ -23,18 +25,20 @@ vec3 overlay( vec3 s, vec3 d )
 
 void main(void)
 {
-	vec2 uv = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h);
+	vec2 uv = gl_FragCoord.xy / resolution;
+	vec2 n_uv = uv / uv_scale;
 	vec3 front = texture2D(Source, uv).rgb;
-	vec3 noise = texture2D(adsk_results_pass3, uv).rgb;
+	vec3 noise = texture2D(adsk_results_pass4, n_uv).rgb;
 	vec3 col = overlay(noise, front);
     vec3 matte = texture2D(Source, uv).rgb;
 	vec3 alpha = texture2D(Alpha, uv).rgb;
 	vec3 p_level = vec3(0.0, 1.0, 1.0);
+	vec4 fin_col = vec4(0.0);
 
 // Kodak 5245
 	if ( stock == 0) 	
 	{
-		p_level = vec3(-1.08, 0.29, 5.36);
+		p_level = vec3(5.08, 0.29, 5.36);
 	    matte = min(max(matte - vec3(p_level.x), vec3(0.0)) / (vec3(p_level.z) - vec3(p_level.x)), vec3(1.0));
 	    matte = pow(matte, vec3(p_level.y));
 	}
@@ -42,7 +46,7 @@ void main(void)
 // Kodak 5248
 	if ( stock == 1) 	
 	{
-		p_level = vec3(-1.08, 0.29, 5.36);
+		p_level = vec3(5.08, 0.29, 5.36);
 	    matte = min(max(matte - vec3(p_level.x), vec3(0.0)) / (vec3(p_level.z) - vec3(p_level.x)), vec3(1.0));
 	    matte = pow(matte, vec3(p_level.y));
 	}
@@ -50,7 +54,7 @@ void main(void)
 // Kodak 5287
 	if ( stock == 2) 	
 	{
-		p_level = vec3(-1.08, 0.29, 5.36);
+		p_level = vec3(5.08, 0.29, 5.36);
 	    matte = min(max(matte - vec3(p_level.x), vec3(0.0)) / (vec3(p_level.z) - vec3(p_level.x)), vec3(1.0));
 	    matte = pow(matte, vec3(p_level.y));
 	}
@@ -58,7 +62,7 @@ void main(void)
 // Kodak 5293
 	if ( stock == 3) 	
 	{
-		p_level = vec3(-1.08, 0.29, 5.36);
+		p_level = vec3(5.08, 0.29, 5.36);
 	    matte = min(max(matte - vec3(p_level.x), vec3(0.0)) / (vec3(p_level.z) - vec3(p_level.x)), vec3(1.0));
 	    matte = pow(matte, vec3(p_level.y));
 	}
@@ -66,7 +70,7 @@ void main(void)
 // Kodak 5296
 	if ( stock == 4) 	
 	{
-		p_level = vec3(-1.08, 0.29, 5.36);
+		p_level = vec3(5.08, 0.29, 5.36);
 	    matte = min(max(matte - vec3(p_level.x), vec3(0.0)) / (vec3(p_level.z) - vec3(p_level.x)), vec3(1.0));
 	    matte = pow(matte, vec3(p_level.y));
 	}
@@ -74,7 +78,7 @@ void main(void)
 // Kodak 5298
 	if ( stock == 5) 	
 	{
-		p_level = vec3(-1.08, 0.29, 5.36);
+		p_level = vec3(5.08, 0.29, 5.36);
 	    matte = min(max(matte - vec3(p_level.x), vec3(0.0)) / (vec3(p_level.z) - vec3(p_level.x)), vec3(1.0));
 	    matte = pow(matte, vec3(p_level.y));
 	}
@@ -112,11 +116,13 @@ void main(void)
 	}
 
 	vec3 inv_matte = 1.0 - matte;
-	vec4 fin_col = vec4(inv_matte * col + (matte) * front , matte);
 	
-	alpha = pow(alpha, vec3(gamma));
-	
-	fin_col.rgb = vec3(alpha * fin_col.rgb + (1.0 - alpha) * front);
+	if ( grain_only )
+		fin_col = vec4(noise , matte);
+	else
+		fin_col = vec4(inv_matte * col + (matte) * front , matte);
+		alpha = pow(alpha, vec3(gamma));
+		fin_col.rgb = vec3(alpha * fin_col.rgb + (1.0 - alpha) * front);
 	
 	gl_FragColor = vec4(fin_col.rgb, alpha * matte);
 }
