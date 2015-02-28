@@ -4,7 +4,7 @@ This Matchbox shader simulates film grain.
 Input:
 
 - Front: source clip
-- Matte:
+- Matte: external matte input
 
 Setup:
 
@@ -12,8 +12,7 @@ Setup:
 - Amount: how much grain is applied
 - Softness: grain softness size
 - Size: grain size
-- Aspect: grain aspect ratio
-- Red | Green | Blue: adjust the different colour channels independently (its only avaiable if the Custom Stock Preset is selected )
+- Red | Green | Blue: adjust the different colour channels independently
 - Levels: adjust the low, mid and high values for your grain (its only avaiable if the Custom Stock Preset is selected )
 
 
