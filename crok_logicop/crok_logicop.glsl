@@ -14,7 +14,7 @@
 //	
 //	~bj.2013
 //	
-uniform sampler2D iChannel0, iChannel1, iChannel2;
+uniform sampler2D iChannel0, iChannel1, iChannel2 ;
 uniform float adsk_time, adsk_result_w, adsk_result_h, blend;
 uniform float Speed;
 float time = adsk_time * 0.05;
