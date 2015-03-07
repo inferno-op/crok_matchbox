@@ -239,6 +239,12 @@ vec3 luminosity( vec3 s, vec3 d )
 	else return c;
 }
 
+
+float Random ( float x )
+{
+	return fract( sin( ((x) - 1.45) / 0.25 ) * 999. );
+}
+
 void main(void)
 {
 	vec2 uv = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h);
@@ -315,15 +321,13 @@ void main(void)
    if ( Math == 0 )
 	   blend_fin = blend;
    else if ( Math == 1 )
-	   blend_fin = clamp(sin( time * Speed ), 0.0, 1.0) * blend;
-   else if ( Math == 2 )
-	   blend_fin = fract( time * Speed ) * blend;
-   else if ( Math == 3 )
-	   blend_fin = (fract( sin( time * Speed ) * 99.) * -1.0 + 1.0) * blend;
+	   blend_fin = sin( time * Speed / 0.5 - 1.5 ) * 0.5 + 0.5;
    else if ( Math == 4 )
-	   blend_fin = (fract( sin( floor( time * Speed ) ) * 999. ) * -1. + 1.) * blend;
-     
-   c = mix(original, c, blend_fin);
+	   blend_fin = Random( floor (time * Speed));
+   else if ( Math == 5 )
+	   blend_fin = smoothstep( 0.0, 1.0, fract (time * Speed));
+   
+   c = mix(original, c, blend_fin * blend);
    c = vec3(matte * c + (1.0 - matte) * original);
 
    if ( clamp_color )

@@ -14,6 +14,12 @@ Setup:
 - Selection: select the logic operator to use
 - Blend: dissolve between bg and result
 
+Function:
+- None: doesn't apply any function
+- Sinus: applies a sinus function to the blend
+- Smooth Saw: applies a smooth saw to the blend
+- Step Random: jumps randomly between diffeend blend values
+
 Demo clip: http://vimeo.com/93495707
 
 Based on http://logik-matchbook.org/shader/blend_3vis
@@ -100,26 +106,24 @@ Matchbox additions by ivar@inferno-op.com" Name="crok logicop" SupportsAdaptiveD
 	  <Uniform Row="0" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Clamp Color" Type="bool" Name="clamp_color">
       </Uniform>
 	  
-      <Uniform Name="Math" Type="int"  ValueType="Popup" DisplayName="Function" Page="0" Col="1" Row="0" Tooltip="" Default="0" >
+      <Uniform Name="Math" Type="int"  ValueType="Popup" DisplayName="Curve" Page="0" Col="1" Row="0" Tooltip="" Default="0" >
           <PopupEntry Title="None" Value="0">
           </PopupEntry>
         <PopupEntry Title="Sinus" Value="1">
         </PopupEntry>
-        <PopupEntry Title="Fract" Value="2">
+        <PopupEntry Title="Smooth Saw" Value="5">
         </PopupEntry>
-        <PopupEntry Title="Noise" Value="3">
+        <PopupEntry Title="Random Step" Value="4">
         </PopupEntry>
-        <PopupEntry Title="Step" Value="4">
-        </PopupEntry>
+
      </Uniform>
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" Type="float" DisplayName="Speed" Name="Speed">
       </Uniform>
-	  
    </Shader>
    <Page Page="0" Name="">
       <Col Page="0" Col="0" Name="Overall">
       </Col>
-      <Col Page="0" Col="1" Name="Blend Selection">
+      <Col Page="0" Col="1" Name="Blend Function">
       </Col>
       <Col Page="0" Col="2" Name="Output">
       </Col>

@@ -23,3 +23,5 @@ crok_mandelbulb/crok_mandelbulb_presets
 crok_checkerboard/crok_checkerboard.glsl
 *.mp4
 
+
+crok_lightning/crok_lightning.glsl
