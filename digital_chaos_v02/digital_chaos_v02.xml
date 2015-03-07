@@ -1,4 +1,5 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="" Name="Digital Chaos v02">
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+Matchbox by ivar@inferno-op.com" Name="Digital Chaos v02">
    <Shader OutputBitDepth="Output" Index="1">
    </Shader>
    <Page Name="" Page="0">
