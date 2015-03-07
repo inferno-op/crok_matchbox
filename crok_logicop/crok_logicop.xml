@@ -22,7 +22,7 @@ Function:
 
 Demo clip: http://vimeo.com/93495707
 
-Based on http://logik-matchbook.org/shader/blend_3vis
+Based on http://logik-matchbook.org/shader/blend_3vis 
 
 Matchbox additions by ivar@inferno-op.com" Name="crok logicop" SupportsAdaptiveDegradation="False" LimitInputsToTexture="True">
    <Shader Index="1" OutputBitDepth="Output">
