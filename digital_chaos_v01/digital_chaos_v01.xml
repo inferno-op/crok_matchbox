@@ -1,4 +1,7 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="" Name="Digital Chaos v01">
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates Digital Chaos
+
+Matchbox by ivar@inferno-op.com" Name="Digital Chaos v01">
    <Shader OutputBitDepth="Output" Index="1">
    </Shader>
    <Page Name="" Page="0">
