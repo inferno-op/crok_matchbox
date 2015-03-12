@@ -5,6 +5,8 @@ Input:
 
 - Noise: noise image 
 
+Based on: https://www.shadertoy.com/view/4lfGWl
+
 Matchbox by ivar@inferno-op.com" Name="Digital Chaos v04">
    <Shader OutputBitDepth="Output" Index="1">
    </Shader>
