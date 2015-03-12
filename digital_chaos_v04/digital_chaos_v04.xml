@@ -1,0 +1,15 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates Digital Chaos
+
+Input:
+
+- Noise: noise image 
+
+Matchbox by ivar@inferno-op.com" Name="Digital Chaos v04">
+   <Shader OutputBitDepth="Output" Index="1">
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Digial Chaos v04" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
