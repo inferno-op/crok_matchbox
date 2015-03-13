@@ -9,6 +9,8 @@ Based on: https://www.shadertoy.com/view/4lfGWl
 
 Matchbox by ivar@inferno-op.com" Name="Digital Chaos v04">
    <Shader OutputBitDepth="Output" Index="1">
+	   <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Noise" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="Noise">
+	   </Uniform>
    </Shader>
    <Page Name="" Page="0">
       <Col Name="Digial Chaos v04" Col="0" Page="0">
