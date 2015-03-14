@@ -1,5 +1,5 @@
 <ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
-This Matchbox recreates a nightvision effect.
+This Matchbox creates a nightvision effect.
 
 Input:
 
@@ -9,7 +9,7 @@ Setup:
 - Selection: select the logic operator to use
 - Blend: dissolve between bg and result
 
-Demo clip: http://vimeo.com/93495707
+Demo clip: https://vimeo.com/122207232
 
 Matchbox additions by ivar@inferno-op.com" Name="crok nightvision">
    <Shader OutputBitDepth="Output" Index="1">
