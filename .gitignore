@@ -22,5 +22,5 @@ crok_mandelbox/crok_mandelbox_presets
 crok_mandelbulb/crok_mandelbulb_presets
 crok_checkerboard/crok_checkerboard.glsl
 *.mp4
-
+*.png
 
