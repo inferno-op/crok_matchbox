@@ -204,11 +204,11 @@ void main(void)
 	
 	if ( look == 16 ) 	
 	{
-		slope = vec3(1.12, 1.42, 1.19);
+		slope = vec3(1.02, 1.32, 1.09);
 		offset = vec3(0.04, -0.06, 0.02);
 		power = vec3(0.70, 0.44, 0.51);
-		sat = 0.9;
-		con = 1.05;
+		sat = 0.8;
+		con = 1.00;
 		gam = 1.30;		
 		f_con = 1;
 	}
