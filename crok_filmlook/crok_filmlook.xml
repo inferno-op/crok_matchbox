@@ -42,16 +42,21 @@ Matchbox version by ivar@inferno-op.com" LimitInputsToTexture="True" SupportsAda
          </PopupEntry>
          <PopupEntry Value="9" Title="Beer 2001">
          </PopupEntry>
-         <PopupEntry Value="10" Title="Sepia">
+         <PopupEntry Value="18" Title="Beer 2006">
          </PopupEntry>
          <PopupEntry Value="11" Title="Polaroid">
          </PopupEntry>
          <PopupEntry Value="12" Title="Cuba Libre">
          </PopupEntry>
+         <PopupEntry Value="17" Title="Tea Time">
+         </PopupEntry>
          <PopupEntry Value="16" Title="Spearmint">
-         </PopupEntry>		 
+         </PopupEntry>
+         <PopupEntry Value="19" Title="Purple Rain">
+         </PopupEntry>			 
          <PopupEntry Value="15" Title="BlackWhite">
          </PopupEntry>
+
       </Uniform>
    </Shader>
    <Shader Index="2" OutputBitDepth="Output">

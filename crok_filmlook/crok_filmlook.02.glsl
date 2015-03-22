@@ -51,10 +51,10 @@ void main(void)
 
 	//apply gamma correction 
 	c = pow(c, vec3(gam));
-	// apply saturation
-	c = saturation(c, (sat));
 	// apply CDL values
 	c = pow(clamp(((c * slope) + offset), 0.0, 1.0), power);
+	// apply saturation
+	c = saturation(c, (sat));
 	// apply contrast
 	c = contrast(c, vec4(con));
 	// blend original in/out
