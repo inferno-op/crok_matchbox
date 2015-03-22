@@ -137,10 +137,7 @@ void main(void)
 		gam = 0.7;
 		f_con = 1;
 	}
-	
-	
-	
-	
+
 	if ( look == 10 ) 	
 	{
 		slope = vec3(1.05, 1.05, 0.95);
@@ -205,7 +202,16 @@ void main(void)
 		f_con = 1;
 	}
 	
-	c = clamp(c, 0.0, 1.0);
+	if ( look == 16 ) 	
+	{
+		slope = vec3(1.12, 1.42, 1.19);
+		offset = vec3(0.04, -0.06, 0.02);
+		power = vec3(0.70, 0.44, 0.51);
+		sat = 0.9;
+		con = 1.05;
+		gam = 1.30;		
+		f_con = 1;
+	}
 	
 	//apply gamma correction 
 	c = pow(c, vec3(gam));
@@ -215,12 +221,15 @@ void main(void)
 	c = pow(clamp(((c * slope) + offset), 0.0, 1.0), power);
 	// apply contrast
 	c = contrast(c, vec4(con));
+	
 	//apply film contrast
 	if ( f_con == 0 )
 		c;
 	else
 		c = vec3(sig(c));
-	
+
+	c = clamp(c, 0.0, 1.0);
+
     gl_FragColor = vec4(c, 1.0);
 }
 

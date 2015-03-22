@@ -48,6 +48,8 @@ Matchbox version by ivar@inferno-op.com" LimitInputsToTexture="True" SupportsAda
          </PopupEntry>
          <PopupEntry Value="12" Title="Cuba Libre">
          </PopupEntry>
+         <PopupEntry Value="16" Title="Spearmint">
+         </PopupEntry>		 
          <PopupEntry Value="15" Title="BlackWhite">
          </PopupEntry>
       </Uniform>
