@@ -54,10 +54,9 @@ void main(void)
 	// apply saturation
 	c = saturation(c, (sat));
 	// apply CDL values
-	c = pow(((c * slope) + offset), power);
+	c = pow(clamp(((c * slope) + offset), 0.0, 1.0), power);
 	// apply contrast
 	c = contrast(c, vec4(con));
-
 	// blend original in/out
 	c = mix(org, c, blend);
 	

@@ -205,12 +205,14 @@ void main(void)
 		f_con = 1;
 	}
 	
+	c = clamp(c, 0.0, 1.0);
+	
 	//apply gamma correction 
 	c = pow(c, vec3(gam));
 	// apply saturation
 	c = saturation(c, (sat));
 	// apply CDL values
-	c = pow(((c * slope) + offset), power);
+	c = pow(clamp(((c * slope) + offset), 0.0, 1.0), power);
 	// apply contrast
 	c = contrast(c, vec4(con));
 	//apply film contrast
@@ -218,7 +220,6 @@ void main(void)
 		c;
 	else
 		c = vec3(sig(c));
-	c = clamp(c, 0.0, 1.0);
 	
     gl_FragColor = vec4(c, 1.0);
 }
