@@ -1,0 +1,13 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader creates Digital Chaos
+
+Based on: http://glslsandbox.com/e#23874.0
+
+Matchbox by ivar@inferno-op.com" Name="Digital Chaos v05">
+   <Shader OutputBitDepth="Output" Index="1">
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Digial Chaos v05" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>

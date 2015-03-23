@@ -1,0 +1,146 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox creates a nightvision effect.
+
+Input:
+
+- Source: front image 
+
+Setup:
+- Amount: amount of nighvision effect applied
+- Glow: amount of glow applied to the image
+- Blur: amount of blur appliedto the incoming image
+- Noise: amount of noise applied to the image
+- Scnaline: scale the scanlines
+
+- RGB Offset: adjust the RGB offset to define the black and white look
+
+- Tint: define the colour of the tint
+- Exposure: adjust the exposure
+- Brightness: adjust the brightness
+- Contrast: adjust the contrast
+- Saturation: adjust the saturation of the effect
+
+- Size: adjust the vignette size
+- Softness: adjust the softness of the vignette
+- Abberations: amount of chromatic abberations applied to the image
+- Distortion: amount of chromatic distortion abblied to the image 
+
+Demo clip: https://vimeo.com/122207232
+
+Matchbox by ivar@inferno-op.com" Name="crok nightvision">
+   <Shader OutputBitDepth="Output" Index="1">
+	      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="front">
+	      </Uniform>
+	   </Shader>
+   
+	   <Shader OutputBitDepth="Output" Index="2">
+ 	      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+ 	      </Uniform>
+	      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="5.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Blur" Type="float" Name="blur">
+	      </Uniform>
+	   </Shader>
+	   
+	   <Shader OutputBitDepth="Output" Index="3">
+ 	      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+ 	      </Uniform>
+	      <Uniform Type="float" Name="blur">
+	         <Duplicate>
+	         </Duplicate>
+	      </Uniform>
+	   </Shader>
+
+
+
+	   <Shader OutputBitDepth="Output" Index="4">
+        <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+        </Uniform>
+		
+        <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Amount" Type="float" Name="amount">
+        </Uniform>
+        <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Exposure" Type="float" Name="Exposure">
+        </Uniform>
+		
+        <Uniform Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Tint" ValueType="Colour" Type="vec3" Name="tint">
+           <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.258">
+           </SubUniform>
+           <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0">
+           </SubUniform>
+           <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.188">
+           </SubUniform>
+        </Uniform>
+				
+        <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Brightness" Type="float" Name="brightness">
+        </Uniform>
+        <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Contrast" Type="float" Name="contrast">
+        </Uniform>
+        <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="0.5" Inc="0.01" Tooltip="" Row="4" Col="2" Page="0" DisplayName="Saturation" Type="float" Name="saturation">
+        </Uniform>		
+		
+        <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="10.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Red" Type="float" Name="Red">
+        </Uniform>
+        <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Green" Type="float" Name="Green">
+        </Uniform>
+        <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="-10.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Blue" Type="float" Name="Blue">
+        </Uniform>	
+	</Shader>
+
+   <Shader OutputBitDepth="Output" Index="5">
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="3" Page="0" DisplayName="Abberations" Type="float" Name="chromatic_abb">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.3" Inc="0.01" Tooltip="" Row="4" Col="3" Page="0" DisplayName="Distortion" Type="float" Name="d_amount">
+      </Uniform>
+   </Shader>		
+		
+	    <Shader OutputBitDepth="Output" Index="6">
+	       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass4">
+	       </Uniform>
+	       <Uniform ResDependent="None" Max="5.0" Min="0.0" Default="3.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Noise" Type="float" Name="overall">
+	       </Uniform>
+
+		   
+	       <Uniform ResDependent="None" Max="2.0" Min="0.005" Default="2.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Scanlines" Type="float" Name="pScanline">
+	       </Uniform>
+		   
+	       <Uniform Row="0" Col="3" Page="0" Default="True" Tooltip="" DisplayName="Enable Vignette" Type="bool" Name="e_vignette">
+	       </Uniform>
+           <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="Size" Type="float" Name="v_scale">
+           </Uniform>
+           <Uniform ResDependent="None" Max="10.0" Min="0.001" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="Softness" Type="float" Name="v_soft">
+           </Uniform>
+	    </Shader>
+		
+	    <Shader OutputBitDepth="Output" Index="7">
+	       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
+	       </Uniform>
+	       <Uniform ResDependent="None" Max="50.0" Min="0.0" Default="10.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Glow" Type="float" Name="glow">
+	       </Uniform>
+	    </Shader>
+	    <Shader OutputBitDepth="Output" Index="8">
+	       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass6">
+	       </Uniform>
+	       <Uniform Type="float" Name="glow">
+	          <Duplicate>
+	          </Duplicate>
+	       </Uniform>
+	    </Shader>
+	    <Shader OutputBitDepth="Output" Index="9">
+ 	       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
+ 	       </Uniform>
+	       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass7">
+	       </Uniform>
+	    </Shader>
+		
+
+   <Page Name="" Page="0">
+      <Col Name="Setup" Col="0" Page="0">
+      </Col>
+      <Col Name="Black and White RGB Offset" Col="1" Page="0">
+      </Col>
+      <Col Name="Colour" Col="2" Page="0">
+      </Col>
+      <Col Name="Vignette / Abberation" Col="3" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
