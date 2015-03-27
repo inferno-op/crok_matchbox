@@ -1,7 +1,6 @@
 <ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
 This Matchbox shader creates flame / fluid like patterns.
 
-
 Setup:
 
 - Detail: fractal detail
