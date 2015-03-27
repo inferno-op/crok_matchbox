@@ -1,6 +1,7 @@
 <ShaderNodePreset SupportsAdaptiveDegradation="False" LimitInputsToTexture="True" Version="1" Description="
 This Matchbox creates Light Leaks style effects.
 
+
 Input:
 - Front: front clip
 - Matte: matte clip which will add to the luma key
