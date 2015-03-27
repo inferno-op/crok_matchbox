@@ -1,4 +1,4 @@
-uniform sampler2D iChannel0;
+uniform sampler2D source;
 uniform float adsk_result_w, adsk_result_h;
 
 uniform float pCv;
@@ -14,21 +14,21 @@ vec2 iResolution = vec2(adsk_result_w, adsk_result_h);
 
 vec4 colorat(vec2 uv) 
 {
-	return texture2D(iChannel0, vec2(uv.x, uv.y));
+	return texture2D(source, vec2(uv.x, uv.y));
 }
 vec4 convolve(vec2 uv) 
 {
 	vec4 col = vec4(0.0);
-	for(float r0 = 0.0; r0 < 1.0; r0 += quality)
+	for(float r0 = 0.0; r0 < 1.0; r0 += 0.1 / quality )
 	 {
 		float r = r0 * pCv*.01;
-		for(float a0 = 0.0; a0 < 1.0; a0 += quality) 
+		for(float a0 = 0.0; a0 < 1.0; a0 += 0.1 / quality) 
 		{
 			float a = a0 * PI2;
 			col += colorat(uv + vec2(cos(a), sin(a)) * r);
 		}
 	}
-	col *= quality * quality;
+	col *= 0.1 / quality * 0.1 / quality;
 	return col;
 }
 void main(void)

@@ -1,7 +1,7 @@
 <ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
 This Matchbox shader simulates a Convolve Blur.
 
-Version 1.1
+Version 1.2
 
 Input:
 
@@ -9,8 +9,8 @@ Input:
 
 Setup:
 
-- Quality : Blur Quality (higher is faster)
-- Radius : Blur Radius
+- Quality: Blur Quality
+- Radius: Blur Radius
  
 Demo clip: https://vimeo.com/82191444
 
@@ -22,16 +22,15 @@ This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAl
 
 Matchbox version by ivar@inferno-op.com" Name="crok convolve">
    <Shader OutputBitDepth="Output" Index="1">
-      <Uniform ResDependent="None" Max="1.0" Min="0.01" Default="0.06" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Quality" Type="float" Name="quality">
+       <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="source">
+       </Uniform>
+      <Uniform ResDependent="None" Max="1000.0" Min="0.0" Default="2.5" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Radius" Type="float" Name="pCv">
       </Uniform>
-      <Uniform ResDependent="None" Max="100" Min="0.01" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Radius" Type="float" Name="pCv">
-      </Uniform>
-      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="Front">
+      <Uniform ResDependent="None" Max="5.0" Min="0.05" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Quality" Type="float" Name="quality">
       </Uniform>
    </Shader>
-   <Page Name="Convolve Blur" Page="0">
+   <Page Name="" Page="0">
       <Col Name="Setup" Col="0" Page="0">
       </Col>
    </Page>
 </ShaderNodePreset>
-
