@@ -28,7 +28,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok snow">
       </Uniform>
       <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="2.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Speed" Type="float" Name="Speed">
       </Uniform>
-      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Size" Type="float" Name="size">
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.01" Inc="0.02" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Size" Type="float" Name="size">
       </Uniform>
 	  
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Rotation" Type="float" Name="rot">
