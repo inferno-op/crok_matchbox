@@ -117,7 +117,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok lava">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
          </SubUniform>
       </Uniform>
-      <Uniform Row="0" Col="1" Page="1" Default="True" Tooltip="" DisplayName="Clamp" Type="bool" Name="clamp">
+      <Uniform Row="0" Col="1" Page="1" Default="True" Tooltip="" DisplayName="Clamp" Type="bool" Name="clamp_g">
       </Uniform>
     </Shader>
    <Page Name="Page 1" Page="0">
