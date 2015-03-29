@@ -2,7 +2,7 @@ uniform float adsk_result_w, adsk_result_h;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
 uniform sampler2D adsk_results_pass4, Source, Alpha;
 uniform float blend, low, mid, high, gamma, uv_scale;
-uniform int stock;
+uniform int stock, blend_mode;
 uniform bool grain_only;
 
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
@@ -22,6 +22,12 @@ vec3 overlay( vec3 s, vec3 d )
 	return c;
 }
 
+vec3 spotlight( vec3 s, vec3 d )
+{
+	vec3 c = 2.0 * d * s;
+	return c;
+}
+
 
 void main(void)
 {
@@ -29,11 +35,17 @@ void main(void)
 	vec2 n_uv = uv / uv_scale;
 	vec3 front = texture2D(Source, uv).rgb;
 	vec3 noise = texture2D(adsk_results_pass4, n_uv).rgb;
-	vec3 col = overlay(noise, front);
+	vec3 col = vec3(0.0);
     vec3 matte = texture2D(Source, uv).rgb;
 	vec3 alpha = texture2D(Alpha, uv).rgb;
 	vec3 p_level = vec3(0.0, 1.0, 1.0);
 	vec4 fin_col = vec4(0.0);
+
+
+	if ( blend_mode == 0)
+		col = overlay(noise, front);
+	if ( blend_mode == 1)
+		col = spotlight(noise, front);
 
 // Kodak 5245
 	if ( stock == 0) 	
