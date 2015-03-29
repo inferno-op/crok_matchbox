@@ -23,11 +23,17 @@ Matchbox version by ivar@inferno-op.com" Name="crok_pixelate">
       </Uniform>
       <Uniform ResDependent="None" Max="1000000.0" Min="1.0" Default="50.0" Inc="0.1" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Detail" Type="float" Name="Detail">
       </Uniform>
-      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Dissolve" Type="float" Name="trans">
+	  <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Dissolve" Type="float" Name="trans">
       </Uniform>
+      
+	  <Uniform Row="0" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Enable" Type="bool" Name="Aspect">
+      </Uniform>
+
    </Shader>
    <Page Name="Pixelate" Page="0">
       <Col Name="Setup" Col="0" Page="0">
+      </Col>
+      <Col Name="Aspect Correction" Col="1" Page="0">
       </Col>
    </Page>
 </ShaderNodePreset>
