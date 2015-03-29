@@ -16,11 +16,11 @@ crok_puffy_noise/crok_puffy_noise_camera/crok_puffy_noise_camera.glsl
 crok_puffy_noise/crok_puffy_noise_camera/crok_puffy_noise_camera.xml
 
 crok_dir_blur/.cheditor
-101_crok_lightleak/crok_lightleak_presets
 crok_lava/crok_lava_setups
 crok_mandelbox/crok_mandelbox_presets
 crok_mandelbulb/crok_mandelbulb_presets
 crok_checkerboard/crok_checkerboard.glsl
 *.mp4
 *.png
+crok_lightleak/crok_lightleak_presets
 
