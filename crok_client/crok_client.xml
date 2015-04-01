@@ -1,0 +1,9 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader will hypnotice your clients.
+
+Based on https://www.shadertoy.com/view/ldBGDc
+
+Matchbox version by ivar@inferno-op.com" Name="crok client">
+   <Shader OutputBitDepth="Output" Index="1">
+   </Shader>
+</ShaderNodePreset>
