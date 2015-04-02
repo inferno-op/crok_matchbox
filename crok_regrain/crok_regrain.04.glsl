@@ -1,10 +1,20 @@
 uniform sampler2D adsk_results_pass3;
 uniform float blur, adsk_result_w, adsk_result_h;
+uniform int stock;
+
 
 void main()
 {
    vec2 coords = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h );
-   float softness = blur + 1.;
+   float p_blur = 1.0;
+   
+// Alan Skin BW
+	if ( stock == 10 ) 	
+	{
+		p_blur = 0.7;
+	}
+	
+   float softness = (blur + 1.) * p_blur;
    int f0int = int(softness);
    vec4 accu = vec4(0);
    float energy = 0.0;

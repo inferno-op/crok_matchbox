@@ -28,23 +28,15 @@ vec3 spotlight( vec3 s, vec3 d )
 void main(void)
 {
 	vec2 uv = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h);
-	vec2 n_uv = uv / uv_scale;
-	
-	n_uv.x *= alan_aspect;
 
 	vec3 front = texture2D(Source, uv).rgb;
-	vec3 noise = texture2D(adsk_results_pass4, n_uv).rgb;
 	vec3 col = vec3(0.0);
     vec3 matte = texture2D(Source, uv).rgb;
 	vec3 alpha = texture2D(Alpha, uv).rgb;
 	vec3 p_level = vec3(0.0, 1.0, 1.0);
 	vec4 fin_col = vec4(0.0);
-
-
-	if ( blend_mode == 0)
-		col = overlay(noise, front);
-	if ( blend_mode == 1)
-		col = spotlight(noise, front);
+	float p_aspect = 1.0;
+	float p_scale = 1.0;
 
 // Kodak 5245
 	if ( stock == 0) 	
@@ -125,6 +117,23 @@ void main(void)
 	    //gamma correction
 	    matte = pow(matte, vec3(mid));
 	}
+	
+// Alan Skin BW
+	if ( stock == 10 ) 	
+	{
+		p_aspect = 0.18;
+		p_scale = 2.6;
+	}
+	
+	vec2 n_uv = uv / uv_scale * p_scale;
+	n_uv.x *= alan_aspect * p_aspect;
+	
+	vec3 noise = texture2D(adsk_results_pass4, n_uv).rgb;
+
+	if ( blend_mode == 0)
+		col = overlay(noise, front);
+	if ( blend_mode == 1)
+		col = spotlight(noise, front);
 
 	vec3 inv_matte = 1.0 - matte;
 	
