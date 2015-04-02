@@ -12,7 +12,7 @@ void main()
 // Alan Skin BW
 	if ( stock == 10 ) 	
 	{
-		p_blur = 0.7;
+		p_blur = 0.73;
 	}
 	
    float softness = (blur + 1.) * p_blur;
