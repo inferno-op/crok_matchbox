@@ -39,6 +39,8 @@ Matchbox version by ivar@inferno-op.com" Name="crok regrain">
            </PopupEntry>
            <PopupEntry Title="BW" Value="8">
            </PopupEntry>
+           <PopupEntry Title="Alan Skin" Value="10">
+           </PopupEntry>
            <PopupEntry Title="Custom" Value="9">
            </PopupEntry>
        </Uniform>
@@ -59,6 +61,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok regrain">
       </Uniform>
       <Uniform ResDependent="None" Max="5.0" Min="1.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" Type="float" DisplayName="Blue" Name="b_size">
       </Uniform>
+
 	  
    </Shader>
    
@@ -76,7 +79,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok regrain">
    <Shader OutputBitDepth="Output" Index="3">
       <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Softness" Type="float" Name="blur">
       </Uniform>
-      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass1">
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
       </Uniform>
 	</Shader>
    <Shader OutputBitDepth="Output" Index="4">
@@ -84,7 +87,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok regrain">
          <Duplicate>
          </Duplicate>
       </Uniform>
-	  <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass3">
+	  <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
       </Uniform>
 	  
    </Shader>
@@ -118,6 +121,9 @@ Matchbox version by ivar@inferno-op.com" Name="crok regrain">
       </Uniform>
 	  
       <Uniform ResDependent="None" Max="3.0" Min="0.123213" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" Type="float" DisplayName="Scale" Name="uv_scale">
+      </Uniform>
+	  
+      <Uniform ResDependent="None" Max="10.0" Min="0.01" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="2" Page="0" Type="float" DisplayName="Aspect" Name="alan_aspect">
       </Uniform>
 	  
 

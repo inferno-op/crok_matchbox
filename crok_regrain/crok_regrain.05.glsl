@@ -1,12 +1,8 @@
-uniform float adsk_result_w, adsk_result_h;
-vec2 res = vec2(adsk_result_w, adsk_result_h);
+uniform float adsk_result_w, adsk_result_h, adsk_result_frameratio;
 uniform sampler2D adsk_results_pass4, Source, Alpha;
-uniform float blend, low, mid, high, gamma, uv_scale;
+uniform float blend, low, mid, high, gamma, uv_scale, alan_aspect;
 uniform int stock, blend_mode;
 uniform bool grain_only;
-
-vec2 resolution = vec2(adsk_result_w, adsk_result_h);
-
 
 float overlay( float s, float d )
 {
@@ -31,8 +27,11 @@ vec3 spotlight( vec3 s, vec3 d )
 
 void main(void)
 {
-	vec2 uv = gl_FragCoord.xy / resolution;
+	vec2 uv = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h);
 	vec2 n_uv = uv / uv_scale;
+	
+	n_uv.x *= alan_aspect;
+
 	vec3 front = texture2D(Source, uv).rgb;
 	vec3 noise = texture2D(adsk_results_pass4, n_uv).rgb;
 	vec3 col = vec3(0.0);

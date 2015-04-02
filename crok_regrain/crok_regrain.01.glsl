@@ -150,5 +150,12 @@ void main(void)
 		grain.b = mix(grau.b, grain.b, amount_b * .05 * overall);
 	}
 	
+// Alan Skin BW
+	if ( stock == 10 ) 	
+	{
+		grain = mix(grau, grain, overall* 1.5);
+		grain = vec3(grain.r);
+	}
+	
 	gl_FragColor = vec4(grain, 1.0);
 }
