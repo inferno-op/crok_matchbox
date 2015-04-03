@@ -8,7 +8,7 @@ uniform float ratio, let_blend, guide_blend, center_blend, size, l_line_blend, l
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 
 uniform vec3 tint_action, tint_center, tint_letterbox, tint_l_line;
-uniform bool letterbox, guides, center, counter, letterbox_line, relative_guide, t_offset;
+uniform bool letterbox, guides, center, counter, letterbox_line, relative_guide, t_offset, relative_lines;
 uniform vec2 position;
 
 float time = adsk_time;
@@ -178,6 +178,7 @@ void main()
 	
 	vec3 c_col = vec3(0.0);
 	vec4 fin_col = vec4(source, 1.0);
+	float r_ratio = ratio;
 
 // Letterbox
 	if ( letterbox )
@@ -221,20 +222,23 @@ void main()
 	{
 		if ( relative_guide )
 		{
-// draw frame guides in relation to the applied letterbox
-			float new_result_h = (adsk_result_w / ratio * adsk_result_pixelratio);
+			if (relative_lines )
+				r_ratio = l_ratio;
+			
+			// draw frame guides in relation to the applied letterbox
+			float new_result_h = (adsk_result_w / r_ratio * adsk_result_pixelratio);
 			float new_result_a_h = new_result_h - new_result_h * .1;
 			float pillar_action_line = new_result_a_h;
 			float new_line_h = (1.0 - (new_result_a_h) / adsk_result_h) / 2.0;
-			float new_aline_v = (1.0 - ((new_result_a_h * ratio / adsk_result_pixelratio) / adsk_result_w)) / 2.0;
+			float new_aline_v = (1.0 - ((new_result_a_h * r_ratio / adsk_result_pixelratio) / adsk_result_w)) / 2.0;
 
 			new_result_h -= new_result_h * .2;
 			float new_t_line_h = (1.0 - (new_result_h) / adsk_result_h) / 2.0;
-			float new_t_line_v = (1.0 - ((new_result_h * ratio / adsk_result_pixelratio) / adsk_result_w)) / 2.0;
+			float new_t_line_v = (1.0 - ((new_result_h * r_ratio / adsk_result_pixelratio) / adsk_result_w)) / 2.0;
 			
-			if (ratio < (adsk_result_w / adsk_result_h * adsk_result_pixelratio))
+			if (r_ratio < (adsk_result_w / adsk_result_h * adsk_result_pixelratio))
 			{
-				float pb_line = (1.0 - ((adsk_result_h * ratio / adsk_result_pixelratio) / adsk_result_w)) / 2.0;
+				float pb_line = (1.0 - ((adsk_result_h * r_ratio / adsk_result_pixelratio) / adsk_result_w)) / 2.0;
 				float pb_a_line = new_aline_v + (pb_line - pb_line *.1);
 				float pb_t_line = new_t_line_v + (pb_line - pb_line * .2);
 

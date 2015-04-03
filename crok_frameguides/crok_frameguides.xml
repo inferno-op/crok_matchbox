@@ -16,7 +16,8 @@ Letterbox Line
 Guides
  - Colour: colour of the guidelines
  - Blend: opacity of the guidelines
- - Relative to Letterbox: adjust the guidelines in relation to the Letterbox 
+ - Enable Relative: adjust the guidelines in relation to the Letterbox 
+ - Relative to Lines: switch to relative to Letterbox Lines
  
 Center
  - Colour: colour of the center cross
@@ -80,9 +81,11 @@ Matchbox version by Kyle, Miles, Lewis and Ivar" Name="crok frameguides">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
          </SubUniform>
       </Uniform>
-      <Uniform Row="2" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Relative to Letterbox" Type="bool" Name="relative_guide">
+      <Uniform Row="2" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Enable Relative" Type="bool" Name="relative_guide">
       </Uniform>
-      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Blend" Type="float" Name="guide_blend">
+      <Uniform Row="3" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Relative to Lines" Type="bool" Name="relative_lines">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="2" Page="0" DisplayName="Blend" Type="float" Name="guide_blend">
       </Uniform>
 
 	  
