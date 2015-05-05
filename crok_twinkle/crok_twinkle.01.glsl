@@ -9,7 +9,6 @@
 //Galaxy Collision
 //By nikoclass
 
-uniform sampler2D matte;
 uniform float adsk_result_w, adsk_result_h, adsk_time, adsk_result_frameratio;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 float time = adsk_time *.05;
@@ -51,7 +50,6 @@ vec3 pulsar(vec2 p, vec2 pos, float size, float angle) {
 void main( void ) {
 
 	vec2 uv = gl_FragCoord.xy / resolution.xy;
-    vec3 mattepix = texture2D(matte, uv).rgb;
 	vec3 c = vec3(0.0);
 	vec2 position = vec2(0.0);
 	float r3 = 0.0;
@@ -63,8 +61,7 @@ void main( void ) {
 		float r2 = rand(vec2(i+ 100, i));
 		
 		position = vec2(r1,r2);
-		position /= mattepix.rr;
-		
+
 
 		// fade in and out
 		if ( blend_function == 0 )
@@ -83,7 +80,7 @@ void main( void ) {
 		
 		for (int i = 0; i < itterations; i++){
 			c += pulsar(uv, position, r3, r4 * i);
-			c = mix(c * vec3((0.5 + sin(i))), c, (1. - b_diff) * .185) ;
+			c = mix(c * vec3((0.5 + sin(float(i)))), c, (1. - b_diff) * .185) ;
 		}
 	}
 
