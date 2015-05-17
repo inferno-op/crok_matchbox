@@ -1,0 +1,24 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="False" SupportsAction="True" SupportsTransition="False" SupportsTimeline="True" TimelineUseBack="False" MatteProvider="False" CommercialUsePermitted="True" ShaderType="Matchbox" SoftwareVersion="2016.0.0" LimitInputsToTexture="True" Version="1.0" HelpLink="https://vimeo.com/128069220" Description="
+This Matchbox shader creates a fisheye effect.
+
+Setup:
+
+- Distortion: adjust the amount of barrel distortion applied
+
+
+Demo clip: https://vimeo.com/128069220
+
+Based on: https://www.shadertoy.com/view/4s2GRR by SanchYESS
+
+Matchbox version by ivar@inferno-op.com" Name="CROK Fisheye">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform ResDependent="None" Max="0.499" Min="-1." Default="0.0" Inc="0.001" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Distortion" Type="float" Name="distortion">
+      </Uniform>
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="source">
+      </Uniform>
+   </Shader>
+   <Page Name="General" Page="0">
+      <Col Name="Look" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
