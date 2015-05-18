@@ -1,6 +1,9 @@
-// based on https://www.shadertoy.com/view/XsXSWS
-// original shader developer: xbe
-// License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+#version 120
+
+// Original shader by Xavier Benech
+// www.shadertoy.com/view/XsXSWS
+// License Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+// creativecommons.org/licenses/by-sa/4.0/
 
 //////////////////////
 // Fire Flame shader

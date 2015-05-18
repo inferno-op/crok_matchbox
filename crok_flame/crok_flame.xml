@@ -1,4 +1,4 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="False" SupportsAction="True" SupportsTransition="False" SupportsTimeline="False" TimelineUseBack="False" MatteProvider="False" CommercialUsePermitted="False" ShaderType="Matchbox" SoftwareVersion="2016.0.0" LimitInputsToTexture="True" Version="1.0" HelpLink="https://vimeo.com/128056903" Description="
+<ShaderNodePreset SupportsAdaptiveDegradation="False" SupportsAction="True" SupportsTransition="False" SupportsTimeline="False" TimelineUseBack="False" MatteProvider="False" CommercialUsePermitted="True" ShaderType="Matchbox" SoftwareVersion="2016.0.0" LimitInputsToTexture="True" Version="1.1" HelpLink="https://vimeo.com/128056903" Description="
 This Matchbox shader creates a simple torch like flame.
 
 Setup:
@@ -8,10 +8,14 @@ Setup:
 - Offset: offset the animation in time
 
 
-Demo clip: https://vimeo.com/128056903
+Demo clip: vimeo.com/128056903
 
-Based on: https://www.shadertoy.com/view/XsXSWS by xbe
-License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+Original shader by Xavier Benech
+www.shadertoy.com/view/XsXSWS
+
+License Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+creativecommons.org/licenses/by-sa/4.0/
+
 
 Matchbox version by ivar@inferno-op.com" Name="CROK Flame">
    <Shader OutputBitDepth="Output" Index="1">
