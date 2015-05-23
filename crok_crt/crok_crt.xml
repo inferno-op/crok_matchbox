@@ -8,7 +8,7 @@ Setup:
 - Pixel: adjust the sharpness of the pixel
 - Shape: adjust the falloff shape
 
-- Overall: adjust hte overall bloom amount
+- Overall: adjust the overall bloom amount
 - Horizontal: adjust the horizontal offset
 - Vertical: adjust the vertical offset
 
@@ -17,7 +17,7 @@ Setup:
 - Dark Amount: adjust the dark shadow mask amount
  
 
-Demo clip: vimeo.com/128683471
+Demo clip: https://vimeo.com/128683471
 
 Original shader by Timothy Lottes
 www.shadertoy.com/view/ls2SRD
