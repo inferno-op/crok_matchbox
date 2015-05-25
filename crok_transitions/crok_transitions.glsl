@@ -1,8 +1,9 @@
 // https://github.com/glslio/glsl-transition/tree/master/example/transitions
 
-uniform float adsk_result_w, adsk_result_h;
+uniform float adsk_result_w, adsk_result_h, adsk_time;
 uniform float adsk_result_frameratio;
 vec2 resolution = vec2(adsk_result_w, adsk_result_h);
+float time = adsk_time * 0.05;
 
 // General parameters
 uniform sampler2D from;
@@ -78,6 +79,13 @@ uniform float morph_strength;
 	
 // cross zoom
 uniform float cz_strength;
+
+// dreamy
+uniform float amount;
+uniform float detail;
+uniform float speed;
+uniform int wave_direction;
+
 float Linear_ease(in float begin, in float change, in float duration, in float time) {
     return change * time / duration + begin;
 }
@@ -349,5 +357,21 @@ void main() {
 	    float d = v.x * center.x + v.y * center.y;
 	    float m = smoothstep(- wipe_smoothness, 0.0, v.x * p.x + v.y * p.y - (d-0.5+progress*(1.0+ wipe_smoothness)));
 	    gl_FragColor = mix(texture2D(to, p), texture2D(from, p), m);
+	}
+	
+// dreamy
+    else if ( transition == 16)
+	{
+		if ( wave_direction == 0 )
+		{
+			float y = sin((p.y + time * speed *.1) * amount ) * detail *0.0118 * sin( progress / 0.32 );
+			gl_FragColor = mix(texture2D(from, (p + vec2(y, 0.0))), texture2D(to, (p + vec2(y, 0.0))), progress);
+		}
+		else if ( wave_direction == 1 )
+		{
+			float x = sin((p.x + time * speed *.1) * amount ) * detail *0.0118 * sin( progress / 0.32 );
+			gl_FragColor = mix(texture2D(from, (p + vec2(0.0, x))), texture2D(to, (p + vec2(0.0, x))), progress);
+		}
+
 	}
 }
