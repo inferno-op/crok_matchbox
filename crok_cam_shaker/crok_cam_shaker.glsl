@@ -1,4 +1,4 @@
-uniform sampler2D source;
+uniform sampler2D source, matte;
  
 uniform float adsk_time, zoom, adsk_result_frameratio, rotation;
 uniform float overall_seed, overall_frq, overall_amp, pos_frq, pos_amp_x, pos_amp_y, add_noise_frq, add_noise_amp_x, add_noise_amp_y, zoom_amp, zoom_frq, rot_frq, rot_amp, moblur_samples, moblur_shutter;
@@ -94,6 +94,7 @@ float fbm( vec2 p ) {
 void main()
 {
 	vec3 col = vec3(0.0);
+	float mat = 0.0;
 
 	float time = adsk_time * 0.2 * overall_frq;
 	vec2 uv = ((gl_FragCoord.xy / resolution.xy) + 0.5) - off_pos;
@@ -173,6 +174,7 @@ void main()
 	uv += vec2(0.5);
 	
 	col += texture2D(source, uv).rgb;
+	mat += texture2D(matte, uv).r;
 
 	
 	if (enbl_moblur)
@@ -255,11 +257,13 @@ void main()
 			uv += vec2(0.5);
 	
 			col += texture2D(source, uv).rgb;
+			mat += texture2D(matte, uv).r;
 		}
 
 		col /= moblur_samples + 1.;
+		mat /= moblur_samples + 1.;
 	}
 	
 
-	gl_FragColor.rgb = col;
+	gl_FragColor = vec4(col, mat);
 }
