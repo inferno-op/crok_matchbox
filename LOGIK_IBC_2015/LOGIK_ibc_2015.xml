@@ -1,0 +1,78 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1" Description="
+LOGIK IBC 2015 Party Invitation shader.
+
+With help from:
+
+StarScroller effect based on http://glslsandbox.com/e#25489 by LJ
+Plasma demo effect based on https://www.shadertoy.com/view/XsfSW2  by twitchingace
+Amiga BoingBall effect based on https://www.shadertoy.com/view/4ssGWn by UnitZeroOne
+StarDust effect based on https://www.shadertoy.com/view/4sSSWz by and
+Groovymap effect based on http://glslsandbox.com/e#26453.3 by Jonathan Proxy
+C64 Logo effect based on http://glslsandbox.com/e#26313.0 by Sander and gigatron
+CheckerTube effect based on http://glslsandbox.com/e#25880.0
+FlowerPlasma effect based on https://www.shadertoy.com/view/Xdf3zH by epsilum 
+Dithering code based on http://devlog-martinsh.blogspot.se/2011/03/glsl-8x8-bayer-matrix-dithering.html
+C64 look effect based on http://oos.moxiecode.com/js_webgl/c64_shader/  by @oosmoxiecode
+CRT Scanline effect based on https://www.shadertoy.com/view/ltB3zK by Timothy Lottes
+38911 BASIC BYTES based on https://www.shadertoy.com/view/MljGWG by 104
+
+
+Matchbox version by ivar@inferno-op.com" Name="LOGIK IBC 2015 Invitiation">
+    <Shader OutputBitDepth="Output" Index="1">
+    </Shader>
+    <Shader OutputBitDepth="Output" Index="2">
+    </Shader>
+    <Shader OutputBitDepth="Output" Index="3">
+       <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+       </Uniform>
+       <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+       </Uniform>
+    </Shader>
+    <Shader OutputBitDepth="Output" Index="4">
+       <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+       </Uniform>
+	   <Uniform Row="1" Col="3" Page="0" Default="True" Tooltip="" DisplayName="Commodore C64 for life " Type="bool" Name="no_c64_col">
+       </Uniform>
+    </Shader>
+    <Shader OutputBitDepth="Output" Index="5">
+       <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass4">
+       </Uniform>
+	   
+	   <Uniform Row="1" Col="0" Page="0" Default="True" Tooltip="" DisplayName="LOGIK IBC Party" Type="bool" Name="dummy">
+       </Uniform>
+
+
+	   
+	   
+	   
+       <Uniform Row="1" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Skylounge" Type="bool" Name="dummy">
+       </Uniform>
+       <Uniform Row="2" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Doubletree by Hilton" Type="bool" Name="dummy">
+       </Uniform>
+       <Uniform Row="3" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Oosterdoksstraat 4, 1011DK" Type="bool" Name="dummy">
+       </Uniform>
+       <Uniform Row="1" Col="2" Page="0" Default="False" Tooltip="" DisplayName="September 11, 2015" Type="bool" Name="dummy">
+       </Uniform>
+       <Uniform Row="2" Col="2" Page="0" Default="False" Tooltip="" DisplayName="8:00 pm - 11:00 pm" Type="bool" Name="dummy">
+       </Uniform>
+      
+
+	   <Uniform Row="2" Col="3" Page="0" Default="False" Tooltip="" DisplayName="I played on a CRT TV " Type="bool" Name="no_crt_masking">
+       </Uniform>
+	   
+    </Shader>
+    <Shader OutputBitDepth="Output" Index="6">
+       <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
+       </Uniform>
+    </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Which party I have to go to ?" Col="0" Page="0">
+      </Col>
+      <Col Name="Where ?" Col="1" Page="0">
+      </Col>
+      <Col Name="When ?"  Col="2" Page="0">
+      </Col>
+      <Col Name="oLD$KooL |\|E\/ER D|E$" Col="3" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
