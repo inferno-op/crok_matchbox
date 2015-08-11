@@ -8,7 +8,7 @@ uniform float Zoom;
 uniform float Noise;
 uniform float Steps;
 uniform float Aspect;
-uniform vec3 Color;
+uniform vec3 color_pot;
 uniform bool useduration;
 uniform int duration;
 uniform float Detail;
@@ -38,6 +38,6 @@ void main( void ) {
 		zoom_center.y += color*1.5;
 		zoom_center.x -= sin(zoom_center.y - cos(dot(zoom_center, vec2(color, sin(color*2.)))));
 	}
-	gl_FragColor = vec4(abs(color) * Color, 1.0);
+	gl_FragColor = vec4(abs(color) * color_pot, 1.0);
     
 }

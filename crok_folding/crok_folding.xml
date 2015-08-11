@@ -31,7 +31,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok folding">
       </Uniform>
 	  <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Aspect" Type="float" Name="Aspect">
 	  </Uniform>	  
-      <Uniform Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Color" ValueType="Colour" Type="vec3" Name="Color">
+      <Uniform Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Color" ValueType="Colour" Type="vec3" Name="color_pot">
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.9">
          </SubUniform>
          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.95">
