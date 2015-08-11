@@ -4,6 +4,7 @@ This Matchbox shader creates handheld camera shakes.
 Input:
 
 - Front: source clip
+- Matte: matte clip
 
 Setup:
 
