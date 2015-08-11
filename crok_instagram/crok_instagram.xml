@@ -1,0 +1,99 @@
+<ShaderNodePreset Name="crok filmlook" Description="
+This Matchbox shader gives you the typical Instagram looks.
+
+
+Setup:
+
+- Look: select the desired Instagram preset
+- Saturation: adjust overall saturation
+- Contrast: adjust overall contrast
+- Gamma: adjust overall gamma
+- Blend: blend between original image and applied preset
+
+
+Matchbox version by ivar@inferno-op.com" LimitInputsToTexture="True" SupportsAdaptiveDegradation="0">
+   <Shader Index="1" OutputBitDepth="Output">
+      <Uniform Name="source" Type="sampler2D" GL_TEXTURE_MIN_FILTER="GL_NEAREST" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" Mipmaps="False" InputType="Front" DisplayName="Source" Tooltip="" NoInput="Error" Index="0">
+      </Uniform>
+      <Uniform ValueType="Popup" Name="look" Type="int" DisplayName="Look" Page="0" Col="0" Row="0" Tooltip="" Inc="1" Default="3" Min="0" Max="1000000">
+         <PopupEntry Value="0" Title="None">
+         </PopupEntry>
+         <PopupEntry Value="1" Title="1977">
+         </PopupEntry>
+         <PopupEntry Value="2" Title="Apollo">
+         </PopupEntry>
+         <PopupEntry Value="3" Title="Brannan">
+         </PopupEntry>
+         <PopupEntry Value="4" Title="Early Bird">
+         </PopupEntry>
+         <PopupEntry Value="5" Title="Gotham">
+         </PopupEntry>
+         <PopupEntry Value="6" Title="Hefe">
+         </PopupEntry>
+         <PopupEntry Value="7" Title="Inkwell">
+         </PopupEntry>
+         <PopupEntry Value="8" Title="Lily">
+         </PopupEntry>
+         <PopupEntry Value="9" Title="Lomo-Fi">
+         </PopupEntry>
+         <PopupEntry Value="10" Title="Lord Kelvin">
+         </PopupEntry>
+         <PopupEntry Value="11" Title="Nashville">
+         </PopupEntry>
+         <PopupEntry Value="12" Title="Poprocket">
+         </PopupEntry>
+         <PopupEntry Value="13" Title="Sutro">
+         </PopupEntry>
+         <PopupEntry Value="14" Title="Walden">
+         </PopupEntry>
+         <PopupEntry Value="15" Title="X-Pro II">
+         </PopupEntry>
+
+      </Uniform>
+   </Shader>
+   <Shader Index="2" OutputBitDepth="Output">
+      <Uniform Name="adsk_results_pass1" Type="sampler2D" GL_TEXTURE_MIN_FILTER="GL_NEAREST" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" Mipmaps="False">
+      </Uniform>
+      <Uniform Name="source" Type="sampler2D" GL_TEXTURE_MIN_FILTER="GL_NEAREST" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" Mipmaps="False" DisplayName="Source" Tooltip="" InputType="Front" Index="0">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+      <Uniform Name="m_sat" Type="float" DisplayName="Saturation" Page="0" Col="0" Row="1" Tooltip="" Inc="0.002" Default="1.0" Min="-5.0" Max="5.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="m_con" Type="float" DisplayName="Contrast" Page="0" Col="0" Row="2" Tooltip="" Inc="0.002" Default="1.0" Min="0.0" Max="10.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="m_gam" Type="float" DisplayName="Gamma" Page="0" Col="0" Row="3" Tooltip="" Inc="0.002" Default="1.0" Min="0.001" Max="10.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="blend" Type="float" DisplayName="Blend" Page="0" Col="0" Row="4" Tooltip="" Inc="0.005" Default="1.0" Min="0.0" Max="10.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="m_slope_r" Type="float" DisplayName="Red" Page="0" Col="1" Row="0" Tooltip="" Inc="0.01" Default="1.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="m_slope_g" Type="float" DisplayName="Green" Page="0" Col="1" Row="1" Tooltip="" Inc="0.01" Default="1.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="m_slope_b" Type="float" DisplayName="Blue" Page="0" Col="1" Row="2" Tooltip="" Inc="0.01" Default="1.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="m_offset_r" Type="float" DisplayName="Red" Page="0" Col="2" Row="0" Tooltip="" Inc="0.01" Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="m_offset_g" Type="float" DisplayName="Green" Page="0" Col="2" Row="1" Tooltip="" Inc="0.01" Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="m_offset_b" Type="float" DisplayName="Blue" Page="0" Col="2" Row="2" Tooltip="" Inc="0.01" Default="0.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="m_power_r" Type="float" DisplayName="Red" Page="0" Col="3" Row="0" Tooltip="" Inc="0.01" Default="1.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="m_power_g" Type="float" DisplayName="Green" Page="0" Col="3" Row="1" Tooltip="" Inc="0.01" Default="1.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+      <Uniform Name="m_power_b" Type="float" DisplayName="Blue" Page="0" Col="3" Row="2" Tooltip="" Inc="0.01" Default="1.0" Min="-1000000.0" Max="1000000.0" ResDependent="None">
+      </Uniform>
+   </Shader>
+   <Page Page="0" Name="">
+      <Col Page="0" Col="0" Name="Overall">
+      </Col>
+      <Col Page="0" Col="1" Name="Slope">
+      </Col>
+      <Col Page="0" Col="2" Name="Offset">
+      </Col>
+      <Col Page="0" Col="3" Name="Power">
+      </Col>
+   </Page>
+</ShaderNodePreset>
+
