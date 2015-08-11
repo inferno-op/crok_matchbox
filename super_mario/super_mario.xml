@@ -1,0 +1,11 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+based on by https://www.shadertoy.com/view/XtlSD7 by  knarkowicz" Name="Super Mario">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Speed" Type="float" Name="Speed">
+      </Uniform>
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Timing" Col="0" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
