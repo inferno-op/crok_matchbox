@@ -185,6 +185,15 @@ vec3 spotlightBlend( vec3 s, vec3 d )
 	return d*s+d;
 }
 
+vec3 over( vec3 s, vec3 d, vec3 matte)
+{
+	vec3 c;
+	c = (1.0-matte)*d;
+	c = screen(s,c);
+	return c;
+	
+}
+
 //	rgb<-->hsv functions by Sam Hocevar
 //	http://lolengine.net/blog/2013/07/27/rgb-to-hsv-in-glsl
 vec3 rgb2hsv(vec3 c)
@@ -255,6 +264,12 @@ void main(void)
 	// destination texture (lower layer)
 	vec3 d = texture2D(iChannel1, uv).xyz;
 	
+	// alpha  texture
+    vec3 matte =  vec3( texture2D(iChannel2, uv).rgb);
+    
+	vec3 original = d;
+    float blend_fin = 0.0;
+	
 	vec3 c = vec3(0.0);
    if( LogicOp ==0)
 	   	c =  c +darken(s,d);
@@ -312,10 +327,9 @@ void main(void)
 	   c =  c + spotlightBlend(s,d);
    else if ( LogicOp == 27)
 	   c =  c + normal(s,d);
+   else if ( LogicOp == 28)
+	   c =  c + over(s,d, matte);
    
-   vec3 matte =  vec3( texture2D(iChannel2, uv).rgb);
-   vec3 original = vec3( texture2D(iChannel1, uv).rgb);
-   float blend_fin = 0.0;
     
    // adding math functions to the blend slider
    if ( Math == 0 )
@@ -328,8 +342,12 @@ void main(void)
 	   blend_fin = smoothstep( 0.0, 1.0, fract (time * Speed));
    
    c = mix(original, c, blend_fin * blend);
-   c = vec3(matte * c + (1.0 - matte) * original);
-
+   
+   if ( LogicOp == 28)
+	   c = c;
+   else
+	   c = vec3(matte * c + (1.0 - matte) * original);
+	   
    if ( clamp_color )
 	   c = clamp(c, 0.0, 1.0);
    

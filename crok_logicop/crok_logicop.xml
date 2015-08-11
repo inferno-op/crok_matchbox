@@ -99,6 +99,10 @@ Matchbox additions by ivar@inferno-op.com" Name="crok logicop" SupportsAdaptiveD
          </PopupEntry>
          <PopupEntry Title="SpotlightBlend" Value="26">
          </PopupEntry>
+         <PopupEntry Title="___________" Value="5">
+         </PopupEntry>
+         <PopupEntry Title="Nukes Over" Value="28">
+         </PopupEntry>
       </Uniform>
       <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Blend" Type="float" Name="blend">
       </Uniform>
