@@ -11,12 +11,12 @@ Matchbox version by ivar@inferno-op.com" Name="CROK Patterns">
    <Shader OutputBitDepth="Output" Index="1">
 	   
   	<!-- Noise Type PopUp -->
-	<Uniform Max="1000000" Min="0" Default="4" Inc="1" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Pattern Type" Type="int" Name="pattern_type" ValueType="Popup">
+	<Uniform Max="1000000" Min="0" Default="0" Inc="1" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Pattern Type" Type="int" Name="pattern_type" ValueType="Popup">
            <PopupEntry Title="Polka Dots" Value="1">
            </PopupEntry>
-           <PopupEntry Title="Zig Zag" Value="3">
-           </PopupEntry>
            <PopupEntry Title="Loading" Value="2">
+           </PopupEntry>
+           <PopupEntry Title="Zig Zag" Value="3">
            </PopupEntry>
            <PopupEntry Title="Iching" Value="4">
            </PopupEntry>
