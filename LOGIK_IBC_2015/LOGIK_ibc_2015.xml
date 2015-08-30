@@ -16,6 +16,7 @@ C64 look effect based on http://oos.moxiecode.com/js_webgl/c64_shader/  by @oosm
 CRT Scanline effect based on https://www.shadertoy.com/view/ltB3zK by Timothy Lottes
 38911 BASIC BYTES based on https://www.shadertoy.com/view/MljGWG by 104
 
+Demo video: https://vimeo.com/137751856
 
 Matchbox version by ivar@inferno-op.com" Name="LOGIK IBC 2015 Invitiation">
     <Shader OutputBitDepth="Output" Index="1">
