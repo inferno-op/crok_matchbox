@@ -13,6 +13,15 @@ const float c_size = 0.77;
 const float p2 = 0.06;
 const vec2 c_pos = vec2(-0.06, 0.13);
 
+
+uniform bool black_white;
+
+vec3 desaturate(vec3 color, float amount)
+{
+    vec3 gray = vec3(dot(vec3(0.2126,0.7152,0.0722), color));
+    return vec3(mix(color, gray, amount));
+}
+
 float dtoa(float d, float amount)
 {
     return clamp(1.0 / (clamp(d, 1.0/amount, 1.0)*amount), 0.,1.);
@@ -296,7 +305,6 @@ void main()
     col = drawCharacter(col, charColor, uv, stringPos, charSize, 12., 12);// M
 	
 	
-	
 	// READY
     stringPos = charAreaTL + vec2(0, 9.0 * charSize.y);// line 5
     col = drawCharacter(col, charColor, uv, stringPos, charSize, 0., 17);// R
@@ -305,14 +313,39 @@ void main()
     col = drawCharacter(col, charColor, uv, stringPos, charSize, 3., 3);// D
     col = drawCharacter(col, charColor, uv, stringPos, charSize, 4., 24);// Y
 	col = drawCharacter(col, charColor, uv, stringPos, charSize, 5., 36);// .
-    
+
     if(mod(time, 1.) < 0.5)
     {
         vec2 tl = vec2(stringPos.x, stringPos.y + charSize.y);
         col = hardRect(col, charColor, uv, tl, tl + charSize);
     }
 
-    
+	
+	// Music Creditz
+    stringPos = charAreaTL + vec2(0, 17. * charSize.y);// line 5
+    //col = drawCharacter(col, charColor, uv, stringPos, charSize, 4., 8);// I
+    //col = drawCharacter(col, charColor, uv, stringPos, charSize, 5., 13);// N
+    //col = drawCharacter(col, charColor, uv, stringPos, charSize, 6., 19);// T
+    //col = drawCharacter(col, charColor, uv, stringPos, charSize, 7., 17);// R
+    //col = drawCharacter(col, charColor, uv, stringPos, charSize, 8., 14);// O
+	
+	col = drawCharacter(col, charColor, uv, stringPos, charSize, 10., 12);// M
+	col = drawCharacter(col, charColor, uv, stringPos, charSize, 11., 20);// U
+	col = drawCharacter(col, charColor, uv, stringPos, charSize, 12., 18);// S
+	col = drawCharacter(col, charColor, uv, stringPos, charSize, 13., 8);// I
+	col = drawCharacter(col, charColor, uv, stringPos, charSize, 14., 2);// C
+
+	col = drawCharacter(col, charColor, uv, stringPos, charSize, 16., 1);// B
+	col = drawCharacter(col, charColor, uv, stringPos, charSize, 17., 24);// Y  
+
+	col = drawCharacter(col, charColor, uv, stringPos, charSize, 19., 3);// D
+	col = drawCharacter(col, charColor, uv, stringPos, charSize, 20., 0);// A  
+	col = drawCharacter(col, charColor, uv, stringPos, charSize, 21., 11);// L
+	col = drawCharacter(col, charColor, uv, stringPos, charSize, 22., 4);// E
+	col = drawCharacter(col, charColor, uv, stringPos, charSize, 23., 25);// Z 
+	col = drawCharacter(col, charColor, uv, stringPos, charSize, 24., 24);// Y  
+
+
 	// black out warped area
 	col = vec4(mix(vec3(0.), col.rgb, dtoa(distanceToVisibleArea, 200. * p2)), 1.0);
 		
@@ -323,7 +356,13 @@ void main()
     scanLineFX = clamp(pow(scanLineFX, 4.0), 0.3, 1.0);
 	col.rgb *= 1.0 + scanLineFX;
     col.rgb = clamp(col.rgb, 0.0, 1.0);
-	if (cut_time <= 934. + 250.0) col.rgb = p_col.rgb;
+	
+
+	if ( black_white )
+		p_col.rgb = desaturate(p_col.rgb, 1.0);
+
+	
+	if (cut_time <= 1520.) col.rgb = p_col.rgb;
 	
 	gl_FragColor = col;
 }

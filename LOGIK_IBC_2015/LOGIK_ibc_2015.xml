@@ -27,6 +27,7 @@ Matchbox version by ivar@inferno-op.com" Name="LOGIK IBC 2015 Invitiation">
        </Uniform>
        <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
        </Uniform>
+
     </Shader>
     <Shader OutputBitDepth="Output" Index="4">
        <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
@@ -59,11 +60,18 @@ Matchbox version by ivar@inferno-op.com" Name="LOGIK IBC 2015 Invitiation">
 
 	   <Uniform Row="2" Col="3" Page="0" Default="False" Tooltip="" DisplayName="I played on a CRT TV " Type="bool" Name="no_crt_masking">
        </Uniform>
+	   <Uniform Row="4" Col="3" Page="0" Default="False" Tooltip="" DisplayName="Intro Music by Dalezy" Type="bool" Name="">
+       </Uniform>
 	   
     </Shader>
     <Shader OutputBitDepth="Output" Index="6">
        <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
        </Uniform>
+	   
+	   
+	   <Uniform Row="3" Col="3" Page="0" Default="False" Tooltip="" DisplayName="My CRT was Black / White" Type="bool" Name="black_white">
+       </Uniform>
+	   
     </Shader>
    <Page Name="" Page="0">
       <Col Name="Which party I have to go to ?" Col="0" Page="0">

@@ -28,7 +28,7 @@ vec2 res = vec2(adsk_result_w, adsk_result_h);
 
 float time = adsk_time *.05;
 
-const float offset = 250.0;
+const float offset = 0.0;
 
 #define PI 3.1415926535897932384626433832795
 #define TWOPI 6.28318530718
@@ -426,7 +426,7 @@ void main()
 	// end state_of_the_art
 	
 	// start SGI Logo
-	vec3 sgi_uv = gl_FragCoord.xyy/res.xyy,ro=vec3(0.0,0.3, sin(time + 26.95)*2.5 + 9.5),rd=normalize(vec3((sgi_uv.x-0.5)*2.0*res.x/res.y,sgi_uv.y*2.0-1.0,-5.0)),rp=vec3(0.0);
+	vec3 sgi_uv = gl_FragCoord.xyy/res.xyy,ro=vec3(0.0,0.3, sin(time + 26.95 + 10.8)*2.5 + 9.5),rd=normalize(vec3((sgi_uv.x-0.5)*2.0*res.x/res.y,sgi_uv.y*2.0-1.0,-5.0)),rp=vec3(0.0);
 	ro=cam(ro)-vec3(1.3/2.0);
 	rd=cam(rd);
 	float t=0.0,d;
@@ -537,51 +537,82 @@ void main()
     // fade-out stars
     if (cut_time >= 200.0 ) col = mix(star_col, vec4(0.0), smoothstep(200, 250., cut_time));
 
-    // SGI Logo
-    if (cut_time >= 11. + offset) col.rgb = sgi_col.rgb;
+	if (cut_time >= 250.+ offset) col.rgb = mix(vec3(0.0), groovy_col.rgb, smoothstep(250.+ offset, 275.0, cut_time));
 	
-	// C64 Logo 
+	if (cut_time >= 250. + offset)
+	{
+		// comp LOGIK logo ontop
+		col.rgb = mix(vec3(0.0), vec3(logik_col.a * logik_col.rgb + (1.0 - logik_col.a) * col.rgb)	, smoothstep(250.+ offset, 275.0, cut_time));
+	    //col.rgb = vec3(logik_col.a * logik_col.rgb + (1.0 - logik_col.a) * col.rgb);
+	}
+	
+	
+	// LOGIK Logo 
     // fade-in
-    if (cut_time >= 91.0 + offset) col = mix(vec4(0.0), logik_col, smoothstep(91.0 + offset, 120.0 + offset, cut_time));
+    //if (cut_time >= 250.+ offset) col += mix(vec4(0.0), logik_col, smoothstep(250.+ offset, 275.0, cut_time));
     // fade-out
-    if (cut_time >= 170.0 + offset) col = mix(logik_col, vec4(0.0), smoothstep(170.0 + offset, 182. + offset, cut_time));
-		
-	if (cut_time >= 196. + offset) col.rgb = state_col;
-	if (cut_time >= 207. + offset) col.rgb = plasma_col;
-	if (cut_time >= 219. + offset) col.rgb = state_col;
-	if (cut_time >= 230. + offset) col.rgb = plasma_col;
-	if (cut_time >= 242. + offset) col.rgb = state_col;
-	if (cut_time >= 288. + offset) col.rgb *= c64_logo_col;
-	if (cut_time >= 301. + offset) col.rgb = plasma_col;
-	if (cut_time >= 334. + offset) col.rgb = state_col;
-	if (cut_time >= 353. + offset) col.rgb = starDust_col;
-	if (cut_time >= 380. + offset) col.rgb = stretch_plasma_col;
-	if (cut_time >= 392. + offset) col.rgb = state_col;
-	if (cut_time >= 403. + offset) col.rgb = plasma_col;
-	if (cut_time >= 415. + offset) col.rgb = state_col;
-	if (cut_time >= 426. + offset) col.rgb = plasma_col;
-	if (cut_time >= 438. + offset) col.rgb = state_col;
-	if (cut_time >= 449. + offset) col.rgb = flower_col.rgb;
-	if (cut_time >= 461. + offset) col.rgb = checker_tube_col;
-	if (cut_time >= 473. + offset) col.rgb = groovy_col.rgb;
-	if (cut_time >= 495. + offset) col.rgb = state_col;;
-	if (cut_time >= 540. + offset) col.rgb = checker_tube_col;
-	if (cut_time >= 565. + offset) col.rgb = am_col.rgb;
-	if (cut_time >= 576. + offset) col.rgb = state_col;
-	if (cut_time >= 588. + offset) col.rgb = plasma_col;
-	if (cut_time >= 611. + offset) col.rgb = stretch_plasma_col;
-	if (cut_time >= 622. + offset) col.rgb = plasma_col;
-	if (cut_time >= 634. + offset) col.rgb = state_col;
-	if (cut_time >= 646. + offset) col.rgb = checker_tube_col;
-	if (cut_time >= 668. + offset) col.rgb = plasma_col;
-	if (cut_time >= 700. + offset) col.rgb = groovy_col.rgb;
-	if (cut_time >= 749. + offset) col.rgb = state_col;
+    // if (cut_time >= 340.0.+ offset) col = mix(logik_col, vec4(0.0), smoothstep(340.0+ offset, 365., cut_time));
 
-	if (cut_time >= 196. + offset)
+	//if (cut_time >= 366. + offset) col.rgb = flower_col.rgb;
+		
+		
+	if (cut_time >= 490. + offset) col.rgb = state_col;
+	if (cut_time >= 550. + offset) col.rgb = plasma_col;
+	if (cut_time >= 609. + offset) col.rgb = state_col;
+	if (cut_time >= 696. + offset) col.rgb = checker_tube_col;
+	if (cut_time >= 722. + offset) col.rgb = groovy_col.rgb;
+		
+	
+	if (cut_time >= 736. ) col.rgb = mix(vec3(0.0), c64_logo_col, smoothstep(736., 748., cut_time));
+    if (cut_time >= 764. ) col.rgb = mix(c64_logo_col, vec3(0.0), smoothstep(774., 786., cut_time));
+	
+	if (cut_time >= 787. + offset) col.rgb = sgi_col.rgb;
+	
+	
+	if (cut_time >= 900. ) col.rgb = mix(vec3(0.0), am_col.rgb, smoothstep(900., 912., cut_time));
+    if (cut_time >= 968. ) col.rgb = mix(am_col.rgb, vec3(0.0), smoothstep(968., 980., cut_time));
+
+	
+	
+	if (cut_time >= 980. + offset) col.rgb = state_col;
+	if (cut_time >= 1012. + offset) col.rgb = plasma_col;
+	if (cut_time >= 1040. + offset) col.rgb = state_col;
+	
+	if (cut_time >= 1082. + offset) col.rgb = flower_col.rgb;
+	if (cut_time >= 1135. + offset) col.rgb = starDust_col;
+	if (cut_time >= 1166. + offset) col.rgb = checker_tube_col;
+	if (cut_time >= 1204. + offset) col.rgb = state_col;
+	if (cut_time >= 1230. + offset) col.rgb = zoom_plasma_col;
+	if (cut_time >= 1258. + offset) col.rgb = state_col;
+	if (cut_time >= 1300. + offset) col.rgb = plasma_col;
+	if (cut_time >= 1343. + offset) col.rgb = zoom_plasma_col;
+	if (cut_time >= 1382. + offset) col.rgb = state_col;
+	if (cut_time >= 1411. + offset) col.rgb = zoom_plasma_col;	
+	
+	
+	// end part
+	if (cut_time >= 1429. + offset) col.rgb = groovy_col.rgb;
+	if (cut_time >= 1439. + offset) col.rgb = state_col;
+	if (cut_time >= 1450. + offset) col.rgb = plasma_col;
+	if (cut_time >= 1454. + offset) col.rgb = state_col;
+	if (cut_time >= 1458. + offset) col.rgb = am_col.rgb;
+	if (cut_time >= 1462. + offset) col.rgb = state_col;
+	if (cut_time >= 1466. + offset) col.rgb = sgi_col.rgb;
+	if (cut_time >= 1470. + offset) col.rgb = stretch_plasma_col;
+	if (cut_time >= 1474. + offset) col.rgb = zoom_plasma_col;
+	if (cut_time >= 1478. + offset) col.rgb = groovy_col.rgb;
+	if (cut_time >= 1495. + offset) col.rgb = state_col;
+	if (cut_time >= 1499. + offset) col.rgb = checker_tube_col;
+	if (cut_time >= 1503. + offset) col.rgb = stretch_plasma_col;
+	if (cut_time >= 1512. + offset) col.rgb = plasma_col;
+	if (cut_time >= 1516. + offset) col.rgb = state_col;
+
+	if (cut_time >= 490. + offset)
 	{
 		// comp LOGIK logo ontop
 	    col.rgb = vec3(logik_small_col.a * logik_small_col.rgb + (1.0 - logik_small_col.a) * col.rgb);	
 	}
+	
 	
 	col = clamp(col, 0.0, 1.0);
     gl_FragColor = vec4(col.rgb, 1.0);
