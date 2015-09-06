@@ -5,6 +5,8 @@
 // ZigZag based on http://patriciogonzalezvivo.com/2015/thebookofshaders/edit.html#09/zigzag.frag by patriciogv
 // iching based on http://patriciogonzalezvivo.com/2015/thebookofshaders/edit.html#09/iching-01.frag by patriciogv
 // Truchet based on http://patriciogonzalezvivo.com/2015/thebookofshaders/edit.html#09/truchet.frag by patriciogv
+// Binary Noise based on http://glslsandbox.com/e#27146.0
+
 
 #define PI 3.14159265359
 #define TWO_PI 6.28318530718
@@ -44,6 +46,10 @@ uniform float iching_detail;
 uniform int truchet_style;
 uniform bool truchet_curve;
 uniform float truchet_frequence, truchet_amplitude;
+
+// binary uniforms
+uniform float binary_seed;
+uniform float binary_move;
 
 float hash2(vec2 uv) {
 	return fract(sin(uv.x * 15.78 + uv.y * 35.14) * 43758.23);
@@ -237,6 +243,19 @@ vec2 rotateTilePattern(vec2 _st){
 }
 // end truchet
 
+// begin binary
+float random (vec2 st) 
+{ 
+    return fract(sin(dot(st, vec2(12.9898,78.233+0.0001 * binary_seed)))* 43758.5453123);
+}
+
+float eq(float v, float compareTo)
+{
+    return step(compareTo-1.,v) * step(v, compareTo+1.); 	
+}
+// end binary
+
+
 void main()
 {
 	vec2 uv = (gl_FragCoord.xy / resolution.xy) - pos;
@@ -340,9 +359,21 @@ void main()
 			col.rgb = vec3(fillY(uv,0.5+sin(uv.x*PI*truchet_frequence)*truchet_amplitude,0.01));
 		}
 		else col.rgb = vec3(step(uv.x,uv.y));
-
 	}
-	
+	else if ( pattern_type == 6 )
+	{
+		uv.x *= 100.;
+		uv.y *= 100.;
+
+		float line = floor(uv.y);
+		uv.x += time*40.*(mod(line,binary_move)*2. -1.)*random(vec2(line));
+
+		vec2 ipos = floor(uv);
+		vec2 fpos = fract(uv);
+
+		col.rgb = vec3(step(0.5*random(vec2(line)), binary_seed * random(ipos)));
+	}
+		
 	gl_FragColor = col;
 }
 	

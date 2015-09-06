@@ -6,6 +6,7 @@ ZigZag based on http://patriciogonzalezvivo.com/2015/thebookofshaders/edit.html#
 Simple loading screen based on https://www.shadertoy.com/view/XdBXzd by ndel
 Iching based on http://patriciogonzalezvivo.com/2015/thebookofshaders/edit.html#09/iching-01.frag by patriciogv
 Truchet based on http://patriciogonzalezvivo.com/2015/thebookofshaders/edit.html#09/truchet.frag by patriciogv
+Binary Noise based on http://glslsandbox.com/e#27146.0
 
 Matchbox version by ivar@inferno-op.com" Name="CROK Patterns">
    <Shader OutputBitDepth="Output" Index="1">
@@ -21,6 +22,8 @@ Matchbox version by ivar@inferno-op.com" Name="CROK Patterns">
            <PopupEntry Title="Iching" Value="4">
            </PopupEntry>
            <PopupEntry Title="Truchet" Value="5">
+           </PopupEntry>
+           <PopupEntry Title="Binary" Value="6">
            </PopupEntry>
     </Uniform>
 	   
@@ -75,7 +78,7 @@ Matchbox version by ivar@inferno-op.com" Name="CROK Patterns">
  	<Uniform ResDependent="None" Max="2.0" Min="0.0" Default="0.7" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" Type="float" DisplayName="Amount" Name="iching_amount"
  		UIConditionSource="pattern_type" UIConditionValue="4" UIConditionInvert="False" UIConditionType="Hide">
  	</Uniform>
- 	 <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" Type="float" DisplayName="Detai" Name="iching_detail"
+ 	 <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" Type="float" DisplayName="Detail" Name="iching_detail"
  		  UIConditionSource="pattern_type" UIConditionValue="4" UIConditionInvert="False" UIConditionType="Hide">
  	 </Uniform>
 
@@ -106,6 +109,14 @@ Matchbox version by ivar@inferno-op.com" Name="CROK Patterns">
     <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="-0.5" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" Type="float" DisplayName="Amplitude" Name="truchet_amplitude"
 		UIConditionSource="truchet_curve" UIConditionValue="5" UIConditionInvert="False" UIConditionType="Hide">
     </Uniform>
+	
+ 	<!-- Binary Uniforms -->
+ 	<Uniform ResDependent="None" Max="2.0" Min="0.0" Default="0.5" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" Type="float" DisplayName="Amount" Name="binary_seed"
+ 		UIConditionSource="pattern_type" UIConditionValue="6" UIConditionInvert="False" UIConditionType="Hide">
+ 	</Uniform>
+ 	 <Uniform ResDependent="None" Max="10.0" Min="-10.0" Default="2.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" Type="float" DisplayName="Movement" Name="binary_move"
+ 		  UIConditionSource="pattern_type" UIConditionValue="6" UIConditionInvert="False" UIConditionType="Hide">
+ 	 </Uniform>
 		  
    </Shader>
    <Page Name="General" Page="0">
