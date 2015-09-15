@@ -1,0 +1,52 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="" Name="LOGIK UG London 2015">
+   <Shader OutputBitDepth="Output" Index="1">
+       <Uniform Row="3" Col="3" Page="0" Default="True" Tooltip="" Type="bool" DisplayName="Enable Antialiasing" Name="antialiasing">
+       </Uniform>
+       <Uniform ResDependent="None" Max="128.0" Min="1.0" Default="4.0" Inc="1.0" Tooltip="" Row="4" Col="3" Page="0" Type="float" DisplayName="Steps" Name="aaSteps">
+       </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="2">
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="3">
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="4">
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="5">
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass4">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="6">
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
+      </Uniform>
+	  
+	  
+      <Uniform Row="0" Col="0" Page="0" Default="True" Tooltip="" DisplayName="The Salisbury" Type="bool" Name="dummy">
+      </Uniform>
+      <Uniform Row="1" Col="0" Page="0" Default="True" Tooltip="" DisplayName="90 St Martin's Lane" Type="bool" Name="dummy">
+      </Uniform>
+      <Uniform Row="2" Col="0" Page="0" Default="True" Tooltip="" DisplayName="London WC2N 4AP" Type="bool" Name="dummy">
+      </Uniform>
+	  
+	  
+      <Uniform Row="0" Col="1" Page="0" Default="True" Tooltip="" DisplayName="Tuesday" Type="bool" Name="dummy">
+      </Uniform>
+      <Uniform Row="1" Col="1" Page="0" Default="True" Tooltip="" DisplayName="15th September 2015" Type="bool" Name="dummy">
+      </Uniform>
+      <Uniform Row="2" Col="1" Page="0" Default="True" Tooltip="" DisplayName="7pm - 10pm" Type="bool" Name="dummy">
+      </Uniform>
+	  
+	  
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Where" Col="0" Page="0">
+      	</Col>
+		<Col Name="When" Col="1" Page="0">
+		</Col>
+   </Page>
+</ShaderNodePreset>
