@@ -125,6 +125,7 @@ void main(void)
 		c = r;
 	else
 		c;
+	c = clamp( c, 0.0, 1.0);
     gl_FragColor = vec4(c, m);
 }
 
