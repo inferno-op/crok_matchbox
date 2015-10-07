@@ -1,10 +1,11 @@
 // Pass 2: do the displace
 // lewis@lewissaunders.com
 
-uniform sampler2D front, adsk_results_pass4, strength_map;
+uniform sampler2D front, adsk_results_pass4, strength_map, matte;
 uniform float adsk_result_w, adsk_result_h, blength, spacing;
 
 uniform int oversamples;
+uniform bool output_matte;
 
 const float sidestep = 0.0;
 
@@ -39,9 +40,18 @@ void main() {
 			}
 			// Sample front image where our walk ended up
 			acc.rgb += texture2D(front, xy * px).rgb;
+			
+			if ( output_matte )
+			{
+				// Sample matte image where our walk ended up
+				acc.a += texture2D(matte, xy * px).r;	
+			}
+			else
+			{
+				// Length we've travelled to the matte output  
+				acc.a += dist * (blength * strength / 32.0);	
+			}
 
-			// Length we've travelled to the matte output
-			acc.a += dist * (blength * strength / 32.0);
 		}
 	}
 	acc /= float(oversamples * oversamples);

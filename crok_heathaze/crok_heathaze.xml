@@ -4,6 +4,7 @@ This Matchbox shader creates a heat haze effect.
 Input:
 
 - Front: source clip
+- Matte: masken input
 - Displace: external Displacement matte
 - Strength: external Strength matte
 
@@ -52,7 +53,7 @@ Big thx to lewis@lewissaunders.com for help and code snippets" Name="crok heatha
       </Uniform>
       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
       </Uniform>
-      <Uniform Index="1" NoInput="White" Tooltip="" DisplayName="Displace" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="map">
+      <Uniform Index="2" NoInput="White" Tooltip="" DisplayName="Displace" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="map">
       </Uniform>
    </Shader>
    
@@ -72,7 +73,7 @@ Big thx to lewis@lewissaunders.com for help and code snippets" Name="crok heatha
    
    
    <Shader OutputBitDepth="Output" Index="4">
-       <Uniform Index="1" NoInput="White" Tooltip="" DisplayName="Displace" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="map">
+       <Uniform Index="2" NoInput="White" Tooltip="" DisplayName="Displace" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="map">
        </Uniform>
       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
       </Uniform>
@@ -81,9 +82,11 @@ Big thx to lewis@lewissaunders.com for help and code snippets" Name="crok heatha
    <Shader OutputBitDepth="Output" Index="5">
       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass4">
       </Uniform>
-      <Uniform Index="2" NoInput="White" Tooltip="" DisplayName="Strength" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="strength_map">
+      <Uniform Index="3" NoInput="White" Tooltip="" DisplayName="Strength" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="strength_map">
       </Uniform>
 	  <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="front">
+      </Uniform>
+      <Uniform Index="1" NoInput="Black" Tooltip="" DisplayName="Matte"  Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte">
       </Uniform>
 
 	  <Uniform ResDependent="None" Max="512.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Amount" Type="float" Name="blength">
@@ -93,6 +96,10 @@ Big thx to lewis@lewissaunders.com for help and code snippets" Name="crok heatha
       </Uniform>
       <Uniform Max="32" Min="1" Default="4" Inc="1" Tooltip="" Row="0" Col="0" Page="1" DisplayName="Oversampling" Type="int" Name="oversamples">
       </Uniform>
+	  
+      <Uniform Row="1" Col="3" Page="0" Default="True" Tooltip="" Type="bool" DisplayName="Output Matte" Name="output_matte">
+      </Uniform>
+	  
    </Shader>
    
    
@@ -102,7 +109,7 @@ Big thx to lewis@lewissaunders.com for help and code snippets" Name="crok heatha
       </Uniform>
       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
       </Uniform>
-      <Uniform Index="2" NoInput="White" Tooltip="" DisplayName="Strength" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="strength_map">
+      <Uniform Index="3" NoInput="White" Tooltip="" DisplayName="Strength" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="strength_map">
       </Uniform>
 	  <Uniform ResDependent="None" Max="512.0" Min="0.0" Default="3.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Amount" Type="float" Name="blur_length">
       </Uniform>
