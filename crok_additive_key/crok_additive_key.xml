@@ -38,10 +38,10 @@ Matchbox version by Erwan Leroy and ivar@inferno-op.com" Name="crok additive key
       </Uniform>
       <Uniform Row="0" Col="2" Page="0" Default="False" Tooltip="" Type="bool" DisplayName="Enable Matte Denoise" Name="denoise">
       </Uniform>
-      <Uniform ResDependent="None" Max="100.0" Min="0.01" Default="10.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" Type="float" DisplayName="Amount" Name="sigma_color" 
+      <Uniform ResDependent="None" Max="100.0" Min="0.01" Default="5.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" Type="float" DisplayName="Amount" Name="sigma_color" 
 		  UIConditionSource="denoise" UIConditionValue="True" UIConditionInvert="False" UIConditionType="Hide">
       </Uniform>
-      <Uniform ResDependent="None" Max="10.0" Min="0.01" Default="0.3" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" Type="float" DisplayName="Radius" Name="filter_window"
+      <Uniform ResDependent="None" Max="10.0" Min="0.01" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="2" Page="0" Type="float" DisplayName="Radius" Name="filter_window"
 		  UIConditionSource="denoise" UIConditionValue="True" UIConditionInvert="False" UIConditionType="Hide">
       </Uniform>
 
