@@ -146,6 +146,7 @@ void main(void)
 	// check if there is a holdout matte
 	if ( h_m != vec3(0.0) )
 	{
+		// invert holdout matte
 		c = vec3(h_m * org_f + (1.0 - h_m) * c);
 	}
 
@@ -161,7 +162,7 @@ void main(void)
 	if ( output_opt == 0)
 		matte_out = m;
 	if ( output_opt == 1 )
-		matte_out = m * h_m;
+		matte_out = m * (1.0 - h_m);
 	
     gl_FragColor = vec4(c, matte_out);
 }
