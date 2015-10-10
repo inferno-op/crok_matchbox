@@ -26,7 +26,6 @@ uniform sampler2D adsk_results_pass7;
 uniform bool show_pixelspread;
 uniform bool output_bg;
 uniform bool clamp_output;
-uniform bool use_holdout;
 uniform bool invert_holdout;
 
 //Variables (These are the controls we will have in the matchbox)
@@ -37,6 +36,7 @@ uniform float bgmix_darks;
 uniform float mix_highs;
 uniform float mix_darks;
 uniform float mix_global;
+uniform int output_opt;
 
 //define functions
 vec3 subtract( vec3 s, vec3 d )
@@ -80,7 +80,7 @@ void main(void)
 	// I assume the reference is the clean FG
 	vec3 r_ext = texture2D(reference, uv).rgb;
 	vec4 b_fg_m = texture2D(adsk_results_pass6, uv).rgba;  // blurred FG and Matte
-	vec3 h_m = texture2D(adsk_results_pass7, uv).rgb;  // blurred FG and Matte
+	vec3 h_m = texture2D(adsk_results_pass7, uv).rgb;  // holdout Matte
 	
 
 	vec3 c = vec3(0.0);
@@ -88,6 +88,7 @@ void main(void)
 	vec3 r = vec3(0.0);
 	vec3 org_f = f;
 	vec3 org_b = b;
+	vec3 matte_out = vec3(0.0);
 	
 	// Do the despill first, on both front and reference, with the slider that decides how much to despill
 	// TODO
@@ -136,12 +137,16 @@ void main(void)
 	if ( output_bg )
 		c = b;
 
-	if ( use_holdout )
+	// invert holdout matte
+	h_m = 1.0 - h_m;
+
+	if ( invert_holdout )
+		h_m = 1.0 - h_m;
+	
+	// check if there is a holdout matte
+	if ( h_m != vec3(0.0) )
 	{
-		if ( invert_holdout )
-			c = vec3((1.0 - h_m) * c + (h_m) * org_f);
-		else
-			c = vec3(h_m * c + (1.0 - h_m) * org_f);
+		c = vec3(h_m * org_f + (1.0 - h_m) * c);
 	}
 
 	if ( show_pixelspread )
@@ -153,7 +158,12 @@ void main(void)
 	m += clamp((b - org_b), 0.0, 1.0);
 	m = clamp(m, 0.0, 1.0);
 	
-    gl_FragColor = vec4(c, m);
+	if ( output_opt == 0)
+		matte_out = m;
+	if ( output_opt == 1 )
+		matte_out = m * h_m;
+	
+    gl_FragColor = vec4(c, matte_out);
 }
 
 //Front input needs to be unpremultiplied, otherwise it won't be able to exract any info and you'll just get a big black BG.
