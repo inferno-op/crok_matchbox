@@ -101,7 +101,11 @@ void main(void)
 		r = lighten ( p, r);
 	}
 	else
+	{
 		r = r_ext;
+		// invert holdout matte
+		h_m = 1.0 - h_m;
+	}
 	
 	// subtract operation
 	sub = sub + subtract(f, r);
