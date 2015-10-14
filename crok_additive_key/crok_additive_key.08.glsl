@@ -104,7 +104,7 @@ void main(void)
 	{
 		r = r_ext;
 		// invert holdout matte
-		h_m = 1.0 - h_m;
+		//h_m = 1.0 - h_m;
 	}
 	
 	// subtract operation
@@ -166,7 +166,7 @@ void main(void)
 	if ( output_opt == 0)
 		matte_out = m;
 	if ( output_opt == 1 )
-		matte_out = m * (1.0 - h_m);
+		matte_out = m * (h_m);
 	
     gl_FragColor = vec4(c, matte_out);
 }
