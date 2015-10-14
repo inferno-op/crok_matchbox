@@ -105,7 +105,7 @@ Matchbox version by Erwan Leroy and ivar@inferno-op.com" Name="crok additive key
       <Uniform Row="1" Col="3" Page="0" Default="True" Tooltip="" Type="bool" DisplayName="Clamp Output" Name="clamp_output">
       </Uniform>
 
-      <Uniform ValueType="Popup" Name="output_opt" Type="int" DisplayName="Matte Output" Page="0" Col="3" Row="3" Tooltip="" Inc="1" Default="3" Min="0" Max="1000000">
+      <Uniform ValueType="Popup" Name="output_opt" Type="int" DisplayName="Matte Output" Page="0" Col="3" Row="3" Tooltip="" Inc="1" Default="0" Min="0" Max="1000000">
          <PopupEntry Value="0" Title="Additive">
          </PopupEntry>
          <PopupEntry Value="1" Title="Add + Hold">
