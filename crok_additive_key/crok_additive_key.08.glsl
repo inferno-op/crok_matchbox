@@ -94,18 +94,17 @@ void main(void)
 	// TODO
 
 	// check if there is an external reference clip
-	if ( r_ext == vec3(0.0) )
+	if ( r_ext != vec3(1.0) )
+	{
+		r = r_ext;
+	}
+	else
 	{
 		// divide blurred fg by blurred matte
 		r = divide ( b_fg_m );
 		r = lighten ( p, r);
 	}
-	else
-	{
-		r = r_ext;
-		// invert holdout matte
-		//h_m = 1.0 - h_m;
-	}
+	
 	
 	// subtract operation
 	sub = sub + subtract(f, r);
@@ -141,18 +140,13 @@ void main(void)
 	if ( output_bg )
 		c = b;
 
-	// invert holdout matte
 	h_m = 1.0 - h_m;
-
+	
 	if ( invert_holdout )
 		h_m = 1.0 - h_m;
 	
-	// check if there is a holdout matte
-	if ( h_m != vec3(0.0) )
-	{
-		// invert holdout matte
-		c = vec3(h_m * org_f + (1.0 - h_m) * c);
-	}
+	c = vec3(h_m * org_f + (1.0 - h_m) * c);
+
 
 	if ( show_pixelspread )
 		c = r;
@@ -166,7 +160,7 @@ void main(void)
 	if ( output_opt == 0)
 		matte_out = m;
 	if ( output_opt == 1 )
-		matte_out = m * (h_m);
+		matte_out = m * (1.0 - h_m);
 	
     gl_FragColor = vec4(c, matte_out);
 }
