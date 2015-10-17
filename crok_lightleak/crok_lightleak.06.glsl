@@ -67,7 +67,7 @@ void main()
 		}	
 
 		else 
-			vec3 col = texture2D(adsk_results_pass5, uv).rgb;
+			col = texture2D(adsk_results_pass5, uv).rgb;
 			
 	gl_FragColor = vec4(col,  1.0 );
 }
