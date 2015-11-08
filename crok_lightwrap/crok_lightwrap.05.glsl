@@ -1,101 +1,119 @@
+// based on https://www.shadertoy.com/view/XdlGz8 P_Malin
+// Using a sobel filter to create a normal map and then applying simple lighting.
+
+uniform sampler2D, adsk_results_pass4;
 uniform float adsk_result_w, adsk_result_h;
-vec2 res = vec2(adsk_result_w, adsk_result_h);
-uniform sampler2D adsk_results_pass2, adsk_results_pass4, compo, matte;
+vec2 resolution = vec2(adsk_result_w, adsk_result_h);
 
-uniform float blend, lm_threshold, gain;
-uniform int LogicOp;
-uniform int result;
+uniform vec3 LightBulb;
+uniform bool relight;
 
-vec3 normal( vec3 s, vec3 d )
-{
-	return s;
-}
+// This makes the darker areas less bumpy but I like it
+//#define USE_LINEAR_FOR_BUMPMAP
 
-vec3 multiply( vec3 s, vec3 d )
+struct C_Sample
 {
-	return s*d;
-}
-
-vec3 screen( vec3 s, vec3 d )
-{
-	return s + d - s * d;
-}
-
-vec3 linearDodge( vec3 s, vec3 d )
-{
-	return s + d;
-}
-
-vec3 lighten( vec3 s, vec3 d )
-{
-	return max(s,d);
-}
-
-vec3 lighterColor( vec3 s, vec3 d )
-{
-	return (s.x + s.y + s.z > d.x + d.y + d.z) ? s : d;
-}
-
-float overlay( float s, float d )
-{
-	return (d < 0.5) ? 2.0 * s * d : 1.0 - 2.0 * (1.0 - s) * (1.0 - d);
-}
-vec3 overlay( vec3 s, vec3 d )
-{
-	vec3 c;
-	c.x = overlay(s.x,d.x);
-	c.y = overlay(s.y,d.y);
-	c.z = overlay(s.z,d.z);
-	return c;
-}
-
-vec3 spotlightBlend (vec3 s, vec3 d)
-{
-	return ( s * d + s);
-}
-
-void main(void)
-{
-	vec2 uv = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h);
-	vec3 lightwrap_matte = vec3(0.0);
-	vec3 comp = vec3(0.0);
-	vec3 black = vec3(0.0); 
-	vec3 front = texture2D(compo, uv).rgb;
-	vec3 back = texture2D(adsk_results_pass2, uv).rgb;
-	vec3 bg_histo = back;
-    vec3 alpha = texture2D(matte, uv).rgb;
-	vec3 blurred_matte = texture2D(adsk_results_pass4, uv).rgb;
-	vec3 inv_matte = 1.0 - blurred_matte;
+	vec3 vAlbedo;
+	vec3 vNormal;
+};
 	
-    bg_histo = pow(back, vec3(lm_threshold));
-	bg_histo = vec3(max(max(bg_histo.r, bg_histo.g), bg_histo.b));
-	bg_histo = bg_histo * gain;
+C_Sample SampleMaterial(const in vec2 vUV, sampler2D sampler,  const in vec2 vTextureSize, const in float fNormalScale)
+{
+	C_Sample result;
 	
-	lightwrap_matte = multiply(alpha, inv_matte);
-	lightwrap_matte = multiply(bg_histo, lightwrap_matte);
+	vec2 vInvTextureSize = vec2(1.0) / vTextureSize;
 	
-	lightwrap_matte = clamp (lightwrap_matte, 0.0, 1.0);
+	vec3 cSampleNegXNegY = texture2D(sampler, vUV + (vec2(-1.0, -1.0)) * vInvTextureSize.xy).rgb;
+	vec3 cSampleZerXNegY = texture2D(sampler, vUV + (vec2( 0.0, -1.0)) * vInvTextureSize.xy).rgb;
+	vec3 cSamplePosXNegY = texture2D(sampler, vUV + (vec2( 1.0, -1.0)) * vInvTextureSize.xy).rgb;
 	
+	vec3 cSampleNegXZerY = texture2D(sampler, vUV + (vec2(-1.0, 0.0)) * vInvTextureSize.xy).rgb;
+	vec3 cSampleZerXZerY = texture2D(sampler, vUV + (vec2( 0.0, 0.0)) * vInvTextureSize.xy).rgb;
+	vec3 cSamplePosXZerY = texture2D(sampler, vUV + (vec2( 1.0, 0.0)) * vInvTextureSize.xy).rgb;
+	
+	vec3 cSampleNegXPosY = texture2D(sampler, vUV + (vec2(-1.0,  1.0)) * vInvTextureSize.xy).rgb;
+	vec3 cSampleZerXPosY = texture2D(sampler, vUV + (vec2( 0.0,  1.0)) * vInvTextureSize.xy).rgb;
+	vec3 cSamplePosXPosY = texture2D(sampler, vUV + (vec2( 1.0,  1.0)) * vInvTextureSize.xy).rgb;
 
-    if( LogicOp ==0)
-		comp = screen(back, front);
-    else if ( LogicOp == 1)
-		comp = linearDodge(back, front);
-	else if ( LogicOp == 2)
-		comp = lighten(back, front);
-    else if ( LogicOp == 3)
-		comp = lighterColor(back, front);
-    else if ( LogicOp == 4)
-		comp = overlay(back, front);
-    else if ( LogicOp == 5)
-		comp = spotlightBlend(front, back);
-    else
-		comp = normal(back, front);
+	// convert to linear	
+	vec3 cLSampleNegXNegY = cSampleNegXNegY * cSampleNegXNegY;
+	vec3 cLSampleZerXNegY = cSampleZerXNegY * cSampleZerXNegY;
+	vec3 cLSamplePosXNegY = cSamplePosXNegY * cSamplePosXNegY;
 
-	if ( result == 1)
-		comp = mix(black, comp, lightwrap_matte * blend);
-	else
-		comp = mix(front, comp, lightwrap_matte * blend);
+	vec3 cLSampleNegXZerY = cSampleNegXZerY * cSampleNegXZerY;
+	vec3 cLSampleZerXZerY = cSampleZerXZerY * cSampleZerXZerY;
+	vec3 cLSamplePosXZerY = cSamplePosXZerY * cSamplePosXZerY;
+
+	vec3 cLSampleNegXPosY = cSampleNegXPosY * cSampleNegXPosY;
+	vec3 cLSampleZerXPosY = cSampleZerXPosY * cSampleZerXPosY;
+	vec3 cLSamplePosXPosY = cSamplePosXPosY * cSamplePosXPosY;
+
+	// Average samples to get albdeo colour
+	result.vAlbedo = ( cLSampleNegXNegY + cLSampleZerXNegY + cLSamplePosXNegY 
+		    	     + cLSampleNegXZerY + cLSampleZerXZerY + cLSamplePosXZerY
+		    	     + cLSampleNegXPosY + cLSampleZerXPosY + cLSamplePosXPosY ) / 9.0;	
+	
+	vec3 vScale = vec3(0.3333);
+	float fSampleNegXNegY = dot(cSampleNegXNegY, vScale);
+	float fSampleZerXNegY = dot(cSampleZerXNegY, vScale);
+	float fSamplePosXNegY = dot(cSamplePosXNegY, vScale);
+	
+	float fSampleNegXZerY = dot(cSampleNegXZerY, vScale);
+	float fSampleZerXZerY = dot(cSampleZerXZerY, vScale);
+	float fSamplePosXZerY = dot(cSamplePosXZerY, vScale);
 		
-	gl_FragColor = vec4(comp, lightwrap_matte );
+	float fSampleNegXPosY = dot(cSampleNegXPosY, vScale);
+	float fSampleZerXPosY = dot(cSampleZerXPosY, vScale);
+	float fSamplePosXPosY = dot(cSamplePosXPosY, vScale);	
+
+	
+	// Sobel operator - http://en.wikipedia.org/wiki/Sobel_operator
+	
+	vec2 vEdge;
+	vEdge.x = (fSampleNegXNegY - fSamplePosXNegY) * 0.25 
+			+ (fSampleNegXZerY - fSamplePosXZerY) * 0.5
+			+ (fSampleNegXPosY - fSamplePosXPosY) * 0.25;
+
+	vEdge.y = (fSampleNegXNegY - fSampleNegXPosY) * 0.25 
+			+ (fSampleZerXNegY - fSampleZerXPosY) * 0.5
+			+ (fSamplePosXNegY - fSamplePosXPosY) * 0.25;
+
+	result.vNormal = normalize(vec3(vEdge * fNormalScale, 1.0));	
+	
+	return result;
+}
+
+void main()
+{	
+	vec2 uv = gl_FragCoord.xy / resolution.xy;
+	
+	C_Sample materialSample;
+		
+	float fNormalScale = 10.0;
+	materialSample = SampleMaterial( uv, adsk_results_pass4, resolution.xy, fNormalScale );
+    vec3 alpha = texture2D(adsk_results_pass4, uv).rgb;
+	
+	
+	float fLightHeight = 0.2;
+	float fViewHeight = 2.0;
+	
+	vec3 vSurfacePos = vec3(uv, 0.0);
+	vec3 vViewPos = vec3(0.5, 0.5, fViewHeight);
+	vec3 vLightPos = vec3(LightBulb.xy, LightBulb.z - 0.01);
+	
+	vec3 vDirToView = normalize( vViewPos - vSurfacePos );
+	vec3 vDirToLight = normalize( vLightPos - vSurfacePos );
+		
+	float fNDotL = clamp( dot(materialSample.vNormal, vDirToLight), 0.0, 1.0);
+	float fDiffuse = fNDotL;
+	
+	vec3 vHalf = normalize( vDirToView + vDirToLight );
+	float fNDotH = clamp( dot(materialSample.vNormal, vHalf), 0.0, 1.0);
+	float fSpec = pow(fNDotH, 10.0) * fNDotL * 0.5;
+	
+	vec3 vResult = materialSample.vAlbedo * fDiffuse + fSpec;
+	
+	vResult = sqrt(vResult);
+
+	gl_FragColor = vec4(vResult, alpha);
 }

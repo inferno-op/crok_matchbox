@@ -8,20 +8,20 @@ void main()
    int f0int = int(blur_comp);
    vec4 accu = vec4(0);
    float energy = 0.0;
-   vec4 blur_compy = vec4(0.0);
+   vec4 blur_compx = vec4(0.0);
    
-   for( int y = -f0int; y <= f0int; y++)
+   for( int x = -f0int; x <= f0int; x++)
    {
-      vec2 currentCoord = vec2(coords.x, coords.y+float(y)/adsk_result_h);
+      vec2 currentCoord = vec2(coords.x+float(x)/adsk_result_w, coords.y);
       vec4 aSample = texture2D(adsk_results_pass6, currentCoord).rgba;
-      float anEnergy = 1.0 - ( abs(float(y)) / blur_comp);
+      float anEnergy = 1.0 - ( abs(float(x)) / blur_comp);
       energy += anEnergy;
       accu+= aSample * anEnergy;
    }
    
-   blur_compy = 
+   blur_compx = 
       energy > 0.0 ? (accu / energy) : 
                      texture2D(adsk_results_pass6, coords).rgba;
                      
-   gl_FragColor = vec4( blur_compy );
+   gl_FragColor = vec4( blur_compx );
 }
