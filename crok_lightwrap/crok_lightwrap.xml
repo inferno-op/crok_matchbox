@@ -31,7 +31,7 @@ Demo clip: http://vimeo.com/107401261
 
 Matchbox version by ivar@inferno-op.com" Name="crok lightwrap">
    <Shader OutputBitDepth="Output" Index="1">
-       <Uniform Index="1" NoInput="Error" Tooltip="" DisplayName="bg" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="bg">
+       <Uniform Index="1" NoInput="Error" Tooltip="" DisplayName="Back" InputType ="Back" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="bg">
        </Uniform>
        <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="50.0" Inc="0.1" Tooltip="" Row="3" Col="0" Page="0" Type="float" DisplayName="Blur BG" Name="blur_bg">
        </Uniform>
@@ -47,7 +47,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok lightwrap">
     </Shader>	
 
     <Shader OutputBitDepth="Output" Index="3">
-       <Uniform Index="2" NoInput="Error" Tooltip="" DisplayName="matte" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte">
+       <Uniform Index="2" NoInput="Error" Tooltip="" DisplayName="Matte" InputType ="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte">
        </Uniform>
        <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="100.0" Inc="0.1" Tooltip="" Row="1" Col="0" Page="0" Type="float" DisplayName="Size" Name="blur_matte">
        </Uniform>
@@ -82,9 +82,9 @@ Matchbox version by ivar@inferno-op.com" Name="crok lightwrap">
 	      </Uniform>
 	      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
 	      </Uniform>		  
-	      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="compo" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="compo">
+	      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Comp" InputType ="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="compo">
 	      </Uniform>
-	      <Uniform Index="2" Tooltip="" DisplayName="matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte">
+	      <Uniform Index="2" Tooltip="" DisplayName="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte">
 	         <Duplicate>
 	         </Duplicate>
 	      </Uniform>
