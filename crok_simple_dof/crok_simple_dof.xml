@@ -16,8 +16,6 @@ Setup:
 - Pentagon Shape : use pentagon as bokeh shape
 - Feather Shape : pentagon shape feather
 
-Demo clip: https://vimeo.com/82195519
-
 Shader developer: martins upitis
 
 Based on http://devlog-martinsh.blogspot.de/2011/12/glsl-depth-of-field-with-bokeh-v24.html
