@@ -65,7 +65,8 @@ Matchbox version by ivar@inferno-op.com" Name="crok lightwrap">
     <Shader OutputBitDepth="Output" Index="5">
 	<Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass4">
 	      </Uniform>
-	      <Uniform Inc="0.01" Tooltip="" Row="4" Col="1" Page="0" IconType="Light" ValueType="Position" Type="vec3" DisplayName="Light" Name="LightBulb"
+		  
+	      <Uniform Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" IconType="Light" ValueType="Position" Type="vec3" DisplayName="Light" Name="LightBulb"
 			  		  		  UIConditionSource="relight" UIConditionValue="1" UIConditionInvert="False" UIConditionType="Hide">
 	         <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.1">
 	         </SubUniform>
