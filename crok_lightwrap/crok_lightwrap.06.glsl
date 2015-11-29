@@ -2,12 +2,13 @@ uniform float adsk_result_w, adsk_result_h;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
 uniform sampler2D adsk_results_pass2, adsk_results_pass4, adsk_results_pass5, compo, matte;
 
-uniform float blend, lm_threshold, gain;
+uniform float blend, lm_threshold, gain, sat, bias_adj;
 uniform int LogicOp;
 uniform int result;
 
 uniform bool relight;
 
+#define luma(col) dot(col, vec3(0.3086, 0.6094, 0.0820))
 
 vec3 normal( vec3 s, vec3 d )
 {
@@ -57,6 +58,20 @@ vec3 spotlightBlend (vec3 s, vec3 d)
 	return ( s * d + s);
 }
 
+vec3 adjust_saturation(vec3 col, float c)
+{
+    float l = luma(col);
+    col = (1.0 - c) * l + c * col;
+
+    return col;
+}
+
+float bias ( float x, float b ) 
+{
+    b = -log2(1.0 - b);
+    return 1.0 - pow(1.0 - pow(x, 1./b), b);
+}
+
 void main(void)
 {
 	vec2 uv = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h);
@@ -85,7 +100,11 @@ void main(void)
 		lightwrap_matte = multiply(lightwrap_matte, alpha);
 		lightwrap_matte = lightwrap_matte * gain * 5.0;
 	}
-
+	
+	// bias adjustement
+	//lightwrap_matte = vec3(bias(lightwrap_matte.r, bias_adj));
+	
+	back = adjust_saturation(back, sat);
 	
     if( LogicOp ==0)
 		comp = screen(back, front);
