@@ -1,0 +1,48 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This Matchbox shader adds a lens distortion effect.
+
+Input:
+- Front: source clip
+- Lens: distortion clip 
+
+Setup:
+- Amount: overall distortion
+- Displace: the displacement amount
+- Softness: amount of softness applied to the distortion
+- Rotate: offset the distortion
+
+Matchbox version by ivar@inferno-op.com
+Big thx to lewis@lewissaunders.com for helping me out on some parts of the shader" Name="CROK Distort">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Source" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Source">
+      </Uniform>
+      <Uniform Index="1" NoInput="Error" Tooltip="" DisplayName="Lens" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Matte">
+      </Uniform>
+	  
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="15.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Amount" Type="float" Name="amount">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="50.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Displace" Type="float" Name="glossy">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="0.01" Default="10.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" DisplayName="Softness" Type="float" Name="softness">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.05" Inc="0.001" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Rotate" Type="float" Name="aspect">
+      </Uniform>
+	  <!--  AA part
+
+      <Uniform Row="0" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Enable" Type="bool" Name="enable_aa">
+      </Uniform>
+      <Uniform Max="10" Min="1" Default="3" Inc="1" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Samples" Type="int" Name="oversamples">
+      </Uniform>
+	  
+	   -->
+	  
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Look" Col="0" Page="0">
+      </Col>
+     	  <!--  AA part
+	  <Col Name="Filtering" Col="1" Page="0">
+      </Col>
+	  	   -->
+   </Page>
+</ShaderNodePreset>
