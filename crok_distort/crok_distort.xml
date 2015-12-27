@@ -39,7 +39,7 @@ Big thx to lewis@lewissaunders.com for helping me out on some parts of the shade
 	<Shader OutputBitDepth="Output" Index="3">
     <Uniform Index="1" NoInput="Error" Tooltip="" DisplayName="Lens" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Lens">
     </Uniform>
-    <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="10.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Blur Lens" Type="float" Name="blur_matte">
+    <Uniform ResDependent="None" Max="256.0" Min="0.001" Default="10.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Blur Lens" Type="float" Name="blur_matte">
     </Uniform>
 	</Shader>
 	<Shader OutputBitDepth="Output" Index="4">
