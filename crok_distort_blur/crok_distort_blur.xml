@@ -1,0 +1,81 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1.1" Description="
+This Matchbox shader adds a blured lens distortion effect.
+
+Input:
+- Front: source clip
+- Matte: region of interest
+- Displace: distortion clip
+- Strength: strength clip
+
+Setup:
+- Distortion: overall distortion
+- Blur Distortion: softens the incoming displace matte
+- Blur: amount of blur applied to the Matte to get the directional blur effect
+- Samples: how many samples are used for the directional blur
+
+AntiAliasing:
+- Enable FXAA: enables AntiAliasing
+
+Demo video: https://vimeo.com/150475472
+
+Matchbox version by ivar@inferno-op.com
+Big thx to lewis@lewissaunders.com for helping me out on some parts of the shader" Name="CROK Distort Blur">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Index="2" NoInput="Error" Tooltip="" DisplayName="Displace" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Displace">
+      </Uniform>
+      <Uniform ResDependent="None" Max="512.0" Min="0.0" Default="20.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Blur Distortion" Type="float" Name="blur_low">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="2">
+      <Uniform Type="float" Name="blur_low">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="3">
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="4">
+      <Uniform Index="1" NoInput="Error" Tooltip="" DisplayName="Matte" InputType="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte">
+      </Uniform>
+      <Uniform Index="3" NoInput="White" Tooltip="" DisplayName="Strength" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="strength_map">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000.0" Min="0.0" Default="5.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Distortion" Type="float" Name="blength">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+      </Uniform>
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="front">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="5">
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass4">
+      </Uniform>
+      <Uniform Index="3" NoInput="White" Tooltip="" DisplayName="Strength" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="strength_map">
+      </Uniform>
+      <Uniform Max="512" Min="1" Default="64" Inc="1" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Samples" Type="int" Name="samples">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000.0" Min="0.0" Default="32.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="Blur" Type="float" Name="blur_length">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="6">
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="7">
+       <Uniform Row="0" Col="1" Page="0" Default="True" Tooltip="" DisplayName="Enable_FXAA" Type="bool" Name="Enable_FXAA">
+       </Uniform>
+	  <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass6">
+      </Uniform>
+   </Shader>
+   <Page Name="General" Page="0">
+      <Col Name="Look" Col="0" Page="0">
+      </Col>
+      <Col Name="AntiAliasing" Col="1" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
