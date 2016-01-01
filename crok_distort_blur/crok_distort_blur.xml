@@ -19,6 +19,7 @@ AntiAliasing:
 Demo clip: https://vimeo.com/150475472
 
 Matchbox version by ivar@inferno-op.com
+
 Big thx to lewis@lewissaunders.com for helping me out on some parts of the shader" Name="CROK Distort Blur">
    <Shader OutputBitDepth="Output" Index="1">
       <Uniform Index="2" NoInput="Error" Tooltip="" DisplayName="Displace" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Displace">
