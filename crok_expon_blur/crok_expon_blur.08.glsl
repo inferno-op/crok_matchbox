@@ -5,6 +5,8 @@ vec2 res = vec2(adsk_result_w, adsk_result_h);
 
 uniform sampler2D adsk_results_pass7;
 uniform float blur_amount;
+uniform vec2 blur_xy_amount;
+uniform bool proportinal;
 
 const float pi = 3.141592653589793238462643383279502884197969;
 
@@ -44,8 +46,16 @@ vec4 gblur(sampler2D source, float b_amount, int direction)
 
 void main(void)
 {
-	// horizontal
-	vec4 blur = gblur(adsk_results_pass7, blur_amount * 0.1 * 16.0, 1 );
+	vec4 blur = vec4(0.0);
 	
+	if ( proportinal )
+		blur = gblur(adsk_results_pass7, blur_amount * 0.1 * 16.0, 1 );
+	
+	else
+	{
+		// horizontal only
+		blur = gblur(adsk_results_pass7, blur_xy_amount.x * 0.1 * 16.0, 1 );
+	}
+
 	gl_FragColor = blur;
 }
