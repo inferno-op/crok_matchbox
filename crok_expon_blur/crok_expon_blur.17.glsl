@@ -15,7 +15,7 @@ void main(void)
 	vec4 org = texture2D(Front, uv);
 	vec4 col = texture2D(adsk_results_pass2, uv);
 
-	if ( blur_amount < 0.0  ) 
+	if ( blur_amount < 0.0 || blur_xy_amount.x < 0.0 || blur_xy_amount.y < 0.0  ) 
 	{
 		col *= texture2D(adsk_results_pass4, uv);
 		col *= texture2D(adsk_results_pass6, uv);
@@ -25,26 +25,7 @@ void main(void)
 		col *= texture2D(adsk_results_pass14, uv);
 		col *= texture2D(adsk_results_pass16, uv);
 	}
-	else if ( blur_xy_amount.x < 0.0  ) 
-	{
-		col *= texture2D(adsk_results_pass4, uv);
-		col *= texture2D(adsk_results_pass6, uv);
-		col *= texture2D(adsk_results_pass8, uv);
-		col *= texture2D(adsk_results_pass10, uv);
-		col *= texture2D(adsk_results_pass12, uv);
-		col *= texture2D(adsk_results_pass14, uv);
-		col *= texture2D(adsk_results_pass16, uv);
-	}
-	else if ( blur_xy_amount.y < 0.0  ) 
-	{
-		col *= texture2D(adsk_results_pass4, uv);
-		col *= texture2D(adsk_results_pass6, uv);
-		col *= texture2D(adsk_results_pass8, uv);
-		col *= texture2D(adsk_results_pass10, uv);
-		col *= texture2D(adsk_results_pass12, uv);
-		col *= texture2D(adsk_results_pass14, uv);
-		col *= texture2D(adsk_results_pass16, uv);
-	}
+
 	else
 	{
 		col += texture2D(adsk_results_pass4, uv);
