@@ -30,7 +30,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok bubbles">
       </Uniform>
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Offset" Type="float" Name="Offset">
       </Uniform>      
-      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="2.5" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Size" Type="float" Name="Size">
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="2.5" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Size" Type="float" Name="Radius">
       </Uniform>
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Size Offset" Type="float" Name="s_offset">
       </Uniform>
