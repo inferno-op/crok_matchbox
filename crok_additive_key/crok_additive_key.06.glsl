@@ -1,9 +1,7 @@
 #version 120
-// applying y blur on fg and matte
+// applying y blur on desplilled fg and matte
 
-// load unprocessed Front and Matte
 uniform sampler2D adsk_results_pass5;
-
 uniform float blur, adsk_result_w, adsk_result_h;
 
 void main()

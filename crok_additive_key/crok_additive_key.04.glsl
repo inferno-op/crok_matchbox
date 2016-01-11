@@ -1,6 +1,5 @@
 #version 120
-// negate matte and multiply with FG
-// load unprocessed Front and Matte
+// negate matte and multiply with despilled FG
 uniform sampler2D adsk_results_pass1, adsk_results_pass3;
 uniform float adsk_result_w, adsk_result_h;
 

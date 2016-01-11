@@ -1,5 +1,5 @@
 #version 120
-// processing front input
+// processing despilled front input
 
 uniform sampler2D front;
 uniform float adsk_result_w, adsk_result_h;

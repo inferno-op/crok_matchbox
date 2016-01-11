@@ -2,11 +2,17 @@
 This is an Additive Keyer 
 
 Input:
-- Front: despilled fg 
-- Back:  background
-- Matte: matte clip
-- Holdout Matte: garbage matte input to define the region of interest (optional)
-- Clean BG: despilled clean green / blue sceen clip (optional)
+- FG original: original fg
+- FG Despilled: despilled fg 
+- Back: background
+- Matte: matte clip (needed for default Additive Key processing) 
+- Matte Holdout: garbage matte input to define the region of interest (optional)
+- FG Clean: despilled clean green / blue sceen clip (optional)
+
+- Enable Joels Version: Enables a differnt kind of additive processing
+- Blend BG: Blends in the BG
+- BG Gamma: adjusts the gamma of the BG
+- BG Offset: offsets the BG
  
 - Global Restore: adjust the overall detail level 
 - Restore Darks: dials in darker parts of the fg footage
@@ -24,19 +30,20 @@ Input:
 - Output Background: just output the processed background for further comping
 - Clamp Output: clamp the output to values between 0 and 1 
 
-Matchbox version by Erwan Leroy and ivar@inferno-op.com" Name="crok additive key">
+Matchbox version by Erwan Leroy, Joel Osis and ivar@inferno-op.com" Name="crok additive key">
    <Shader OutputBitDepth="Output" Index="1">
-      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="front">
+      <Uniform Index="1" NoInput="Error" Tooltip="" DisplayName="FG Despilled" InputColor="80, 30, 30" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="front">
       </Uniform>
    </Shader>
    <Shader OutputBitDepth="Output" Index="2">
-      <Uniform Index="1" NoInput="Error" Tooltip="" DisplayName="Back" InputType="Back" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="back">
+      <Uniform Index="2" NoInput="Error" Tooltip="" DisplayName="Back" InputType="Back" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="back">
       </Uniform>
    </Shader>
    <Shader OutputBitDepth="Output" Index="3">
-      <Uniform Index="2" NoInput="Error" Tooltip="" DisplayName="Matte" InputType="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="matte">
+      <Uniform Index="3" NoInput="White" Tooltip="" DisplayName="Matte" InputType="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="matte">
       </Uniform>
-      <Uniform Row="0" Col="2" Page="0" Default="False" Tooltip="" Type="bool" DisplayName="Enable Matte Denoise" Name="denoise">
+      <Uniform Row="0" Col="2" Page="0" Default="False" Tooltip="" Type="bool" DisplayName="Enable Matte Denoise" Name="denoise"
+		  		  UIConditionSource="joel_add" UIConditionValue="False" UIConditionInvert="False" UIConditionType="Hide">
       </Uniform>
       <Uniform ResDependent="None" Max="100.0" Min="0.01" Default="5.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" Type="float" DisplayName="Amount" Name="sigma_color" 
 		  UIConditionSource="denoise" UIConditionValue="True" UIConditionInvert="False" UIConditionType="Hide">
@@ -56,7 +63,8 @@ Matchbox version by Erwan Leroy and ivar@inferno-op.com" Name="crok additive key
    <Shader OutputBitDepth="Output" Index="5">
       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_results_pass4">
       </Uniform>
-      <Uniform ResDependent="None" Max="1000.0" Min="1.0" Default="250.0" Inc="0.1" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Size" Type="float" Name="blur">
+      <Uniform ResDependent="None" Max="1000.0" Min="1.0" Default="250.0" Inc="0.1" Tooltip="" Row="4" Col="2" Page="0" DisplayName="Size" Type="float" Name="blur"
+		  		  UIConditionSource="joel_add" UIConditionValue="False" UIConditionInvert="False" UIConditionType="Hide">
       </Uniform>
    </Shader>
    <Shader OutputBitDepth="Output" Index="6">
@@ -68,7 +76,7 @@ Matchbox version by Erwan Leroy and ivar@inferno-op.com" Name="crok additive key
       </Uniform>
    </Shader>
    <Shader OutputBitDepth="Output" Index="7">
-      <Uniform Index="3" NoInput="White" Tooltip="" DisplayName="Holdout Matte" InputType="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="holdout">
+      <Uniform Index="4" NoInput="White" Tooltip="" DisplayName="Matte Holdout" InputColor="0, 50, 100"  Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="holdout">
       </Uniform>
    </Shader>
    <Shader OutputBitDepth="Output" Index="8">
@@ -84,11 +92,14 @@ Matchbox version by Erwan Leroy and ivar@inferno-op.com" Name="crok additive key
       </Uniform>
       <Uniform  Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass7">
       </Uniform>
-      <Uniform Index="4" NoInput="White" Tooltip="" DisplayName="Clean BG" InputColor="130, 0, 100" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="reference">
+      <Uniform Index="0" NoInput="White" Tooltip="" DisplayName="FG Original" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="org_fg">
+      </Uniform>
+      <Uniform Index="5" NoInput="White" Tooltip="" DisplayName="FG Clean" InputColor="100, 50, 50" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="reference">
       </Uniform>
 
 
-      <Uniform Row="0" Col="1" Page="0" Default="False" Tooltip="" Type="bool" DisplayName="Show Pixel Spread" Name="show_pixelspread">
+      <Uniform Row="3" Col="2" Page="0" Default="False" Tooltip="" Type="bool" DisplayName="Show Pixel Spread" Name="show_pixelspread"
+		  		  UIConditionSource="joel_add" UIConditionValue="False" UIConditionInvert="False" UIConditionType="Hide">
       </Uniform>
 	  
       <!-- Disabled Uniforms
@@ -97,17 +108,38 @@ Matchbox version by Erwan Leroy and ivar@inferno-op.com" Name="crok additive key
       <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" Type="float" DisplayName="Mix Highlights" Name="bgmix_highs">
       </Uniform>
 	  -->
-      <Uniform ResDependent="None" Max="3.0" Min="-3.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" Type="float" DisplayName="Gobal Restore" Name="mix_global">
+      <Uniform ResDependent="None" Max="3.0" Min="-3.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" Type="float" DisplayName="Gobal Restore" Name="mix_global"
+		  UIConditionSource="joel_add" UIConditionValue="False" UIConditionInvert="False" UIConditionType="Hide">
       </Uniform>
-      <Uniform ResDependent="None" Max="2.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" Type="float" DisplayName="Restore Darks" Name="mix_darks">
+      <Uniform ResDependent="None" Max="2.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" Type="float" DisplayName="Restore Darks" Name="mix_darks"
+		  UIConditionSource="joel_add" UIConditionValue="False" UIConditionInvert="False" UIConditionType="Hide">
+		  
       </Uniform>
-      <Uniform ResDependent="None" Max="2.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" Type="float" DisplayName="Restore Highlights" Name="mix_highs">
+      <Uniform ResDependent="None" Max="2.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="0" Page="0" Type="float" DisplayName="Restore Highlights" Name="mix_highs"
+		  UIConditionSource="joel_add" UIConditionValue="False" UIConditionInvert="False" UIConditionType="Hide">
+		  
       </Uniform>
-      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" Type="float" DisplayName="Desaturate Darks" Name="desat_darks">
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" Type="float" DisplayName="Desaturate Darks" Name="desat_darks"
+		  UIConditionSource="joel_add" UIConditionValue="False" UIConditionInvert="False" UIConditionType="Hide">
+		  
       </Uniform>
-      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" Type="float" DisplayName="Desaturate Highs" Name="desat_highs">
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" Type="float" DisplayName="Desaturate Highs" Name="desat_highs"
+		  UIConditionSource="joel_add" UIConditionValue="False" UIConditionInvert="False" UIConditionType="Hide">
+		  
       </Uniform>
 	  
+      <Uniform Row="0" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Enable Joels Version" Type="bool" Name="joel_add">
+      </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="0.001" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Blend BG" Type="float" Name="bias_adj"
+		  UIConditionSource="joel_add" UIConditionValue="True" UIConditionInvert="False" UIConditionType="Hide">
+      </Uniform>
+      <Uniform ResDependent="None" Max="10.0" Min="0.01" Default="1.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="BG Gamma" Type="float" Name="gamma"
+		  UIConditionSource="joel_add" UIConditionValue="True" UIConditionInvert="False" UIConditionType="Hide">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="0" DisplayName="BG Offset" Type="float" Name="offset"
+		  UIConditionSource="joel_add" UIConditionValue="True" UIConditionInvert="False" UIConditionType="Hide">
+      </Uniform>
+	  	  
       <Uniform Row="0" Col="3" Page="0" Default="False" Tooltip="" Type="bool" DisplayName="Output Background" Name="output_bg">
       </Uniform>
       <Uniform Row="1" Col="3" Page="0" Default="True" Tooltip="" Type="bool" DisplayName="Clamp Output" Name="clamp_output">
@@ -132,9 +164,9 @@ Matchbox version by Erwan Leroy and ivar@inferno-op.com" Name="crok additive key
        <Col Name="Background Luma" Col="2" Page="0">
        </Col>
 	   -->
-       <Col Name="Pixel Spread" Col="1" Page="0">
+       <Col Name="Additive Key by Joel" Col="1" Page="0">
        </Col>
-       <Col Name="Denoise" Col="2" Page="0">
+       <Col Name="Pixel Spread / Denoise" Col="2" Page="0">
        </Col>
        <Col Name="Input / Output" Col="3" Page="0">
        </Col>

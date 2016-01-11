@@ -1,7 +1,6 @@
 #version 120
-// applying x blur on fg and matte
+// applying x blur on desplilled fg and matte
 
-// load unprocessed Front and Matte
 uniform sampler2D adsk_results_pass4;
 uniform float blur, adsk_result_w, adsk_result_h;
 
@@ -19,7 +18,6 @@ void main()
       vec3 front_blur = texture2D(adsk_results_pass4, currentCoord).rgb;
       float matte_blur = texture2D(adsk_results_pass4, currentCoord).a;
 	  vec4 aSample = vec4(front_blur, matte_blur);
-	  // vec4 aSample = texture2D(adsk_results_pass3, currentCoord).rgba;
       float anEnergy = 1.0 - ( abs(float(x)) / blur );
       energy += anEnergy;
       accu+= aSample * anEnergy;
