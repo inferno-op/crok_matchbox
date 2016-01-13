@@ -26,10 +26,10 @@ Setup:
 
 Demo clip: https://vimeo.com/151690079
 
-Based on https://www.shadertoy.com/view/Mds3W7 additionl stuff http://humus.name/index.php?page=3D&ID=35
+Based on https://www.shadertoy.com/view/Mds3W7
 License Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 
-Matchbox version by ivar@inferno-op.com with some huge help from Travis " Name="crok tesla">
+Matchbox version by ivar@inferno-op.com with some huge help from Travis " Name="CROK Tesla">
    <Shader OutputBitDepth="Output" Index="1">
        <Uniform Index="0" NoInput="White" Tooltip="" DisplayName="Strength" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="Strength">
        </Uniform>
