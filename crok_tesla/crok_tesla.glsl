@@ -2,11 +2,14 @@
 	
 uniform float adsk_result_w, adsk_result_h, adsk_time;
 uniform float Offset, amp, speed, l_scale, h_scale, y_scale, noOfBolts;
-uniform float p1, p2, p3, Gamma;
+uniform float p2, Gamma;
 uniform float gamma, brightness, saturation, tint, contrast;
 uniform bool locked;
 uniform vec3 tint_col;
-
+uniform vec2 posA, posB, posC;
+float p1=(posA.y-0.5)*3.33;
+float p5=(posB.y-0.5)*6.66;
+float p10=(posC.y-0.5);
 uniform sampler2D Strength;
 
 const int iteration = 7;
@@ -124,9 +127,9 @@ float bolt(float shift){
 	float diff = 0.0;
 	if ( locked )
 	{
-		ycenter = mix( p1, p2 + 0.5 * noise22(vec3(p3*y_scale * s)) + fbm(t)*20.0, uv.x * y_scale * s);
+		ycenter = mix( p1*(1.0-uv.x)+p5*uv.x , -20. + 0.5 * noise22(vec3(p3*y_scale * s)) + fbm(t)*20.0, uv.x * y_scale * s);
 		float a = clamp((uv.x * -uv.x * 0.15) + 0.15, 0., 1.);   
-		diff = abs(amp*2.0*ycenter * -a + uv.y - 0.5);
+		diff = abs(amp*2.0*ycenter * -a + uv.y - 0.5 - p10*uv.x );
 		brightness_scale = 2.0;                  
    }
    else
@@ -140,33 +143,19 @@ float bolt(float shift){
 
     }
 
-void main(void){
-
-float lightning = 0.0;
-
-for(float i = 0.0; i < noOfBolts; i++){
+void main(void)
+{
+	float lightning = 0.0;
+	for(float i = 0.0; i < noOfBolts; i++)
+{
     lightning += bolt(i);
 }
 
-vec3 avg_lum = vec3(0.5, 0.5, 0.5);
-
-vec3 col = pow(vec3(lightning), vec3(1.0 / (Gamma - 0.5)));
-vec3 intensity = vec3(dot(col.rgb, LumCoeff));
-vec3 con_color = mix(avg_lum, intensity, contrast);
-vec3 brt_color = con_color - 1.0 + brightness;
-vec3 fin_color = mix(brt_color, brt_color * tint_col, tint);
-
-gl_FragColor = vec4(fin_color * 5., 1.0);
-
-
-
-
-
-
-
-
-
-//	vec3 col = pow(vec3(lightning), vec3(1.0 / (Gamma - 0.5)));
- 
-//    gl_FragColor = vec4(col * tint, 1.0);
+	vec3 avg_lum = vec3(0.5, 0.5, 0.5);
+	vec3 col = pow(vec3(lightning), vec3(1.0 / (Gamma - 0.5)));
+	vec3 intensity = vec3(dot(col.rgb, LumCoeff));
+	vec3 con_color = mix(avg_lum, intensity, contrast);
+	vec3 brt_color = con_color - 1.0 + brightness;
+	vec3 fin_color = mix(brt_color, brt_color * tint_col, tint);
+	gl_FragColor = vec4(fin_color * 5., 1.0);
 }
