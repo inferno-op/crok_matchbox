@@ -1,4 +1,4 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1.3" Description="
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1.3" HelpLink="https://vimeo.com/151690079" Description="
 This Matchbox shader creates tesla lightning bolts.
 
 Setup:
