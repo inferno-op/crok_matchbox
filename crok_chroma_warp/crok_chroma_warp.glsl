@@ -5,7 +5,7 @@ uniform float adsk_result_w, adsk_result_h;
 uniform float chromatic_abb;
 uniform int num_iter;
 uniform bool add_distortion;
-uniform float d_amount, ca_amt;
+uniform float d_amount, ca_amt, off_chroma;
 uniform vec2 center;
 
 vec2 iResolution = vec2(adsk_result_w, adsk_result_h);
@@ -16,7 +16,7 @@ vec2 barrelDistortion(vec2 coord, float amt) {
 	float distortion = dot(cc * d_amount * .3, cc);
 
     if ( add_distortion )
-		return mix( coord + cc * distortion * -1., coord + cc * distortion * -1. * amt, ca_amt * -1.) ;
+		return mix( coord + cc * distortion * -1., coord + cc * distortion * -1. * amt, ca_amt) ;
 	else
 		return coord + cc * amt * -.05;
 }
@@ -40,7 +40,6 @@ vec3 spectrum_offset( float t ) {
 	float hi = 1.0-lo;
 	float w = linterp( remap( t, 1.0/6.0, 5.0/6.0 ) );
 	ret = vec3(lo,1.0,hi) * vec3(1.0-w, w, 1.0-w);
-
 	return pow( ret, vec3(1.0/2.2) );
 }
 
@@ -54,7 +53,9 @@ void main()
 	for ( int i=0; i<num_iter;++i )
 	{
 		float t = float(i) * (1.0 / float(num_iter));
-		vec3 w = spectrum_offset( t );
+		vec3 w_off = spectrum_offset( t );
+		vec3 w_st = vec3(1.0);
+		vec3 w = mix(w_st, w_off, off_chroma);
 		sumw += w;
 		sumcol += w * texture2D( image, barrelDistortion(uv, chromatic_abb * t ) ).rgb;
 
