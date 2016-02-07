@@ -5,7 +5,7 @@ uniform float adsk_result_w, adsk_result_h;
 uniform float chromatic_abb;
 uniform int num_iter;
 uniform bool add_distortion;
-uniform float d_amount;
+uniform float d_amount, ca_amt;
 uniform vec2 center;
 
 vec2 iResolution = vec2(adsk_result_w, adsk_result_h);
@@ -16,7 +16,7 @@ vec2 barrelDistortion(vec2 coord, float amt) {
 	float distortion = dot(cc * d_amount * .3, cc);
 
     if ( add_distortion )
-		return coord + cc * distortion * -1. * amt;
+		return mix( coord + cc * distortion * -1., coord + cc * distortion * -1. * amt, ca_amt * -1.) ;
 	else
 		return coord + cc * amt * -.05;
 }
