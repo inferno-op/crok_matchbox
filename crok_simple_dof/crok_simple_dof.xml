@@ -51,8 +51,12 @@ Matchbox version by ivar@inferno-op.com" Name="crok simple dof">
 
 
 
-
-
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.1" Inc="0.01" Tooltip="" Row="0" Col="3" Page="0" Type="float" DisplayName="n_amount" Name="n_amount">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0" Inc="0.01" Tooltip="" Row="1" Col="3" Page="0" DisplayName="namount" Type="float" Name="namount">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.1" Inc="0.01" Tooltip="" Row="2" Col="3" Page="0" DisplayName="bias" Type="float" Name="bias">
+      </Uniform>
 
 
    </Shader>

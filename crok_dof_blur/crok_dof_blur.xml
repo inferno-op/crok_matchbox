@@ -48,15 +48,24 @@ Matchbox version by ivar@inferno-op.com" Name="crok dof blur">
 	  <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.5" Inc="0.005" Tooltip="highlight threshold" Row="1" Col="0" Page="0" DisplayName="Threshold" Type="float" Name="threshold">
 	  </Uniform>
 	  <Uniform ResDependent="None" Max="50.0" Min="0.0" Default="1.2" Inc="0.005" Tooltip="highlight gain" Row="2" Col="0" Page="0" DisplayName="Gain" Type="float" Name="gain">
-	  </Uniform>	   
+	  </Uniform>
+	  
+	  <Uniform ResDependent="None" Max="10.0" Min="-10.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="BETA NOISE" Type="float" Name="exp_noise">
+	  </Uniform>
+	   
 	  <Uniform ResDependent="None" Max="10.0" Min="-10.0" Default="0.5" Inc="0.005" Tooltip="bokeh chromatic aberration/fringing" Row="4" Col="0" Page="0" DisplayName="Chromatic Abe." Type="float" Name="fringe">
 	  </Uniform>
 
 
-	  <Uniform Max="50" Min="1" Default="5" Inc="1" Tooltip="ring count" Row="0" Col="1" Page="0" DisplayName="Rings" Type="int" Name="rings">
+	  <Uniform Max="50" Min="1" Default="15" Inc="1" Tooltip="ring count" Row="0" Col="1" Page="0" DisplayName="Rings" Type="int" Name="rings">
 	  </Uniform>
-	  <Uniform Max="20" Min="1" Default="3" Inc="1" Tooltip="samples on the first ring" Row="1" Col="1" Page="0" DisplayName="Samples" Type="int" Name="samples">
+	  <Uniform Max="24" Min="1" Default="10" Inc="1" Tooltip="samples on the first ring" Row="1" Col="1" Page="0" DisplayName="Samples" Type="int" Name="samples">
 	  </Uniform>
+	  
+	  <Uniform ResDependent="None" Max="10.0" Min="0.01" Default="1.0" Inc="0.01" Tooltip="Aspect" Row="2" Col="1" Page="0" DisplayName="Aspect" Type="float" Name="aspect">
+	  </Uniform>
+	  
+	  
 	  <Uniform Row="3" Col="1" Page="0" Default="False" Tooltip="use pentagon as bokeh shape" DisplayName="Pentagon Shape" Type="bool" Name="pentagon">
 	  </Uniform>
 	  <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="3.0" Inc="0.01" Tooltip="pentagon shape feather" Row="4" Col="1" Page="0" DisplayName="Feather Shape" Type="float" Name="feather">
@@ -77,7 +86,7 @@ Matchbox version by ivar@inferno-op.com" Name="crok dof blur">
 
 	  <Uniform ResDependent="None" Max="1000000.0" Min="-10000.0" Default="2.0" Inc="0.002" Tooltip="focal distance value in meters, but you may use autofocus option below" Row="0" Col="3" Page="0" DisplayName="Focal Depth" Type="float" Name="focalDepth">
 	  </Uniform>
-	  <Uniform Row="1" Col="3" Page="0" Default="True" Tooltip="disable if you use external Focal Depth value" DisplayName="Autofocus" Type="bool" Name="autofocus">
+	  <Uniform Row="1" Col="3" Page="0" Default="False" Tooltip="disable if you use external Focal Depth value" DisplayName="Autofocus" Type="bool" Name="autofocus">
 	  </Uniform>
 	  <Uniform Row="2" Col="3" Page="0" Default="False" Tooltip="show debug focus point and focal range (red = focal point, green = focal range)" DisplayName="Show Focus" Type="bool" Name="showFocus">
 	  </Uniform>	

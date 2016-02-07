@@ -3,47 +3,57 @@
 uniform float adsk_result_w, adsk_result_h;
 vec2 res = vec2(adsk_result_w, adsk_result_h);
 
-uniform sampler2D adsk_results_pass13;
+uniform sampler2D adsk_results_pass13, Strength;
 uniform float blur_amount;
 uniform vec2 blur_xy_amount;
 uniform bool proportinal, ena_proxy;
 
 const float pi = 3.141592653589793238462643383279502884197969;
 
-vec4 gblur(sampler2D source, float b_amount, int direction)
+uniform float blur_red;
+uniform float blur_green;
+uniform float blur_blue;
+float blur_matte = 1.0;
+float strength = 1.0;
+vec2 texel  = vec2(1.0) / res;
+
+vec4 gblur(sampler2D source, float b_amount, vec2 direction)
 {
+	 //The blur function is the work of Lewis Saunders.
 	vec2 xy = gl_FragCoord.xy;
-  	vec2 px = vec2(1.0) / vec2(adsk_result_w, adsk_result_h);
+	//Optional texture used to weight amount of blur
 	float proxy = 3.0;
 	if ( ena_proxy )
 		proxy = 2.0;
-	float sigma = b_amount + .001;
-   
-	int support = int(sigma * proxy);
+	strength = texture2D(Strength, gl_FragCoord.xy / res).r;
+	float br = blur_red * b_amount * strength;
+	float bg = blur_green * b_amount * strength;
+	float bb = blur_blue * b_amount * strength;
+	float bm = blur_matte * b_amount * strength;
+	float support = max(max(max(br, bg), bb), bm) * proxy;
 
-	vec3 g;
-	g.x = 1.0 / (sqrt(2.0 * pi) * sigma);
-	g.y = exp(-0.5 / (sigma * sigma));
-	g.z = g.y * g.y;
+	vec4 sigmas = vec4(br, bg, bb, bm);
+	sigmas = max(sigmas, 0.0001);
 
-	vec4 a = g.x * texture2D(source, xy * px);
-	float energy = g.x;
-	g.xy *= g.yz;
+	vec4 gx, gy, gz;
+	gx = 1.0 / (sqrt(2.0 * pi) * sigmas);
+	gy = exp(-0.5 / (sigmas * sigmas));
+	gz = gy * gy;
 
-	for(int i = 1; i <= support; i++) {
-		vec2 tmp = vec2(0.0, float(i));
-		if (direction == 1) {
-			tmp = vec2(float(i), 0.0);
-		}
+	vec4 a = gx * texture2D(source, xy * texel);
+	vec4 energy = gx;
+	gx *= gy;
+	gy *= gz;
 
-		a += g.x * texture2D(source, (xy - tmp) * px);
-		a += g.x * texture2D(source, (xy + tmp) * px);
-		energy += 2.0 * g.x;
-		g.xy *= g.yz;
+	for(float i = 1; i <= support; i++) {
+        a += gx * texture2D(source, (xy - i * direction) * texel);
+        a += gx * texture2D(source, (xy + i * direction) * texel);
+		energy += 2.0 * gx;
+		gx *= gy;
+		gy *= gz;
 	}
 	a /= energy;
-
-	return vec4(a);
+	return a;
 }
 
 void main(void)
@@ -53,12 +63,12 @@ void main(void)
 	vec2 b_xy_amount = abs(blur_xy_amount);
 	
 	if ( proportinal )
-		blur = gblur(adsk_results_pass13, b_amount * 0.1 * 128.0, 1 );
+		blur = gblur(adsk_results_pass13, b_amount * 0.1 * 128.0, vec2(0.0, 1.0) );
 	
 	else
 	{
-		// horizontal only
-		blur = gblur(adsk_results_pass13, b_xy_amount.x * 0.1 * 128.0, 1 );
+		// vertical only
+		blur = gblur(adsk_results_pass13, b_xy_amount.x * 0.1 * 128.0, vec2(0.0, 1.0) );
 	}
 
 	gl_FragColor = blur;

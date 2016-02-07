@@ -17,6 +17,9 @@ uniform float dbsize;		//float dbsize = 1.250; //depthblursize
 uniform bool pentagon;		//bool pentagon = false; //use pentagon as bokeh shape?
 uniform float feather;		//float feather = 0.4; //pentagon shape feather
 
+uniform float aspect;
+uniform float exp_noise;
+
 // begin new uniforms
 /* 
 make sure that these two values are the same for your camera, otherwise distances will be wrong.
@@ -202,14 +205,27 @@ void main()
 		 
 		for (int j = 0 ; j < ringsamples ; j += 1)   
 		{
-			float step = PI*2.0 / float(ringsamples);
+			float step = PI*2.0 * exp_noise / float(ringsamples);
 			float pw = (cos(float(j)*step)*float(i));
 			float ph = (sin(float(j)*step)*float(i));
+			
 			float p = 1.0;
 			if (pentagon)
 			{ 
 			p = penta(vec2(pw,ph));
 			}
+			
+			if ( aspect > 1.0 )
+			{
+				ph *= aspect;
+			}
+			
+			else if ( aspect < 1.0 )
+			{
+				pw /= aspect;
+			}
+			
+
 			col += color(gl_TexCoord[0].xy + vec2(pw*w,ph*h),blur)*mix(1.0,(float(i))/(float(rings)),bias)*p;  
 			s += 1.0*mix(1.0,(float(i))/(float(rings)),bias)*p;   
 		}

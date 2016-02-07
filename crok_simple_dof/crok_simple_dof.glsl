@@ -19,8 +19,10 @@ uniform float gain; // = 2.0; //highlight gain;
 uniform int samples; // = 3; //samples on the first ring
 uniform int rings; //= 7; //ring count
 uniform float feather; // = 0.4; //pentagon shape feather
-
+uniform float n_amount;
 uniform bool pentagon; // = false; //use pentagon as bokeh shape?
+uniform float namount; // = 0.0001; //dither amount
+uniform float bias; // = 0.5; //bokeh edge bias
 
 #define PI  3.14159265
 
@@ -40,9 +42,9 @@ float vignfade = 22.0; //f-stops till vignete fades
 float focalDepth;  //focal distance value in meters, but you may use autofocus option below
 float znear = 0.1; //camera clipping start
 float zfar = 100.0; //camera clipping end
-float namount = 0.0001; //dither amount
+//float namount = 0.0001; //dither amount
 float dbsize = 1.25; //depthblursize
-float bias = 0.5; //bokeh edge bias
+//float bias = 0.5; //bokeh edge bias
 float focalLength = 50.00; //focal length in mm
 float fstop = 1.4; //f-stop value
 float threshold = 0.0; //highlight threshold;
@@ -59,6 +61,15 @@ bool depthblur = false; //blur the depth buffer?
 vec2 focus = vec2(0.5,0.5); // autofocus point on screen (0.0,0.0 - left lower corner, 1.0,1.0 - upper right)
 
 //------------------------------------------
+
+float hash( float n ) { return fract(sin(n)*753.5453123); }
+
+vec2 g_hash( vec2 p )
+{
+	p = vec2( dot(p,vec2(127.1,311.7)),
+			  dot(p,vec2(269.5,183.3)) );
+	return fract(sin(p)*43758.5453123);
+}
 
 
 float penta(vec2 coords) //pentagonal shape
@@ -83,6 +94,8 @@ float penta(vec2 coords) //pentagonal shape
 	dist.z = dot( P, HS2 );
 	dist.w = dot( P, HS3 );
 	
+	dist.w = mix(dist.w, hash(dist.w), n_amount);
+	
 	dist = smoothstep( -feather, feather, dist );
 	
 	inorout += dot( dist, one );
@@ -93,7 +106,9 @@ float penta(vec2 coords) //pentagonal shape
 	dist = smoothstep( -feather, feather, dist );
 	inorout += dist.x;
 	
-	return clamp( inorout, 0.0, 1.0 );
+	//return clamp( inorout, 0.0, 1.0 );
+	return clamp(mix(inorout, hash(inorout), n_amount), 0.0, 1.0);
+	
 }
 
 float bdepth(vec2 coords) //blurring depth
@@ -134,6 +149,8 @@ float bdepth(vec2 coords) //blurring depth
 vec3 color(vec2 coords,float blur) //processing the sample
 {
 	vec3 col = vec3(0.0);
+	coords = mix(coords, g_hash(coords), n_amount * 0.01);
+	
 	
 	col.r = texture2D(source,coords + vec2(0.0,1.0)*texel*fringe*blur).r;
 	col.g = texture2D(source,coords + vec2(-0.866,-0.5)*texel*fringe*blur).g;
@@ -184,8 +201,9 @@ float vignette()
 
 void main() 
 {
-	//scene depth calculation
+	vec2 uv = gl_FragCoord.xy / vec2(adsk_result_w, adsk_result_h);
 	
+	//scene depth calculation
 	float depth = linearize(texture2D(depth_map,gl_TexCoord[0].xy).x);
 	
 	if (depthblur)
@@ -231,7 +249,7 @@ void main()
 	
 	// calculation of pattern for ditering
 	
-	vec2 noise = rand(gl_TexCoord[0].xy)*namount*blur;
+	vec2 noise = rand(gl_TexCoord[0].xy)*namount*0.001*blur;
 	
 	// getting blur x and y step factor
 	
@@ -263,6 +281,7 @@ void main()
 				float pw = (cos(float(j)*step)*float(i));
 				float ph = (sin(float(j)*step)*float(i));
 				float p = 1.0;
+				
 				if (pentagon)
 				{ 
 					p = penta(vec2(pw,ph));
