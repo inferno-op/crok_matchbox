@@ -1,7 +1,7 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Description="
 This Matchbox shader creates chromatic abberrations and a barrel distortion.
 
-Version: 1.3
+Version: 1.4
 
 Input:
 
@@ -29,7 +29,7 @@ Demo clip: http://vimeo.com/89781715
 			
 Matchbox version by Kyle Obley and ivar@inferno-op.com" Name="crok_chroma_warp">
    <Shader OutputBitDepth="Output" Index="1">
-       <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="image">
+       <Uniform Index="0" NoInput="Error" Tooltip="" InputType="Front" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="image">
        </Uniform>
       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Amount" Type="float" Name="chromatic_abb">
       </Uniform>
