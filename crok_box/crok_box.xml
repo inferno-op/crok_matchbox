@@ -18,6 +18,8 @@ Matchbox version by ivar@inferno-op.com" Name="CROK Box">
        </Uniform>
        <Uniform Row="2" Col="0" Page="0" Default="True" Tooltip="" DisplayName="Square" Type="bool" Name="square">
        </Uniform>
+       <Uniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="1.0" Inc="0.01" Tooltip="" Row="3" Col="0" Page="0" DisplayName="aspect" Type="float" Name="aspect">
+       </Uniform>
     </Shader>
     <Shader OutputBitDepth="Output" Index="2">
         <Uniform ResDependent="None" Max="1.0" Min="0.0016" Default="1.0" Inc="0.001" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Scale" Type="float" Name="scale">
@@ -34,7 +36,7 @@ Matchbox version by ivar@inferno-op.com" Name="CROK Box">
 	<Shader OutputBitDepth="Output" Index="3">
 	      <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="0.0" Inc="0.1" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Blur" Type="float" Name="blur_comp">
 	      </Uniform>
-	      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+	      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP" GL_TEXTURE_WRAP_S="GL_CLAMP" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
 	      </Uniform>
 	   </Shader>
 	   <Shader OutputBitDepth="Output" Index="4">
@@ -42,7 +44,7 @@ Matchbox version by ivar@inferno-op.com" Name="CROK Box">
 	         <Duplicate>
 	         </Duplicate>
 	      </Uniform>
-	      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+	      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP" GL_TEXTURE_WRAP_S="GL_CLAMP" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
 	      </Uniform>
 	   </Shader>
 	
