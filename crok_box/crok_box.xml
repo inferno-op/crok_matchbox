@@ -1,5 +1,5 @@
 <ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
-This Matchbox shader creates an Antialiased square whith rounded edges.
+This Matchbox shader creates an Antialiased square with rounded corners.
 
 Setup:
 
@@ -10,7 +10,7 @@ Setup:
 - Scale: scales the shape
 - Offset: offset the shape in x and y
 
-Demo clip: http://vimeo.com/107401261
+Demo clip: http://vimeo.com/157906000
 
 Matchbox version by ivar@inferno-op.com" Name="CROK Box">
    <Shader OutputBitDepth="Output" Index="1">
