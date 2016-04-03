@@ -1,0 +1,175 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="0" Description="
+This shader applies some freshness to the skin ;)5
+It's based on the awesome shader Ls_Dollface by Lewis 
+
+Input:
+- Front: original fg
+- Matte: external skin key
+
+Skin:
+- Color: pick the skin color of the talent
+- Weights: adjust the tollerance values for the build in keyer
+- Enable External Matte: enable the use of the optional external skin matte
+- Soften: blurs the skin matte
+
+Cleanup:
+- Amount: amount of softening applied to the image
+- Preserve Edges: amount of edge detection applied
+- Dark spots: cleanup dark areas of the skin
+- Highlights: clean up highlights on the skin
+
+Restore Detail | Shine:
+- Amount: restore highfrequency details
+- Soften: soften the highpass filer
+- Shine amount: applied a little bit of shine to the skin
+- Saturation: amount of saturation applied to the shine
+- Blur Shine: soften the shine key
+
+
+Matchbox version by Lewis, Greg-Paul andivar@inferno-op.com" Name="CROK Beauty">
+   <Shader OutputBitDepth="Output" Index="1">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="front">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="2">
+      <Uniform Index="1" NoInput="White" Tooltip="" DisplayName="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte">
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="3">
+	   <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+       </Uniform>
+       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+       </Uniform>
+	   <Uniform Inc="0.01" Tooltip="" Row="0" Col="0" Page="0" DisplayName="Color" ValueType="Colour" Type="vec3" Name="colour">
+		   <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.528">
+		   </SubUniform>
+		   <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.379">
+		   </SubUniform>
+		   <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.330">
+		   </SubUniform>
+	   </Uniform>
+       <Uniform Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" DisplayName="Weights" ValueType="none" Type="vec3" IconType="None" Name="weights">
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="6.0">
+          </SubUniform>
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+          </SubUniform>
+          <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="3.0">
+          </SubUniform>
+       </Uniform>
+       <Uniform Row="3" Col="0" Page="0" Default="False" Tooltip="" DisplayName="Enable External Matte " Type="bool" Name="use_external_matte_as_skin">
+       </Uniform>
+	</Shader>
+    <Shader OutputBitDepth="Output" Index="4">
+       <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="10.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" DisplayName="Soften" Type="float" Name="blur_m">
+       </Uniform>
+       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+       </Uniform>
+    </Shader>
+    <Shader OutputBitDepth="Output" Index="5">
+       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass4">
+       </Uniform>
+       <Uniform Type="float" Name="blur_m">
+          <Duplicate>
+          </Duplicate>
+       </Uniform>
+    </Shader>
+	<Shader OutputBitDepth="Output" Index="6">
+	   <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+       </Uniform>
+	   <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="10.0" Inc="0.01" Tooltip="" Row="0" Col="1" Page="0" DisplayName="Amount" Type="float" Name="sigma">
+	   </Uniform>
+	   <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="15.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="0" DisplayName="Preserve Edges" Type="float" Name="threshold">
+	   </Uniform>
+	</Shader>
+	<Shader OutputBitDepth="Output" Index="7">
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass6">
+      </Uniform>
+      <Uniform Type="float" Name="sigma">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+      <Uniform Type="float" Name="threshold">
+         <Duplicate>
+         </Duplicate>
+      </Uniform>
+   </Shader>
+   <Shader OutputBitDepth="Output" Index="8">
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass7">
+      </Uniform>
+      <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass5">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.8" Inc="0.001" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Dark Spots" Type="float" Name="r_spots_blend">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.5" Inc="0.001" Tooltip="" Row="3" Col="1" Page="0" DisplayName="Highlights" Type="float" Name="r_h_blend">
+      </Uniform>
+	</Shader>
+    <Shader OutputBitDepth="Output" Index="9">
+        <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+        </Uniform>
+		<Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass8">
+		</Uniform>
+		<Uniform ResDependent="None" Max="10.0" Min="0.0" Default="3.0" Inc="0.01" Tooltip="" Row="0" Col="2" Page="0" DisplayName="Amount" Type="float" Name="strength">
+		</Uniform>
+    </Shader>
+
+	<Shader OutputBitDepth="Output" Index="10">
+		<Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass9">
+		</Uniform>
+		<Uniform ResDependent="None" Max="50.0" Min="0.0" Default="2.0" Inc="0.01" Tooltip="" Row="1" Col="2" Page="0" DisplayName="Soften" Type="float" Name="blur_h">
+		</Uniform>
+	</Shader>
+	<Shader OutputBitDepth="Output" Index="11">
+	    <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass10">
+	    </Uniform>
+		<Uniform Type="float" Name="blur_h">
+	    <Duplicate>
+	    </Duplicate>
+	    </Uniform>
+	</Shader>
+	<Shader OutputBitDepth="Output" Index="12">
+		<Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass8">
+	    </Uniform>
+	    <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass11">
+	    </Uniform>
+	</Shader>
+    <Shader OutputBitDepth="Output" Index="12">
+       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass8">
+       </Uniform>
+       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+       </Uniform>
+    </Shader>
+    <Shader OutputBitDepth="Output" Index="13">
+       <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="30.0" Inc="0.01" Tooltip="" Row="4" Col="2" Page="0" DisplayName="Blur Shine" Type="float" Name="blur_s">
+       </Uniform>
+       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass12">
+       </Uniform>
+    </Shader>
+    <Shader OutputBitDepth="Output" Index="14">
+       <Uniform Type="float" Name="blur_s">
+          <Duplicate>
+          </Duplicate>
+       </Uniform>
+       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass13">
+       </Uniform>
+    </Shader>
+    <Shader OutputBitDepth="Output" Index="15">
+       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass14">
+       </Uniform>
+       <Uniform Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass12">
+       </Uniform>
+       <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.2" Inc="0.001" Tooltip="" Row="2" Col="2" Page="0" DisplayName="Shine Amount" Type="float" Name="o_amount">
+       </Uniform>
+       <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.75" Inc="0.001" Tooltip="" Row="3" Col="2" Page="0" DisplayName="Saturation" Type="float" Name="s_amount">
+       </Uniform>
+    </Shader>
+	<Page Name="General" Page="0">
+      <Col Name="Skin" Col="0" Page="0">
+      </Col>
+      <Col Name="Cleanup" Col="1" Page="0">
+      </Col>
+      <Col Name="Restore Detail  |  Shine" Col="2" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
