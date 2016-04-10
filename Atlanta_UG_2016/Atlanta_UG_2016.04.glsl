@@ -81,7 +81,7 @@ float ti = adsk_time *.037;
 #define Z(p) t(G_,I_,p) + t(I_,M_,p) + t(M_,O_,p)
 #define STOP(p) t(N_,N_,p)
 	
-vec2 caret_origin = vec2(84, 0.1);
+vec2 caret_origin = vec2(81, 0.1);
 
 //uniform vec2 caret_origin;
 vec2 caret;
@@ -178,7 +178,7 @@ void main(void)
 
 
 	// Turner Studios
-	d += T(r()); add(); d += U(r()); add(); d += R(r()); add(); d += N(r()); add(); d += E(r()); add(); d+= R(r()); add(); d += S(r()); add(); d += T(r());add(); d += U(r()); add(); d += D(r());add(); d += I(r());add(); d += O(r()); add(); d += S(r());  space(); space();
+	d += T(r()); add(); d += U(r()); add(); d += R(r()); add(); d += N(r()); add(); d += E(r()); add(); d+= R(r()); add(); space(); space(); d += S(r()); add(); d += T(r());add(); d += U(r()); add(); d += D(r());add(); d += I(r());add(); d += O(r()); add(); d += S(r());  space(); space();
 	
 
 	d = clamp(d, 0.0, 1.0);
