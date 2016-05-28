@@ -1,0 +1,73 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="False" SupportsAction="False" SupportsTransition="False" SupportsTimeline="False" TimelineUseBack="False" MatteProvider="False" CommercialUsePermitted="True" ShaderType="Matchbox" SoftwareVersion="2017.0.0" LimitInputsToTexture="True" Version="1.0" Description="
+	We are excited to announce the Dallas Flame Summer Blast on Wednesday June 1st at Lucky Post!
+
+	There will be several short tips and tricks presentations this time around.
+	Mike Roy from ReelFX will show some tips on making things loopable.
+	David Hannah from CharlieUniformTango will showcase 3d shading and lighting in Action and the new PBR shader. 
+	Bryan Bayley will give connected conform tips and show camera tricks for screen tracking. 
+	Jason Starne from CineSys-Oceana will be presenting bottle condensation.
+	
+	We’ll be giving away a Sapphire for Flame license by GenArts at the event.
+
+	Please RSVP here, so we know you’re coming.
+
+	Wednesday, June 1st at 6:30pm
+	
+
+	Demo clip: https://vimeo.com/168447659
+	Shader based on: https://www.shadertoy.com/view/XtsSWs
+	
+	MatchBox version by ivar@inferno-op.com" Name="Dallas UG - Summer Blast 2016">
+   <Shader ClearColor="0, 0, 0, 0" GridSubdivision="1" OutputBitDepth="Output" Index="1">
+       <Uniform Row="0" Col="0" Page="0" Default="False" Tooltip="" DisplayName="Lucky Post" Type="bool" Name="dummy">
+       </Uniform>
+       <Uniform Row="1" Col="0" Page="0" Default="False" Tooltip="" DisplayName="4311 Oak Lawn Ave #250" Type="bool" Name="dummy">
+       </Uniform>
+       <Uniform Row="2" Col="0" Page="0" Default="False" Tooltip="" DisplayName="Dallas, TX 75210" Type="bool" Name="dummy">
+       </Uniform>
+
+       <Uniform Row="0" Col="1" Page="0" Default="False" Tooltip="" DisplayName="Wednesday" Type="bool" Name="dummy">
+       </Uniform>
+       <Uniform Row="1" Col="1" Page="0" Default="False" Tooltip="" DisplayName="June 1st" Type="bool" Name="dummy">
+       </Uniform>
+       <Uniform Row="2" Col="1" Page="0" Default="False" Tooltip="" DisplayName="6:30pm" Type="bool" Name="dummy">
+       </Uniform>
+
+	  
+       <Uniform Row="0" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Mike Roy" Type="bool" Name="dummy">
+       </Uniform>
+       <Uniform Row="1" Col="2" Page="0" Default="False" Tooltip="" DisplayName="David Hannah" Type="bool" Name="dummy">
+       </Uniform>
+       <Uniform Row="2" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Bryan Bayley" Type="bool" Name="dummy">
+       </Uniform>
+       <Uniform Row="3" Col="2" Page="0" Default="False" Tooltip="" DisplayName="Jason Starne" Type="bool" Name="dummy">
+       </Uniform>
+	   
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_texture_grid">
+      </Uniform>
+   </Shader>
+   <Shader ClearColor="0, 0, 0, 0" GridSubdivision="1" OutputBitDepth="Output" Index="2">
+   </Shader>
+   <Shader ClearColor="0, 0, 0, 0" GridSubdivision="1" OutputBitDepth="Output" Index="3">
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+      </Uniform>
+   </Shader>
+   <Shader ClearColor="0, 0, 0, 0" GridSubdivision="1" OutputBitDepth="Output" Index="4">
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+      </Uniform>
+   </Shader>
+   <Shader ClearColor="0, 0, 0, 0" GridSubdivision="1" OutputWidth="2048" OuptutHeight="1080" OutputBitDepth="Output" Index="5">
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass4">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+   </Shader>
+   <Page Name="" Page="0">
+       <Col Name="Where" Col="0" Page="0">
+       	</Col>
+ 		<Col Name="When" Col="1" Page="0">
+ 		</Col>
+ 		<Col Name="With" Col="2" Page="0">
+ 		</Col>
+   </Page>
+</ShaderNodePreset>
