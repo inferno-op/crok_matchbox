@@ -1,0 +1,71 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="False" SupportsAction="False" SupportsTransition="False" SupportsTimeline="False" TimelineUseBack="False" MatteProvider="False" CommercialUsePermitted="True" ShaderType="Matchbox" SoftwareVersion="2017.0.0" LimitInputsToTexture="True" Version="1.2" Description="
+This Matchbox shader adds camera noise / grain to your clip. 2017 ONLY!
+
+Input:
+
+- Front: source clip
+- Matte: external matte input
+
+Setup:
+
+- Type: Select your camera noise presets
+- Size: grain size
+- Overall Gain: adjust the overall gain value for the noise / grain
+- Red | Green | Blue: adjust the gain of the colour channels independently
+
+- Luma Curve: adjust the distribution of the noise/grain depending of the luma in the source image
+
+
+Matchbox version by ivar@inferno-op.com" Name="CROK Renoise">
+   <Shader ClearColor="0, 0, 0, 0" GridSubdivision="1" OutputBitDepth="Float16" OutputWidth="512" OutputHeight="512" Index="1">
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="adsk_texture_grid">
+      </Uniform>
+      <Uniform Max="3" Min="0" Default="6" Inc="1" ValueType="Popup" Tooltip="" Row="0" Col="0" Page="0" Type="int" ChannelName="grain_type" DisplayName="Type" Name="textureSelector">
+	      <PopupEntry Title="Kodak 5279" Value="1">
+	      </PopupEntry>
+	      <PopupEntry Title="Kodak 5248" Value="2">
+	      </PopupEntry>
+	      <PopupEntry Title="Alexa 800" Value="6">
+	      </PopupEntry>
+        <PopupEntry Title="Dragon 400" Value="0">
+	      </PopupEntry>
+	      <PopupEntry Title="Dragon 800" Value="7">
+	      </PopupEntry>
+      </Uniform>
+   </Shader>
+   <Shader ClearColor="0, 0, 0, 0" GridSubdivision="1" OutputBitDepth="Output" Index="2">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="source">
+      </Uniform>
+	  <Uniform Index="1" NoInput="White" Tooltip="" DisplayName="Matte" InputType="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="matte">
+      </Uniform>
+      <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_REPEAT" GL_TEXTURE_WRAP_S="GL_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+      </Uniform>
+      <Uniform ResDependent="None" Max="100.0" Min="0.01" Default="1.0" Inc="0.001" Tooltip="" Row="1" Col="0" Page="0" Type="float" ChannelName="grain_size" DisplayName="Size" Name="scale">
+      </Uniform>
+      <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="1.0" Inc="0.001" Tooltip="" Row="2" Col="0" Page="0" Type="float" ChannelName="overall_gain" DisplayName="Overall Gain" Name="o_gain">
+      </Uniform>
+
+      <Uniform Inc="0.001" Tooltip="" Row="3" Col="0" Page="0" Action3DWidget="False" IconType="None" ValueType="Position" Type="vec3" ChannelName="rgb_gain" DisplayName="RGB Gain" Name="gain">
+         <SubUniform ResDependent="None" Max="100.0" Min="0.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="100.0" Min="0.0" Default="1.0">
+         </SubUniform>
+         <SubUniform ResDependent="None" Max="100.0" Min="0.0" Default="1.0">
+         </SubUniform>
+      </Uniform>
+      <Uniform Max="1000000" Min="-1000000" Default="0" Inc="1" Tooltip="" Row="0" Col="1" Page="0" Type="int" CurveShape="1" DisplayName="Luma Curve" Name="lumaCurve" CurveBackground="2" ValueType="Curve">
+	      <SubUniform Max="1000000" Min="-1000000" Default="0" CurveName="Luma Curve" CurveR="255" CurveG="255" CurveB="255"></SubUniform>
+      </Uniform>
+
+      <Uniform Row="0" Col="3" Page="0" Default="False" Tooltip="" Type="bool" ChannelName="show_grain" DisplayName="Show Grain Only" Name="show_grain">
+      </Uniform>
+
+
+   </Shader>
+   <Page Name="" Page="0">
+      <Col Name="Grain" Col="0" Page="0">
+      </Col>
+      <Col Name="Output Options" Col="3" Page="0">
+      </Col>
+   </Page>
+</ShaderNodePreset>
