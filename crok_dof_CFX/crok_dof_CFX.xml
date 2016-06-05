@@ -1,0 +1,308 @@
+<ShaderNodePreset SupportsAdaptiveDegradation="False" SupportsAction="True" SupportsTransition="False" SupportsTimeline="False" TimelineUseBack="False" MatteProvider="False" CommercialUsePermitted="True" ShaderType="Matchbox" SoftwareVersion="2017.0.0" LimitInputsToTexture="True" Version="2.0" Description="
+This Matchbox shader simulates depth of field with bokeh.
+
+Version 2.0
+
+Input:
+
+- Front: source clip
+- Depth Map: depth map
+
+Setup:
+
+- Amount: how much blur is applied
+- Gain: highlight gain
+- Chromatic Abe.: highlight chromatic aberration
+- Pentagon Shape: use pentagon as bokeh shape
+- Feather Shape: pentagon shape feather
+- Focal Depth: adjust the field of view
+
+Original shader developer: martins upitis
+
+Based on http://devlog-martinsh.blogspot.de/2011/12/glsl-depth-of-field-with-bokeh-v24.html
+
+This work is licensed under a Creative Commons Attribution 3.0 Unported License.
+You are free to share, modify and adapt it for your needs, and even use it for commercial use.
+
+Matchbox version by ivar@inferno-op.com and lewis@lewissaunders.com" Name="CROK DOF CFX">
+<Shader ClearColor="0, 0, 0, 0" GridSubdivision="1" OutputBitDepth="Float32" Index="1">
+   <Uniform Index="2" NoInput="White" Tooltip="" InputType="Z-Depth HQ" DisplayName="Z-Depth HQ" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_NEAREST" GL_TEXTURE_MIN_FILTER="GL_NEAREST" Type="sampler2D" Name="depthTex">
+   </Uniform>
+</Shader>
+<Shader OutputBitDepth="Float16" Index="2">
+   <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="front">
+   </Uniform>
+   <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass1">
+   </Uniform>
+   <Uniform Index="1" NoInput="White" Tooltip="" DisplayName="Matte" InputType="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte">
+   </Uniform>
+   <Uniform Index="3" NoInput="Black" Tooltip="" DisplayName="Normals" InputType="Normals" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="normals">
+   </Uniform>
+   <Uniform Index="4" NoInput="Black" Tooltip="" DisplayName="3D Motion" InputType="3D Motion" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="motion3d">
+   </Uniform>
+  <Uniform Default="8" Inc="1" Tooltip="" Row="0" Col="0" Page="1" DisplayName="Type" Type="int" ValueType="Popup" Name="selectiveType">
+      <PopupEntry Title="Colour Sel" Value="0">
+      </PopupEntry>
+      <PopupEntry Title="Normals" Value="1">
+      </PopupEntry>
+      <PopupEntry Title="Sphere Wrld" Value="2">
+      </PopupEntry>
+      <PopupEntry Title="Sphere Cam" Value="3">
+      </PopupEntry>
+      <PopupEntry Title="Cube World" Value="4">
+      </PopupEntry>
+      <PopupEntry Title="Cube Cam" Value="5">
+      </PopupEntry>
+      <PopupEntry Title="Near/Far" Value="6">
+      </PopupEntry>
+      <PopupEntry Title="Distance" Value="7">
+      </PopupEntry>
+      <PopupEntry Title="Depth" Value="8">
+      </PopupEntry>
+      <PopupEntry Title="3D Motion" Value="9">
+      </PopupEntry>
+      <PopupEntry Title="None" Value="10">
+      </PopupEntry>
+   </Uniform>
+   <Uniform Inc="0.01" Tooltip="" Row="0" Col="1" Page="1" DisplayName="Selective Color" IconType="None" ValueType="Colour" Type="vec3" Name="colourSelect" UIConditionSource="selectiveType" UIConditionValue="0" UIConditionType="Hide">
+      <SubUniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0">
+      </SubUniform>
+      <SubUniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0">
+      </SubUniform>
+      <SubUniform ResDependent="None" Max="1.0" Min="0.0" Default="1.0">
+      </SubUniform>
+   </Uniform>
+   <Uniform ResDependent="None" Max="1000.0" Min="0.0" Default="50.0" Inc="0.01" Tooltip="" Row="1" Col="1" Page="1" DisplayName="Hue Range" Type="float" Name="hueTolerance" UIConditionSource="selectiveType" UIConditionValue="0" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="1000.0" Min="0.0" Default="50.0" Inc="0.01" Tooltip="" Row="2" Col="1" Page="1" DisplayName="Sat Range" Type="float" Name="saturationTolerance" UIConditionSource="selectiveType" UIConditionValue="0" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="1000.0" Min="0.0" Default="50.0" Inc="0.01" Tooltip="" Row="3" Col="1" Page="1" DisplayName="Lum Range" Type="float" Name="luminanceTolerance" UIConditionSource="selectiveType" UIConditionValue="0" UIConditionType="Hide">
+   </Uniform>
+   <Uniform Inc="0.01" Tooltip="" Row="0" Col="1" Page="1" IconType="None" ValueType="ColourWheel" Type="vec3" DisplayName="Shadows" Name="NormalDir" HueShift="True" AngleName="Angle"
+      IntensityName1="Radial" IntensityName2="Unused" UIConditionSource="selectiveType" UIConditionValue="1" UIConditionType="Hide">
+      <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+      </SubUniform>
+      <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+      </SubUniform>
+      <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="100.0">
+      </SubUniform>
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="100.0" Inc="1.0" Tooltip="Applies a Gain" Row="0" Col="2" Page="1" Type="float" DisplayName="Gain" Name="GainNormals" UIConditionSource="selectiveType" UIConditionValue="1" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="90.0" Min="0.0" Default="90.0" Inc="1.0" Tooltip="Threshold angle for effects" Row="1" Col="2" Page="1" Type="float" DisplayName="Threshold" Name="Threshold" UIConditionSource="selectiveType" UIConditionValue="1" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="100.0" Min="0.0001" Default="1.0" Inc="0.1" Tooltip="Curve Falloff" Row="2" Col="2" Page="1" Type="float" DisplayName="Falloff" Name="Exponent" UIConditionSource="selectiveType" UIConditionValue="1" UIConditionType="Hide">
+   </Uniform>
+   <Uniform Inc="1.0" Tooltip="" Row="0" Col="1" Page="1" DisplayName="Position" ValueType="Position" Type="vec3" Name="CentreSphere" IconType="Axis" Action3DWidget="True" UIConditionSource="selectiveType" UIConditionValue="2" UIConditionType="Hide">
+      <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.0" ResDependent="None">
+      </SubUniform>
+      <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.0" ResDependent="None">
+      </SubUniform>
+      <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.0" ResDependent="None">
+      </SubUniform>
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="100.0" Inc="1.0" Tooltip="Applies a Gain" Row="0" Col="2" Page="1" Type="float" DisplayName="Sphere Gain" Name="GainSphere" UIConditionSource="selectiveType" UIConditionValue="2" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="500.0" Inc="1.0" Tooltip="Radius of Effect" Row="1" Col="2" Page="1" Type="float" DisplayName="Sphere Radius" Name="RadiusSphere" UIConditionSource="selectiveType" UIConditionValue="2" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.01" Default="100.0" Inc="1.0" Tooltip="Y Aspect Ratio" Row="2" Col="2" Page="1" Type="float" DisplayName="Sphere Y Aspect" Name="YaspectSphere" UIConditionSource="selectiveType" UIConditionValue="2" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.01" Default="100.0" Inc="1.0" Tooltip="Z Aspect Ratio" Row="3" Col="2" Page="1" Type="float" DisplayName="Sphere Z Aspect" Name="ZaspectSphere" UIConditionSource="selectiveType" UIConditionValue="2" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="1000.0" Min="0.00001" Default="10.0" Inc="1.0" Tooltip="Falloff" Row="4" Col="2" Page="1" Type="float" DisplayName="Sphere Falloff" Name="FalloffSphere" UIConditionSource="selectiveType" UIConditionValue="2" UIConditionType="Hide">
+   </Uniform>
+   <Uniform Inc="0.01" Tooltip="" Row="0" Col="1" Page="1" DisplayName="Position" ValueType="Position" Type="vec2" Name="CentreSphereCam" IconType="Axis" UIConditionSource="selectiveType" UIConditionValue="3" UIConditionType="Hide">
+      <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.5" ResDependent="None">
+      </SubUniform>
+      <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.5" ResDependent="None">
+      </SubUniform>
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="-10000.0" Default="0.0" Inc="1.0" Row="2" Col="1" Page="1" Type="float" DisplayName="Depth" Name="DepthSphereCam" UIConditionSource="selectiveType" UIConditionValue="3" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="100.0" Inc="1.0" Tooltip="Applies a Gain" Row="0" Col="2" Page="1" Type="float" DisplayName="Sphere Gain" Name="GainSphereCam" UIConditionSource="selectiveType" UIConditionValue="3" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="500.0" Inc="1.0" Tooltip="Radius of Effect" Row="1" Col="2" Page="1" Type="float" DisplayName="Sphere Radius" Name="RadiusSphereCam" UIConditionSource="selectiveType" UIConditionValue="3" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.01" Default="100.0" Inc="1.0" Tooltip="Y Aspect Ratio" Row="2" Col="2" Page="1" Type="float" DisplayName="Sphere Y Aspect" Name="YaspectSphereCam" UIConditionSource="selectiveType" UIConditionValue="3" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.01" Default="100.0" Inc="1.0" Tooltip="Z Aspect Ratio" Row="3" Col="2" Page="1" Type="float" DisplayName="Sphere Z Aspect" Name="ZaspectSphereCam" UIConditionSource="selectiveType" UIConditionValue="3" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="1000.0" Min="0.00001" Default="10.0" Inc="1.0" Tooltip="Falloff" Row="4" Col="2" Page="1" Type="float" DisplayName="Sphere Falloff" Name="FalloffSphereCam" UIConditionSource="selectiveType" UIConditionValue="3" UIConditionType="Hide">
+   </Uniform>
+   <Uniform Inc="1.0" Tooltip="" Row="0" Col="1" Page="1" DisplayName="Position" ValueType="Position" Type="vec3" Name="CentreCube" Action3DWidget="True" IconType="Axis" UIConditionSource="selectiveType" UIConditionValue="4" UIConditionType="Hide">
+      <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.0" ResDependent="None">
+      </SubUniform>
+      <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.0" ResDependent="None">
+      </SubUniform>
+      <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.0" ResDependent="None">
+      </SubUniform>
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="100.0" Inc="1.0" Tooltip="Applies a Gain" Row="0" Col="2" Page="1" Type="float" DisplayName="Cube Gain" Name="GainCube" UIConditionSource="selectiveType" UIConditionValue="4" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="500.0" Inc="1.0" Tooltip="Radius of Effect" Row="1" Col="2" Page="1" Type="float" DisplayName="Cube Radius" Name="RadiusCube" UIConditionSource="selectiveType" UIConditionValue="4" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.01" Default="100.0" Inc="1.0" Tooltip="Y Aspect Ratio" Row="2" Col="2" Page="1" Type="float" DisplayName="Cube Y Aspect" Name="YaspectCube" UIConditionSource="selectiveType" UIConditionValue="4" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.01" Default="100.0" Inc="1.0" Tooltip="Z Aspect Ratio" Row="3" Col="2" Page="1" Type="float" DisplayName="Cube Z Aspect" Name="ZaspectCube" UIConditionSource="selectiveType" UIConditionValue="4" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="1000.0" Min="0.00001" Default="10.0" Inc="1.0" Tooltip="Falloff" Row="4" Col="2" Page="1" Type="float" DisplayName="Cube Falloff" Name="FalloffCube" UIConditionSource="selectiveType" UIConditionValue="4" UIConditionType="Hide">
+   </Uniform>
+   <Uniform Inc="0.01" Tooltip="" Row="0" Col="1" Page="1" DisplayName="Position" ValueType="Position" Type="vec2" Name="CentreCubeCam" IconType="Axis" UIConditionSource="selectiveType" UIConditionValue="5" UIConditionType="Hide">
+      <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.5" ResDependent="None">
+      </SubUniform>
+      <SubUniform Max="1000000.0" Min="-1000000.0" Default="0.5" ResDependent="None">
+      </SubUniform>
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="-10000.0" Default="0.0" Inc="1.0" Tooltip="Depth" Row="2" Col="1" Page="1" Type="float" DisplayName="Cube Depth" Name="DepthCubeCam" UIConditionSource="selectiveType" UIConditionValue="5" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="100.0" Inc="1.0" Tooltip="Applies a Gain" Row="0" Col="2" Page="1" Type="float" DisplayName="Cube Gain" Name="GainCubeCam" UIConditionSource="selectiveType" UIConditionValue="5" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="500.0" Inc="1.0" Tooltip="Radius of Effect" Row="1" Col="2" Page="1" Type="float" DisplayName="Cube Radius" Name="RadiusCubeCam" UIConditionSource="selectiveType" UIConditionValue="5" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.01" Default="100.0" Inc="1.0" Tooltip="Y Aspect Ratio" Row="2" Col="2" Page="1" Type="float" DisplayName="Cube Y Aspect" Name="YaspectCubeCam" UIConditionSource="selectiveType" UIConditionValue="5" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.01" Default="100.0" Inc="1.0" Tooltip="Z Aspect Ratio" Row="3" Col="2" Page="1" Type="float" DisplayName="Cube Z Aspect" Name="ZaspectCubeCam" UIConditionSource="selectiveType" UIConditionValue="5" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="1000.0" Min="0.00001" Default="100.0" Inc="1.0" Tooltip="Falloff" Row="4" Col="2" Page="1" Type="float" DisplayName="Cube Falloff" Name="FalloffCubeCam" UIConditionSource="selectiveType" UIConditionValue="5" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="0.0" Inc="1.0" Tooltip="Near Distance From Light Position" Row="0" Col="1" Page="1" Type="float" DisplayName="Near Distance" Name="near" UIConditionSource="selectiveType" UIConditionValue="6" UIConditionType="Hide">
+   </Uniform>
+    <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="10000.0" Inc="1.0" Tooltip="Far Distance From Light Position" Row="1" Col="1" Page="1" Type="float" DisplayName="Far Distance" Name="far" UIConditionSource="selectiveType" UIConditionValue="6" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="1000.0" Min="0.00001" Default="50.0" Inc="1.0" Tooltip="Falloff" Row="1" Col="2" Page="1" Type="float" DisplayName="Falloff" Name="Falloff" UIConditionSource="selectiveType" UIConditionValue="6" UIConditionType="Hide">
+   </Uniform>
+    <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="100.0" Inc="1.0" Tooltip="Applies a Gain" Row="0" Col="2" Page="1" Type="float" DisplayName="Gain" Name="Gain" UIConditionSource="selectiveType" UIConditionValue="6" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="100.0" Inc="1.0" Tooltip="Applies a Gain" Row="0" Col="2" Page="1" Type="float" DisplayName="Gain" Name="decayGain" UIConditionSource="selectiveType" UIConditionValue="7" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.001" Default="0.001" Inc="0.01" Tooltip="" Row="1" Col="1" Page="1" Type="float" Name="decayWeight" DisplayName="Amount" UIConditionSource="selectiveType" UIConditionValue="7" UIConditionType="Hide">
+   </Uniform>
+   <Uniform Max="5" Min="0" Default="0" Inc="1" Tooltip="" Row="0" Col="1" Page="1" DisplayName="Type" Type="int" ValueType="Popup" Name="decayType" UIConditionSource="selectiveType" UIConditionValue="7" UIConditionType="Hide">
+ <PopupEntry Title="Linear" Value="0">
+      </PopupEntry>
+      <PopupEntry Title="Quadratic" Value="1">
+      </PopupEntry>
+ <PopupEntry Title="Cubic" Value="2">
+      </PopupEntry>
+      <PopupEntry Title="Exponential" Value="3">
+      </PopupEntry>
+ <PopupEntry Title="Exponential2" Value="4">
+      </PopupEntry>
+   </Uniform>
+    <Uniform ResDependent="None" Max="100000.0" Min="-100000.0" Default="0.0" Inc="1.0" Tooltip="" Row="0" Col="1" Page="1" DisplayName="Origin" Type="float" Name="zOrigin" UIConditionSource="selectiveType" UIConditionValue="8" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="20000.0" Min="1.0" Default="500.0" Inc="1.0" Tooltip="" Row="1" Col="1" Page="1" DisplayName="Range" Type="float" Name="zRange" UIConditionSource="selectiveType" UIConditionValue="8" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="1000.0" Min="0.0" Default="50.0" Inc="1.0" Tooltip="Falloff" Row="1" Col="2" Page="1" Type="float" DisplayName="Falloff" Name="zFalloff" UIConditionSource="selectiveType" UIConditionValue="8" UIConditionType="Hide">
+   </Uniform>
+    <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="100.0" Inc="1.0" Tooltip="Applies a Gain" Row="0" Col="2" Page="1" Type="float" DisplayName="Gain" Name="zGain" UIConditionSource="selectiveType" UIConditionValue="8" UIConditionType="Hide">
+   </Uniform>
+   <Uniform Row="1" Col="0" Page="1" Default="False" Tooltip="" DisplayName="Invert" Type="bool" Name="selectInvert">
+   </Uniform>
+   <Uniform Row="2" Col="0" Page="1" Default="False" Tooltip="" DisplayName="Frustrum Depth Clamping" Type="bool" Name="depthClamping">
+   </Uniform>
+   <Uniform Inc="0.01" Tooltip="" Row="0" Col="1" Page="1" IconType="None" ValueType="ColourWheel" Type="vec3" DisplayName="Dir" Name="MotionDir" HueShift="True" AngleName="Angle"
+      IntensityName1="Radial" IntensityName2="Unused" UIConditionSource="selectiveType" UIConditionValue="9" UIConditionType="Hide">
+      <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+      </SubUniform>
+      <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="0.0">
+      </SubUniform>
+      <SubUniform ResDependent="None" Max="1000000.0" Min="-1000000.0" Default="100.0">
+      </SubUniform>
+   </Uniform>
+   <Uniform ResDependent="None" Max="10000.0" Min="0.0" Default="100.0" Inc="1.0" Tooltip="Applies a Gain" Row="0" Col="2" Page="1" Type="float" DisplayName="Gain" Name="MotionGain" UIConditionSource="selectiveType" UIConditionValue="9" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="0.0" Inc="0.1" Tooltip="Curve Falloff" Row="1" Col="2" Page="1" Type="float" DisplayName="Dir Falloff" Name="MotionDirExponent" UIConditionSource="selectiveType" UIConditionValue="9" UIConditionType="Hide">
+   </Uniform>
+   <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="0.0" Inc="0.1" Tooltip="Curve Falloff" Row="2" Col="2" Page="1" Type="float" DisplayName="Mag Falloff" Name="MotionMagExponent" UIConditionSource="selectiveType" UIConditionValue="9" UIConditionType="Hide">
+   </Uniform>
+   <Uniform Inc="0.01" Tooltip="" Row="3" Col="2" Page="1" DisplayName="Mag Range" IconType="None" Type="vec2" Name="MotionMagBound" UIConditionSource="selectiveType" UIConditionValue="9" UIConditionType="Hide">
+      <SubUniform ResDependent="None" Max="1000.0" Min="0.0" Default="0.0">
+      </SubUniform>
+      <SubUniform ResDependent="None" Max="1000.0" Min="0.0" Default="100.0">
+      </SubUniform>
+   </Uniform>
+</Shader>
+   <Shader OutputBitDepth="Output" Index="3">
+      <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="front">
+        <Duplicate></Duplicate>
+      </Uniform>
+      <Uniform Index="1" NoInput="White" Tooltip="" DisplayName="Matte" InputType="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_MIRRORED_REPEAT" GL_TEXTURE_WRAP_S="GL_MIRRORED_REPEAT" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte">
+        <Duplicate></Duplicate>
+      </Uniform>
+      <Uniform Index="6" NoInput="Black" Tooltip="" DisplayName="Back" InputType= "Back" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="back">
+      </Uniform>
+      <Uniform Row="4" Col="0" Page="1" Default="False" Tooltip="" Type="bool" ChannelName="exclude_bg" DisplayName="Exclude BG" Name="exclude_bg">
+      </Uniform>
+   </Shader>
+
+   <Shader OutputBitDepth="Output" Index="4">
+       <Uniform Index="5" NoInput="White" Tooltip="" DisplayName="GMask" InputType="GMask" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="gmask">
+       </Uniform>
+       <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass2">
+       </Uniform>
+       <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass3">
+       </Uniform>
+
+
+       <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="1.0" Inc="0.001" Tooltip="" Row="0" Col="0" Page="0" Type="float" DisplayName="Amount" Name="maxblur">
+       </Uniform>
+       <Uniform ResDependent="None" Max="100.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="1" Col="0" Page="0" Type="float" DisplayName="Gain" Name="gain">
+       </Uniform>
+ 	  <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="0.5" Inc="0.005" Tooltip="highlight threshold" Row="2" Col="0" Page="0" DisplayName="Threshold" Type="float" Name="threshold">
+ 	  </Uniform>
+       <Uniform ResDependent="None" Max="100.0" Min="-100.0" Default="0.0" Inc="0.005" Tooltip="" Row="3" Col="0" Page="0" Type="float" DisplayName="Chromatic Abe." Name="fringe">
+       </Uniform>
+
+       <Uniform Row="3" Col="1" Page="0" Default="False" Tooltip="" Type="bool" DisplayName="Pentagon Shape" Name="pentagon">
+       </Uniform>
+       <Uniform ResDependent="None" Max="10.0" Min="0.0" Default="1.0" Inc="0.01" Tooltip="" Row="4" Col="1" Page="0" Type="float" DisplayName="Feather Shape" Name="feather"
+   		UIConditionSource="pentagon" UIConditionValue="True" UIConditionInvert="False" UIConditionType="Hide">
+       </Uniform>
+
+      <Uniform Max="25" Min="1" Default="15" Inc="1" Tooltip="" Row="0" Col="1" Page="0" Type="int" DisplayName="Rings" Name="rings">
+      </Uniform>
+      <Uniform Max="24" Min="1" Default="5" Inc="1" Tooltip="" Row="1" Col="1" Page="0" Type="int" DisplayName="Samples" Name="samples">
+      </Uniform>
+      <Uniform ResDependent="None" Max="1.0" Min="0.0" Default="0.1" Inc="0.01" Tooltip="" Row="2" Col="1" Page="0" DisplayName="Bias" Type="float" Name="bias">
+      </Uniform>
+
+
+	  <Uniform ResDependent="None" Max="1000000.0" Min="0.0" Default="2.0" Inc="0.01" Tooltip="" Row="4" Col="0" Page="0" Type="float" ChannelName="focal_depth" DisplayName="Focal Depth" Name="focalDepth">
+	  </Uniform>
+
+
+
+      <Uniform Row="3" Col="0" Page="1" Default="False" Tooltip="" Type="bool" ChannelName="gmaskInput" DisplayName="Enable GMask Input" Name="gmaskInput">
+      </Uniform>
+	</Shader>
+
+
+
+      <Shader ClearColor="0, 0, 0, 0" GridSubdivision="1" OutputBitDepth="Output" Index="5">
+         <Uniform Index="6" NoInput="Black" Tooltip="" DisplayName="Back" InputType= "Back" InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="back">
+           <Duplicate></Duplicate>
+         </Uniform>
+         <Uniform InputColor="67, 77, 83" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="adsk_results_pass4">
+         </Uniform>
+         <Uniform Row="4" Col="0" Page="1" Default="False" Tooltip="" Type="bool" ChannelName="exclude_bg" DisplayName="Exclude BG" Name="exclude_bg">
+           <Duplicate></Duplicate>
+         </Uniform>
+      </Shader>
+
+
+   <Page Name="General" Page="0">
+      <Col Name="Look" Col="0" Page="0">
+      </Col>
+      <Col Name="Detail" Col="1" Page="0">
+      </Col>
+   </Page>
+   <Page Name="Selective" Page="1">
+      <Col Name="Type" Col="0" Page="1">
+      </Col>
+      <Col Name="" Col="1" Page="1">
+      </Col>
+      <Col Name="" Col="2" Page="1">
+      </Col>
+   </Page>
+</ShaderNodePreset>
