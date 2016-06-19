@@ -2,25 +2,21 @@
 
 // chromatic abberations
 
-uniform sampler2D adsk_results_pass6;
+uniform sampler2D adsk_results_pass6, strength_matte;
 
 uniform float adsk_result_w, adsk_result_h;
 uniform float c2_chromatic_abb;
 uniform int c2_num_iter;
-uniform bool c2_add_distortion, c2_add_chroma;
 uniform float c2_d_amount;
 uniform vec2 c2_center;
 
 
 vec2 barrelDistortion(vec2 coord, float amt) {
-	
+
 	vec2 cc = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h ) - c2_center;
 	float distortion = dot(cc * c2_d_amount * .3, cc);
 
-    if ( c2_add_distortion )
 		return coord + cc * distortion * -1. * amt;
-	else
-		return coord + cc * amt * -.05;
 }
 
 float sat( float t )
@@ -47,12 +43,11 @@ vec3 spectrum_offset( float t ) {
 }
 
 void main()
-{	
+{
 	vec2 uv = gl_FragCoord.xy / vec2( adsk_result_w, adsk_result_h );
 	vec3 col = texture2D(adsk_results_pass6, uv).rgb;
-	
-	if ( c2_add_chroma )
-	{
+	float strength = texture2D( strength_matte, uv).r;
+
 		vec3 sumw = vec3(0.0);
 
 		for ( int i=0; i<c2_num_iter;++i )
@@ -60,10 +55,9 @@ void main()
 			float t = float(i) * (1.0 / float(c2_num_iter));
 			vec3 w = spectrum_offset( t );
 			sumw += w;
-			col += w * texture2D( adsk_results_pass6, barrelDistortion(uv, c2_chromatic_abb * t ) ).rgb;
+			col += w * texture2D( adsk_results_pass6, barrelDistortion(uv, c2_chromatic_abb * t * strength ) ).rgb;
 		}
 		col /= sumw;
-	}
 
 	gl_FragColor = vec4(col,  1.0 );
 }

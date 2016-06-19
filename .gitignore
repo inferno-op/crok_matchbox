@@ -25,3 +25,7 @@ crok_checkerboard/crok_checkerboard.glsl
 crok_lightleak/crok_lightleak_presets
 crok_twinkle/crok_twinkle_presets
 
+
+*.psd
+
+*.tif
