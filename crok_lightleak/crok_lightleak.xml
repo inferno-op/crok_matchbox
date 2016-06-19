@@ -5,7 +5,7 @@ This Matchbox creates Light Leaks style effects.
 Input:
 - Front: front clip
 - Matte: matte clip which will add to the luma key
-
+- Strength: will drive the Chromatic abberation amount
 
 Setup:
 - Amount: amount of light leak applied
