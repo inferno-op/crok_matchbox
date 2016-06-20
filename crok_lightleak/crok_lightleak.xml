@@ -1,4 +1,4 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="False" LimitInputsToTexture="True" Version="1.2" Description="
+<ShaderNodePreset SupportsAdaptiveDegradation="False" SupportsAction="False" SupportsTransition="False" SupportsTimeline="False" TimelineUseBack="False" MatteProvider="False" CommercialUsePermitted="True" ShaderType="Matchbox" SoftwareVersion="2017.0.0" LimitInputsToTexture="True" Version="1.3" Description="
 This Matchbox creates Light Leaks style effects.
 
 
@@ -39,9 +39,9 @@ Demo clip: http://vimeo.com/122851892
 
 Matchbox version by ivar@inferno-op.com" Name="crok lightleak">
    <Shader OutputBitDepth="Output" Index="1">
-       <Uniform Index="0" NoInput="Error" Tooltip="" DisplayName="Front" InputType="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="front">
+       <Uniform Index="0" NoInput="Error" InputType="Front" Tooltip="" DisplayName="Front" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="front">
        </Uniform>
-      <Uniform Index="1" NoInput="White" Tooltip="" DisplayName="Matte" InputType="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte">
+      <Uniform Index="1" NoInput="White" InputType="Matte" Tooltip="" DisplayName="Matte" Mipmaps="False" GL_TEXTURE_WRAP_T="GL_CLAMP_TO_EDGE" GL_TEXTURE_WRAP_S="GL_CLAMP_TO_EDGE" GL_TEXTURE_MAG_FILTER="GL_LINEAR" GL_TEXTURE_MIN_FILTER="GL_LINEAR" Type="sampler2D" Name="matte">
       </Uniform>
 
    </Shader>
