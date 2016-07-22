@@ -1,4 +1,4 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1.2" LimitInputsToTexture="True" HelpLink="https://vimeo.com/128056903" Description="
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1.2" Description="
 This Matchbox shader creates a simple torch like flame.
 
 Setup:
@@ -11,11 +11,9 @@ Setup:
 Demo clip: https://vimeo.com/128056903
 
 Original shader by Xavier Benech
-www.shadertoy.com/view/XsXSWS
+shadertoy.com/view/XsXSWS
 
 License Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
-creativecommons.org/licenses/by-sa/4.0/
-
 
 Matchbox version by ivar@inferno-op.com" Name="CROK Flame">
    <Shader OutputBitDepth="Output" Index="1">
