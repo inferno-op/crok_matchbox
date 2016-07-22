@@ -1,4 +1,4 @@
-<ShaderNodePreset SupportsAdaptiveDegradation="False" SupportsAction="True" SupportsTransition="False" SupportsTimeline="False" TimelineUseBack="False" MatteProvider="False" CommercialUsePermitted="True" ShaderType="Matchbox" SoftwareVersion="2016.0.0" LimitInputsToTexture="True" Version="1.1" HelpLink="https://vimeo.com/128056903" Description="
+<ShaderNodePreset SupportsAdaptiveDegradation="0" LimitInputsToTexture="True" Version="1.2" LimitInputsToTexture="True" HelpLink="https://vimeo.com/128056903" Description="
 This Matchbox shader creates a simple torch like flame.
 
 Setup:
