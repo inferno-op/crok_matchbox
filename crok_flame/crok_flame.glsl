@@ -64,9 +64,9 @@ void main()
 	q.x -= 2.5;
 	q.y -= .18;
 	float n = fbm(flame_noise * q - vec2(0,T3));
-	float c = 1. - 16. * abs(pow( max( 0., length(q*vec2(1.8+q.y*1.5,.75) ) - n * max( 0., q.y+.25 ) ),1.2 ));
-	float c1 = n * c * (1.5-abs(pow(1.3 *uv.y,4.)));
+	float c = 1. - 16. * pow( abs(max( 0.0000000001, length(q*vec2(1.8+q.y*1.5,.75) ) - n * max( 0., q.y+.25 ) )),1.2 );
+	float c1 = n * c * (1.5-pow(abs(1.3 *uv.y),4.));
 	vec3 col = clamp(vec3(1.5*c1, 1.5*c1*c1*c1, c1*c1*c1*c1*c1), 0.0, 1.0);
-	float a = clamp(c * abs((1.-pow(uv.y,3.))), 0.0, 1.0);
+	float a = clamp(c * (1.-pow(abs(uv.y),3.)), 0.0, 1.0);
 	gl_FragColor = vec4(mix(vec3(0.),col,a), 1.0);
 }
