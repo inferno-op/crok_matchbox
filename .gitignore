@@ -29,3 +29,7 @@ crok_twinkle/crok_twinkle_presets
 *.psd
 
 *.tif
+
+crok_noise_wipe/.DS_Store
+
+.DS_Store
